@@ -1,3 +1,7 @@
+---helper function
+---@param table table
+---@param value any
+---@return boolean
 local contains = function(table, value)
   for i = 1, #table do
     if table[i] == value then
@@ -19,6 +23,8 @@ null_ls.setup {
       extra_filetypes = { 'arduino' },
     },
     null_ls.builtins.formatting.autopep8,
+
+    -- check spelling for only markdown
     null_ls.builtins.diagnostics.cspell.with {
       filetypes = { 'markdown' },
     },
@@ -26,9 +32,12 @@ null_ls.setup {
       filetypes = { 'markdown' },
     },
   },
+  -- make root_dir = cwd
   root_dir = function()
     return nil
   end,
+  -- all my formatters come from null_ls
+  -- so make null_ls the only source of formatting
   on_attach = function(client, _)
     if client.supports_method 'textDocument/formatting' then
       local aug = vim.api.nvim_create_augroup('LspFormatting', { clear = true })
@@ -36,13 +45,16 @@ null_ls.setup {
         group = aug,
         callback = function()
           vim.lsp.buf.format {
-            name = 'null-ls',
-            buffer = vim.fn.bufnr '%',
+            name = 'null-ls', -- format only from null_ls
+            buffer = vim.fn.bufnr(), -- format current buffer
           }
         end,
       })
     end
 
+    -- have to check if eslint_d and prettierd are running
+    -- because they are separate binaries that have to be shut down manually
+    -- they will run when the filetype matches their configured filetypes
     local ft = vim.bo.filetype
     local eslint_d = null_ls.builtins.diagnostics.eslint_d
     local prettierd = null_ls.builtins.formatting.prettierd

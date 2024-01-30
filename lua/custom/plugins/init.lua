@@ -86,7 +86,7 @@ return {
     opts = {
       filetypes = {
         '*',
-        '!markdown',
+        '!markdown', -- disable for markdown
       },
       user_default_options = {
         tailwind = true,
@@ -99,7 +99,7 @@ return {
     config = function()
       require('marks').setup {
         mappings = {
-          next = ']m',
+          next = ']m', --custom mappings
           previous = '[m',
         },
       }

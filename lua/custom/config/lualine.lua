@@ -1,5 +1,5 @@
 require('lualine').setup {
-  options = {
+  options = { -- custom options
     theme = 'auto',
     icons_enabled = false,
     component_separators = '|',
@@ -7,12 +7,16 @@ require('lualine').setup {
   },
   sections = {
     lualine_x = {
+      'encoding',
+      'fileformat',
       {
         'filetype',
-        on_click = require 'lspconfig.ui.lspinfo',
+        on_click = require 'lspconfig.ui.lspinfo', -- opens the null-ls info window
       },
     },
     lualine_z = {
+      -- removed line number
+      -- custom function that gets current file location relative to cwd
       function()
         local cwd = vim.fn.getcwd()
         if cwd == nil then
@@ -25,6 +29,7 @@ require('lualine').setup {
           return '/'
         end
 
+        -- make sure all the magic characters are no longer magic
         cwd = cwd:gsub('([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1')
 
         local f = flocation:gsub(cwd, '')

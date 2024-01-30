@@ -1,3 +1,8 @@
+---helper function
+---@param mode string | table
+---@param key string
+---@param cmd string | function
+---@param opts table | nil
 local map = function(mode, key, cmd, opts)
   local t1 = { noremap = true, silent = true }
 
@@ -21,14 +26,13 @@ map('n', '<leader>cb', ':bdelete <CR>', { desc = '[C]lose [B]uffer' })
 map('n', '<leader>cw', '<C-w>q', { desc = '[C]lose [W]indow' })
 
 -- movement
-map({ 'n', 'v' }, 'H', '_')
-map({ 'n', 'v' }, 'L', '$')
+map({ 'n', 'v' }, 'H', '_', { desc = 'move to start' })
+map({ 'n', 'v' }, 'L', '$', { desc = 'move to end' })
 map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'move lines down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 
--- explorer
-map('n', '<Tab>', ':bnext <CR>')
-map('n', '<S-Tab>', ':bprev <CR>')
+map('n', '<Tab>', ':bnext <CR>', { desc = 'next buffer' })
+map('n', '<S-Tab>', ':bprev <CR>', { desc = 'previous buffer' })
 
 -- text
 map({ 'n', 'v' }, '<leader>x', '"_x', { desc = 'delete' })
@@ -39,12 +43,12 @@ map('v', '<C-j>', "y:'<<CR>Pgv", { desc = 'copy down' })
 map('n', '<leader>n', '/<C-r>*<CR>@n', { desc = 'execute macro on last yanked word' })
 
 -- window
-map('n', '|', ':vsp <CR>')
-map('n', '\\', ':sp <CR>')
-map('n', '<C-h>', '<C-w>h')
-map('n', '<C-j>', '<C-w>j')
-map('n', '<C-k>', '<C-w>k')
-map('n', '<C-l>', '<C-w>l')
+map('n', '|', ':vsp <CR>', { desc = 'vertical split' })
+map('n', '\\', ':sp <CR>', { desc = 'horizontal split' })
+map('n', '<C-h>', '<C-w>h', { desc = 'window left' })
+map('n', '<C-j>', '<C-w>j', { desc = 'window down' })
+map('n', '<C-k>', '<C-w>k', { desc = 'window up' })
+map('n', '<C-l>', '<C-w>l', { desc = 'window right' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -55,10 +59,10 @@ map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-map('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+map('n', '[d', vim.diagnostic.goto_prev, { desc = 'go to previous diagnostic message' })
+map('n', ']d', vim.diagnostic.goto_next, { desc = 'go to next diagnostic message' })
+map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
+map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'open diagnostics list' })
 
 -- marks
 local marks = require 'marks'

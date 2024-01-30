@@ -96,6 +96,7 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
+  -- custom config for arduino
   ['arduino_language_server'] = function()
     local server_name = 'arduino_language_server'
     lspconfig[server_name].setup {
