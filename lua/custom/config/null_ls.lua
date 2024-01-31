@@ -23,6 +23,7 @@ null_ls.setup {
       extra_filetypes = { 'arduino' },
     },
     null_ls.builtins.formatting.autopep8,
+    null_ls.builtins.formatting.csharpier,
 
     -- check spelling for only markdown
     null_ls.builtins.diagnostics.cspell.with {
