@@ -89,4 +89,7 @@ map('n', '<leader>o', ':Neotree position=current reveal=true <CR>', { desc = '[O
 map('n', '<leader>e', ':Neotree reveal=true <CR>', { desc = 'Explorer to side' })
 map('n', '<leader>ce', ':Neotree close <CR>', { desc = '[C]lose [E]xplorer' })
 
+-- undotree
+map('n', '<leader>u', ':UndotreeToggle <CR>', { desc = '[U]ndo tree' })
+
 -- other
