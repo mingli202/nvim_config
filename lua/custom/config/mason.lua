@@ -95,17 +95,6 @@ mason_lspconfig.setup_handlers {
       on_attach = require('custom.util').on_attach,
       settings = servers[server_name].settings,
       filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end,
-  -- custom config for arduino
-  ['arduino_language_server'] = function()
-    local server_name = 'arduino_language_server'
-    lspconfig[server_name].setup {
-      root_dir = lspconfig.util.root_pattern(vim.fn.expand '%:p:t'),
-      capabilities = capabilities,
-      on_attach = require('custom.util').on_attach,
-      settings = servers[server_name].settings,
-      filetypes = (servers[server_name] or {}).filetypes,
       cmd = (servers[server_name] or {}).cmd,
     }
   end,

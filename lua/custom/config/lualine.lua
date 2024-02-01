@@ -18,7 +18,22 @@ require('lualine').setup {
       -- removed line number
       -- custom function that gets current file location relative to cwd
       function()
-        return vim.fn.expand '%:h'
+        local cwd = vim.fn.getcwd()
+        if cwd == nil then
+          return ''
+        end
+
+        local flocation = vim.fn.expand '%:p:h'
+
+        if flocation == cwd then
+          return '/'
+        end
+
+        -- make sure all the magic characters are no longer magic
+        cwd = cwd:gsub('([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1')
+
+        local f = flocation:gsub(cwd, '')
+        return f
       end,
     },
   },
