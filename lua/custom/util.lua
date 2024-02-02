@@ -23,7 +23,7 @@ local on_attach = function(_, bufnr)
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[L]sp Document [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
@@ -39,4 +39,21 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 end
 
-return { on_attach = on_attach }
+-- for c and cpp
+local build = function()
+  local filetype = vim.bo.ft
+  local fullPath = vim.fn.expand '%:p'
+  local fnameWithoutExtension = vim.fn.expand('%:t'):gsub('.' .. filetype, '')
+  local directory = vim.fn.expand '%:p:h'
+  local binary = directory .. '/bin/' .. fnameWithoutExtension
+
+  if filetype == 'cpp' then
+    vim.cmd('!mkdir -p "' .. directory .. '/bin" && clang++ -std=c++2b "' .. fullPath .. '" -o "' .. binary .. '" -g')
+  elseif filetype == 'c' then
+    vim.cmd('!mkdir -p "' .. directory .. '/bin" && clang -std=c23 "' .. fullPath .. '" -o "' .. binary .. '" -g')
+  else
+    vim.notify 'Wrong filetype'
+  end
+end
+
+return { on_attach = on_attach, build = build }

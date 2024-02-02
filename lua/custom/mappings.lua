@@ -61,8 +61,8 @@ map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev, { desc = 'go to previous diagnostic message' })
 map('n', ']d', vim.diagnostic.goto_next, { desc = 'go to next diagnostic message' })
-map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
-map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'open diagnostics list' })
+map('n', '∂', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
+map('n', 'Î', vim.diagnostic.setloclist, { desc = 'open diagnostics list' })
 
 -- marks
 local marks = require 'marks'
@@ -92,4 +92,30 @@ map('n', '<leader>ce', ':Neotree close <CR>', { desc = '[C]lose [E]xplorer' })
 -- undotree
 map('n', '<leader>u', ':UndotreeToggle <CR>', { desc = '[U]ndo tree' })
 
+-- debugger
+local dap = require 'dap'
+
+map('n', '<F4>', dap.restart, { desc = 'debug: restart adapter' })
+map('n', '<F5>', dap.continue, { desc = 'debug: start/continue' })
+map('n', '<F6>', dap.terminate, { desc = 'debug: terminate' })
+
+map('n', '<Right>', dap.step_over, { desc = 'debug: step over' })
+map('n', '<Down>', dap.step_into, { desc = 'debug: step into' })
+map('n', '<Up>', dap.step_out, { desc = 'debug: step out' })
+map('n', '<leader>b', dap.toggle_breakpoint, { desc = 'toggle [B]reakpoint' })
+map('n', '<leader>dr', dap.repl.open, { desc = 'debug: open [r]epl' })
+map('n', '<leader>dl', dap.run_last, { desc = 'debug: run last' })
+
+map({ 'n', 'v' }, '<Leader>dh', require('dap.ui.widgets').hover, { desc = 'debug: hover widgets' })
+map({ 'n', 'v' }, '<Leader>dp', require('dap.ui.widgets').preview, { desc = 'debug: preview widgets' })
+map('n', '<Leader>df', function()
+  local widgets = require 'dap.ui.widgets'
+  widgets.centered_float(widgets.frames)
+end, { desc = 'debug: widget frames' })
+map('n', '<Leader>ds', function()
+  local widgets = require 'dap.ui.widgets'
+  widgets.centered_float(widgets.scopes)
+end, { desc = 'debug: widget scope' })
+
 -- other
+map('n', '<C-S-n>', ':RunCurrentFile <CR>', { desc = 'Run current file' })

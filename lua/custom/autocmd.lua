@@ -44,3 +44,36 @@ local function live_grep_git_root()
 end
 
 vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
+
+-- code runner
+local run = function()
+  local filetype = vim.bo.ft
+  local fullPath = vim.fn.expand '%:p'
+  local fnameWithoutExtension = vim.fn.expand('%:t'):gsub('.' .. filetype, '')
+  local directory = vim.fn.expand '%:p:h'
+
+  if filetype == 'javacript' then -- js
+    vim.cmd(':term node "' .. fullPath .. '"')
+  elseif filetype == 'typescript' then --ts
+    local jsFile = fullPath:gsub('.ts$', '.js', 1)
+    vim.cmd(':term tsc "' .. fullPath .. '" && node "' .. jsFile .. '" && rm -rf "' .. jsFile .. '"')
+  elseif filetype == 'c' then -- c
+    require('custom.util').build()
+    local binary = directory .. '/bin/' .. fnameWithoutExtension
+    vim.cmd(':term time "' .. binary .. '"')
+  elseif filetype == 'cpp' then -- cpp
+    require('custom.util').build()
+    local binary = directory .. '/bin/' .. fnameWithoutExtension
+    vim.cmd(':term time "' .. binary .. '"')
+  elseif filetype == 'python' then -- py
+    vim.cmd(':term python -u "' .. fullPath .. '"')
+  elseif filetype == 'cs' then -- cs
+    vim.cmd(':term dotnet run "' .. fullPath .. '"')
+  elseif filetype == 'lua' then -- lua
+    vim.cmd(':term lua "' .. fullPath .. '"')
+  else
+    vim.cmd '!echo "No code runner configured!"'
+  end
+end
+vim.api.nvim_create_user_command('RunCurrentFile', run, {})
+vim.api.nvim_create_user_command('CCBuild', require('custom.util').build, {})
