@@ -48,31 +48,29 @@ vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
 -- code runner
 local run = function()
   local filetype = vim.bo.ft
-  local fullPath = vim.fn.expand '%:p'
-  local fnameWithoutExtension = vim.fn.expand('%:t'):gsub('.' .. filetype, '')
-  local directory = vim.fn.expand '%:p:h'
+  local fullPath = vim.fn.expand('%:p'):gsub('[%%%#]', '\\%1')
 
   if filetype == 'javacript' then -- js
-    vim.cmd(':term node "' .. fullPath .. '"')
+    vim.cmd.terminal('node "' .. fullPath .. '"')
   elseif filetype == 'typescript' then --ts
     local jsFile = fullPath:gsub('.ts$', '.js', 1)
-    vim.cmd(':term tsc "' .. fullPath .. '" && node "' .. jsFile .. '" && rm -rf "' .. jsFile .. '"')
+    vim.cmd.terminal('tsc "' .. fullPath .. '" && node "' .. jsFile .. '" && rm -rf "' .. jsFile .. '"')
   elseif filetype == 'c' then -- c
     require('custom.util').build()
-    local binary = directory .. '/bin/' .. fnameWithoutExtension
-    vim.cmd(':term time "' .. binary .. '"')
+    local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.c$', '', 1)
+    vim.cmd.terminal('time "' .. binary .. '"')
   elseif filetype == 'cpp' then -- cpp
     require('custom.util').build()
-    local binary = directory .. '/bin/' .. fnameWithoutExtension
-    vim.cmd(':term time "' .. binary .. '"')
+    local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.cpp$', '', 1)
+    vim.cmd.terminal('time "' .. binary .. '"')
   elseif filetype == 'python' then -- py
-    vim.cmd(':term python -u "' .. fullPath .. '"')
+    vim.cmd.terminal('python -u "' .. fullPath .. '"')
   elseif filetype == 'cs' then -- cs
-    vim.cmd(':term dotnet run "' .. fullPath .. '"')
+    vim.cmd.terminal('dotnet run "' .. fullPath .. '"')
   elseif filetype == 'lua' then -- lua
-    vim.cmd(':term lua "' .. fullPath .. '"')
+    vim.cmd.terminal('lua "' .. fullPath .. '"')
   else
-    vim.cmd '!echo "No code runner configured!"'
+    vim.cmd.echo '"No code runner configured!"'
   end
 end
 vim.api.nvim_create_user_command('RunCurrentFile', run, {})

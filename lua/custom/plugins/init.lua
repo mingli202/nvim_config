@@ -3,6 +3,7 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+
   { 'nvim-tree/nvim-web-devicons', opts = {} },
   -- NOTE: First, some plugins that don't require any configuration
 
@@ -46,6 +47,31 @@ return {
   },
 
   {
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'jay-babu/mason-nvim-dap.nvim',
+      'rcarriga/nvim-dap-ui',
+    },
+  },
+
+  {
+    'jay-babu/mason-null-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+
+      'williamboman/mason.nvim',
+
+      'nvimtools/none-ls.nvim',
+    },
+  },
+
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -68,7 +94,14 @@ return {
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
-    opts = {}, -- this is equvalent to setup({}) function
+    opts = {},
+  },
+
+  {
+    'windwp/nvim-ts-autotag',
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end,
   },
 
   {

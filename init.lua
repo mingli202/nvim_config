@@ -11,14 +11,14 @@ vim.loader.enable()
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  }
+    vim.fn.system {
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
+        lazypath,
+    }
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -28,29 +28,18 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
-require('lazy').setup({
-  {
-    'jay-babu/mason-null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'williamboman/mason.nvim',
-      'nvimtools/none-ls.nvim',
-    },
-    config = function()
-      require('mason').setup()
-    end,
-  },
+require('lazy').setup('custom.plugins', {})
 
-  { import = 'custom.plugins' },
-}, {})
+-- mason and other related plugins
+require 'custom.config.mason'
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
-vim.opt.tabstop = 2 -- tab width 2
-vim.opt.softtabstop = 2 -- tab width 2
+vim.opt.tabstop = 4 -- tab width 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
-vim.opt.shiftwidth = 2 -- tab width 2
 vim.opt.signcolumn = 'yes'
 
 vim.opt.wrap = false -- no wrap
@@ -96,7 +85,4 @@ vim.opt.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.opt.termguicolors = true
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
-require 'custom.autocmd'
 require 'custom.mappings'

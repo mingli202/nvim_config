@@ -1,6 +1,7 @@
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason-lspconfig').setup()
+local lspconfig = require 'lspconfig'
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -40,6 +41,16 @@ local servers = {
       'typescript',
       'typescriptreact',
     },
+    root_files = {
+      'tailwind.config.js',
+      'tailwind.config.cjs',
+      'tailwind.config.mjs',
+      'tailwind.config.ts',
+      'postcss.config.js',
+      'postcss.config.cjs',
+      'postcss.config.mjs',
+      'postcss.config.ts',
+    },
   },
 
   lua_ls = {
@@ -69,13 +80,12 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-require('neodev').setup {
-  library = { plugins = { 'nvim-dap-ui' }, types = true },
-}
+require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities.offsetEncoding = 'utf-8'
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -84,19 +94,25 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
-local lspconfig = require 'lspconfig'
-
 mason_lspconfig.setup_handlers {
   function(server_name)
     lspconfig[server_name].setup {
-      root_dir = function()
-        return vim.fn.getcwd()
+      root_dir = function(filename)
+        local root_files = servers[server_name].root_files
+
+        if root_files == nil then
+          return vim.fn.getcwd()
+        end
+
+        local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
+
+        return root == vim.fn.getcwd() and root or nil
       end,
       capabilities = capabilities,
       on_attach = require('custom.util').on_attach,
       settings = servers[server_name].settings,
       filetypes = (servers[server_name] or {}).filetypes,
-      cmd = (servers[server_name] or {}).cmd,
+      cmd = servers[server_name].cmd,
     }
   end,
 }
