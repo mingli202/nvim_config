@@ -4,15 +4,15 @@
 ---@param cmd string | function
 ---@param opts table | nil
 local map = function(mode, key, cmd, opts)
-  local t1 = { noremap = true, silent = true }
+    local t1 = { noremap = true, silent = true }
 
-  if opts ~= nil then
-    for k, v in pairs(opts) do
-      t1[k] = v
+    if opts ~= nil then
+        for k, v in pairs(opts) do
+            t1[k] = v
+        end
     end
-  end
 
-  vim.keymap.set(mode, key, cmd, t1)
+    vim.keymap.set(mode, key, cmd, t1)
 end
 
 -- escapes
@@ -81,8 +81,8 @@ map('n', '<leader>hl', require('harpoon.ui').toggle_quick_menu, { desc = '[H]arp
 map('n', '[h', require('harpoon.ui').nav_prev, { desc = 'previous harpoon' })
 map('n', ']h', require('harpoon.ui').nav_next, { desc = 'next harpoon' })
 map('n', '<leader>hn', function()
-  local char = vim.fn.getchar() - 48
-  require('harpoon.ui').nav_file(char)
+    local char = vim.fn.getchar() - 48
+    require('harpoon.ui').nav_file(char)
 end, { desc = '[H]arpoon [N]av' })
 
 -- neotree

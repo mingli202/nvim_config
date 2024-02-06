@@ -44,6 +44,8 @@ vim.opt.signcolumn = 'yes'
 
 vim.opt.wrap = false -- no wrap
 
+vim.opt.swapfile = false
+
 -- Set highlight on search
 vim.opt.hlsearch = false
 
