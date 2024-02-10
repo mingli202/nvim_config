@@ -21,7 +21,6 @@ map('i', 'jj', '<Esc>', { desc = 'escape' })
 map('i', '<S-BS>', '<Esc>', { desc = 'escape' })
 
 -- write
-map('n', '<leader>w', ':w <CR>', { desc = 'write' })
 map('n', '<leader>cb', ':bdelete <CR>', { desc = '[C]lose [B]uffer' })
 map('n', '<leader>cw', '<C-w>q', { desc = '[C]lose [W]indow' })
 
@@ -42,6 +41,7 @@ map('v', '<C-k>', "y:'><CR>pgv", { desc = 'copy up' })
 map('v', '<C-j>', "y:'<<CR>Pgv", { desc = 'copy down' })
 
 map('n', '<leader>n', '/<C-r>*<CR>@n', { desc = 'execute macro on last yanked word' })
+map('n', 'yie', "ggyG''zz", { desc = 'yank everything' })
 
 -- window
 map('n', '|', ':vsp <CR>', { desc = 'vertical split' })
@@ -69,9 +69,10 @@ map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'open diagnostics lis
 local marks = require 'marks'
 map('n', '<leader>ml', vim.cmd.marks, { desc = '[M]arks [L]ist' })
 map('n', '<leader>md', marks.delete_line, { desc = '[M]ark [D]elete' })
-map('n', '<leader>mc', marks.delete_buf, { desc = '[M]arks [C]ear' })
-map('n', '[m', marks.prev, { desc = 'previous mark' })
-map('n', ']m', marks.next, { desc = 'next mark' })
+map('n', '<leader>mc', function()
+    marks.delete_buf()
+    vim.cmd 'wshada!'
+end, { desc = '[M]arks [C]ear' })
 
 -- harpoon
 map('n', '<leader>ht', require('harpoon.mark').toggle_file, { desc = '[H]arpoon [T]oogle' })
@@ -87,7 +88,7 @@ end, { desc = '[H]arpoon [N]av' })
 
 -- neotree
 map('n', '<leader>o', ':Neotree position=current reveal=true <CR>', { desc = '[O]pen explorer window' })
-map('n', '<leader>e', ':Neotree reveal=true <CR>', { desc = 'Explorer to side' })
+map('n', '<leader>e', ':Neotree reveal=true position=right <CR>', { desc = 'Explorer to side' })
 map('n', '<leader>ce', ':Neotree close <CR>', { desc = '[C]lose [E]xplorer' })
 
 -- undotree

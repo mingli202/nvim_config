@@ -132,9 +132,10 @@ return {
         config = function()
             require('marks').setup {
                 mappings = {
-                    next = ']m', --custom mappings
-                    previous = '[m',
+                    next = ']m', -- custom mappings
+                    prev = '[m',
                 },
+                force_write_shada = true,
             }
         end,
     },

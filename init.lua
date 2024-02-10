@@ -36,6 +36,8 @@ require 'custom.config.mason'
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+vim.cmd.colorscheme 'onedark'
+
 vim.opt.tabstop = 4 -- tab width 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
