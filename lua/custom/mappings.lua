@@ -100,11 +100,6 @@ local dap = require 'dap'
 map('n', '<F4>', dap.restart, { desc = 'debug: restart adapter' })
 map('n', '<F5>', dap.continue, { desc = 'debug: start/continue' })
 map('n', '<F6>', dap.terminate, { desc = 'debug: terminate' })
-
-map('n', '<Right>', dap.step_over, { desc = 'debug: step over' })
-map('n', '<Left>', dap.step_back, { desc = 'debug: step back' })
-map('n', '<Down>', dap.step_into, { desc = 'debug: step into' })
-map('n', '<Up>', dap.step_out, { desc = 'debug: step out' })
 map('n', '<leader>b', dap.toggle_breakpoint, { desc = 'toggle [B]reakpoint' })
 
 -- other
