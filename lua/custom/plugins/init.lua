@@ -64,9 +64,7 @@ return {
         'jay-babu/mason-null-ls.nvim',
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
-
             'williamboman/mason.nvim',
-
             'nvimtools/none-ls.nvim',
         },
     },
@@ -99,19 +97,13 @@ return {
 
     {
         'windwp/nvim-ts-autotag',
-        config = function()
-            require('nvim-ts-autotag').setup()
-        end,
+        opts = {},
     },
 
     {
         'roobert/tailwindcss-colorizer-cmp.nvim',
         -- optionally, override the default options:
-        config = function()
-            require('tailwindcss-colorizer-cmp').setup {
-                color_square_width = 2,
-            }
-        end,
+        opts = { color_square_width = 2 },
     },
 
     {
@@ -129,15 +121,13 @@ return {
 
     {
         'chentoast/marks.nvim',
-        config = function()
-            require('marks').setup {
-                mappings = {
-                    next = ']m', -- custom mappings
-                    prev = '[m',
-                },
-                force_write_shada = true,
-            }
-        end,
+        opts = {
+            mappings = {
+                next = ']m', -- custom mappings
+                prev = '[m',
+            },
+            force_write_shada = true,
+        },
     },
 
     {
@@ -152,9 +142,7 @@ return {
         'kylechui/nvim-surround',
         version = '*', -- Use for stability; omit to use `main` branch for the latest features
         event = 'VeryLazy',
-        config = function()
-            require('nvim-surround').setup {}
-        end,
+        opts = {},
     },
 
     'easymotion/vim-easymotion',
