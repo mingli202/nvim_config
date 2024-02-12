@@ -146,4 +146,6 @@ return {
     },
 
     'easymotion/vim-easymotion',
+
+    { 'nvim-treesitter/nvim-treesitter-context' },
 }

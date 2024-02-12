@@ -24,10 +24,10 @@ end
 
 local onClose = function()
     dapui.close()
-    vim.keymap.del('n', '<Right>')
-    vim.keymap.del('n', '<Left>')
-    vim.keymap.del('n', '<Down>')
-    vim.keymap.del('n', '<Up>')
+    vim.keymap.set('n', '<Right>', '<Right>')
+    vim.keymap.set('n', '<Left>', '<Left>')
+    vim.keymap.set('n', '<Down>', '<Down>')
+    vim.keymap.set('n', '<Up>', '<Up>')
 end
 
 dap.listeners.before['event_exited']['myConfig'] = onClose
@@ -52,6 +52,7 @@ dap.configurations.cpp = {
         cwd = '${workspaceFolder}',
         stopOnEntry = false,
         args = {},
+        runInTerminal = true,
     },
 }
 dap.configurations.c = dap.configurations.cpp
