@@ -77,6 +77,8 @@ local servers = {
             },
         },
     },
+
+    marksman = {},
 }
 
 -- Setup neovim lua configuration

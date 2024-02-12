@@ -31,8 +31,15 @@ return {
         end,
     },
 
-    -- "gc" to comment visual regions/lines
-    { 'numToStr/Comment.nvim', opts = {} },
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            opleader = {
+                ---Line-comment keymap
+                line = '<leader>/',
+            },
+        },
+    },
 
     {
         -- Highlight, edit, and navigate code
@@ -83,6 +90,9 @@ return {
 
             -- Adds a number of user-friendly snippets
             'rafamadriz/friendly-snippets',
+
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/cmp-buffer',
         },
         config = function()
             require 'custom.config.cmp'
