@@ -20,6 +20,9 @@ vim.defer_fn(function()
             'arduino',
             'make',
             'c_sharp',
+            'regex',
+            'markdown',
+            'markdown_inline',
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

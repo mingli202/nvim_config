@@ -102,5 +102,11 @@ map('n', '<F5>', dap.continue, { desc = 'debug: start/continue' })
 map('n', '<F6>', dap.terminate, { desc = 'debug: terminate' })
 map('n', '<leader>b', dap.toggle_breakpoint, { desc = 'toggle [B]reakpoint' })
 
+-- ufo
+local ufo = require 'ufo'
+
+map('n', 'zR', ufo.openAllFolds, { desc = 'folds: open all' })
+map('n', 'zM', ufo.closeAllFolds, { desc = 'folds: close all' })
+
 -- other
 map('n', '<C-S-n>', ':RunCurrentFile <CR>', { desc = 'Run current file' })
