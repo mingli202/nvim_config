@@ -18,12 +18,15 @@ local on_attach = function(_, bufnr)
     nmap('<leader>la', vim.lsp.buf.code_action, '[L]sp code [A]ction')
     nmap('<leader>lR', ':LspRestart <CR>', '[L]sp [R]estart')
 
-    nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+    nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
     nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[L]sp Document [S]ymbols')
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+    nmap('<leader>fr', require('telescope.builtin').lsp_references, '[F]ind [R]eferences')
+    nmap('<leader>fi', require('telescope.builtin').lsp_implementations, '[F]ind [I]mplementations')
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
