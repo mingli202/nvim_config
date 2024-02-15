@@ -28,6 +28,7 @@ null_ls.setup {
         null_ls.builtins.formatting.csharpier.with {
             extra_args = { '--config-path', '/Users/vincentliu/.csharperrc.json' },
         },
+        null_ls.builtins.formatting.styler,
 
         -- check spelling for only markdown
         null_ls.builtins.diagnostics.cspell.with {
