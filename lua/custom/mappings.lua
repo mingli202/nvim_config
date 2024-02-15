@@ -33,6 +33,10 @@ map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 map('n', '<Tab>', ':bnext <CR>', { desc = 'next buffer' })
 map('n', '<S-Tab>', ':bprev <CR>', { desc = 'previous buffer' })
 
+map('n', '[t', ':tabprevious <CR>', { desc = 'previous tab' })
+map('n', ']t', ':tabnext <CR>', { desc = 'next tab' })
+map('n', '<leader>ct', ':tabclose <CR>', { desc = '[C]lose [T]ab' })
+
 -- text
 map({ 'n', 'v' }, '<leader>x', '"_x', { desc = 'delete' })
 map({ 'n', 'v' }, '<leader>X', '0"_D', { desc = 'delete line' })
@@ -44,8 +48,8 @@ map('n', '<leader>n', '/<C-r>*<CR>@n', { desc = 'execute macro on last yanked wo
 map('n', 'yie', "ggyG''zz", { desc = 'yank everything' })
 
 -- window
-map('n', '|', ':vsp <CR>', { desc = 'vertical split' })
-map('n', '\\', ':sp <CR>', { desc = 'horizontal split' })
+map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
+map('n', '-', ':sp <CR>', { desc = 'horizontal split' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
