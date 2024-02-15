@@ -46,10 +46,6 @@ map('n', 'yie', "ggyG''zz", { desc = 'yank everything' })
 -- window
 map('n', '|', ':vsp <CR>', { desc = 'vertical split' })
 map('n', '\\', ':sp <CR>', { desc = 'horizontal split' })
-map('n', '<C-h>', '<C-w>h', { desc = 'window left' })
-map('n', '<C-j>', '<C-w>j', { desc = 'window down' })
-map('n', '<C-k>', '<C-w>k', { desc = 'window up' })
-map('n', '<C-l>', '<C-w>l', { desc = 'window right' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
