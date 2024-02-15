@@ -6,13 +6,14 @@ require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
+    preselect = 'None',
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
     },
     completion = {
-        completeopt = 'menu,menuone,noinsert',
+        completeopt = 'menu,menuone,noinsert,noselect',
     },
     formatting = {
         format = require('tailwindcss-colorizer-cmp').formatter,
