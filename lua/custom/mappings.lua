@@ -109,4 +109,4 @@ map('n', 'zR', ufo.openAllFolds, { desc = 'folds: open all' })
 map('n', 'zM', ufo.closeAllFolds, { desc = 'folds: close all' })
 
 -- other
-map('n', '<C-S-n>', ':RunCurrentFile <CR>', { desc = 'Run current file' })
+map('n', '<C-n>', ':RunCurrentFile <CR>', { desc = 'Run current file' })

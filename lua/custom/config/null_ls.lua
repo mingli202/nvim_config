@@ -22,7 +22,7 @@ null_ls.setup {
         null_ls.builtins.formatting.clang_format.with {
             extra_filetypes = { 'arduino' },
             disabled_filetypes = { 'cs' },
-            -- extra_args = { '--style={BasedOnStyle: LLVM, IndentWidth: 4}' },
+            extra_args = { '--style={BasedOnStyle: LLVM, IndentWidth: 4}' },
         },
         null_ls.builtins.formatting.autopep8,
         null_ls.builtins.formatting.csharpier.with {
