@@ -45,30 +45,13 @@ end
 local build = function()
     local filetype = vim.bo.ft
     local fullPath = vim.fn.expand '%:p'
-    local fnameWithoutExtension = vim.fn.expand('%:t'):gsub('.' .. filetype, '')
     local directory = vim.fn.expand '%:p:h'
-    local binary = directory .. '/bin/' .. fnameWithoutExtension
+    local binary = directory .. '/bin/' .. vim.fn.expand('%:t'):gsub(string.format('.%s$', filetype), '', 1)
 
     if filetype == 'cpp' then
-        vim.cmd(
-            '!mkdir -p "'
-                .. directory:gsub('[%%%#]', '\\%1')
-                .. '/bin" && clang++ -std=c++2b "'
-                .. fullPath:gsub('[%%%#]', '\\%1')
-                .. '" -o "'
-                .. binary:gsub('[%%%#]', '\\%1')
-                .. '" -g'
-        )
+        vim.cmd(string.format('silent !mkdir -p "%s/bin" && clang++ -std=c++2b "%s" -o "%s" -g', directory, fullPath, binary):gsub('[%%%#]', '\\%1'))
     elseif filetype == 'c' then
-        vim.cmd(
-            '!mkdir -p "'
-                .. directory:gsub('[%%%#]', '\\%1')
-                .. '/bin" && clang -std=c2x "'
-                .. fullPath:gsub('[%%%#]', '\\%1')
-                .. '" -o "'
-                .. binary:gsub('[%%%#]', '\\%1')
-                .. '" -g'
-        )
+        vim.cmd(string.format('silent !mkdir -p "%s/bin" && clang -std=c2x "%s" -o "%s" -g', directory, fullPath, binary):gsub('[%%%#]', '\\%1'))
     else
         vim.notify 'Wrong filetype'
     end

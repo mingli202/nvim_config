@@ -48,30 +48,31 @@ vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
 -- code runner
 local run = function()
     local filetype = vim.bo.ft
-    local fullPath = vim.fn.expand('%:p'):gsub('[%%%#]', '\\%1')
+    local fullPath = vim.fn.expand '%:p'
+    local command = ''
 
     if filetype == 'javacript' then -- js
-        vim.cmd.terminal('node "' .. fullPath .. '"')
-    elseif filetype == 'typescript' then --ts
+        command = string.format('node "%s"', fullPath)
+    elseif filetype == 'typescript' then -- ts
         local jsFile = fullPath:gsub('.ts$', '.js', 1)
-        vim.cmd.terminal('tsc "' .. fullPath .. '" && node "' .. jsFile .. '" && rm -rf "' .. jsFile .. '"')
+        command = string.format('tsc "%s" && node "%s" && rm -rf "%s"', fullPath, jsFile, jsFile)
     elseif filetype == 'c' then -- c
-        require('custom.util').build()
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.c$', '', 1)
-        vim.cmd.terminal('time "' .. binary .. '"')
+        command = string.format('mkdir -p "%s/bin" && clang -std=c2x "%s" -o "%s" -g && time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     elseif filetype == 'cpp' then -- cpp
-        require('custom.util').build()
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.cpp$', '', 1)
-        vim.cmd.terminal('time "' .. binary .. '"')
+        command = string.format('mkdir -p "%s/bin" && clang++ -std=c++2b "%s" -o "%s" -g && time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     elseif filetype == 'python' then -- py
-        vim.cmd.terminal('python -u "' .. fullPath .. '"')
+        command = string.format('python3 -u "%s"', fullPath)
     elseif filetype == 'cs' then -- cs
-        vim.cmd.terminal('dotnet run "' .. fullPath .. '"')
+        command = string.format('dotnet run "%s"', fullPath)
     elseif filetype == 'lua' then -- lua
-        vim.cmd.terminal('lua "' .. fullPath .. '"')
+        command = string.format('lua "%s"', fullPath)
     else
-        vim.cmd.echo '"No code runner configured!"'
+        command = 'echo "No code runner configured!"'
     end
+
+    vim.cmd(string.format("silent !tmux splitw -h && tmux send-keys '%s' Enter", command:gsub('[%%%#]', '\\%1')))
 end
 vim.api.nvim_create_user_command('RunCurrentFile', run, {})
 vim.api.nvim_create_user_command('CCBuild', require('custom.util').build, {})
