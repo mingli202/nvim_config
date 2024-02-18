@@ -15,7 +15,6 @@ local lspconfig = require 'lspconfig'
 local servers = {
     csharp_ls = {},
     clangd = {},
-    pyright = {},
     rust_analyzer = {},
     tsserver = {},
     html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -78,6 +77,9 @@ mason_lspconfig.setup_handlers {
                     },
                 },
             },
+            root_dir = function()
+                return vim.fn.getcwd()
+            end,
         }
     end,
     ['arduino_language_server'] = function()
@@ -118,6 +120,25 @@ mason_lspconfig.setup_handlers {
 
                 return root == vim.fn.getcwd() and root or nil
             end,
+        }
+    end,
+    ['pyright'] = function()
+        lspconfig.pyright.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            root_dir = function()
+                return vim.fn.getcwd()
+            end,
+            settings = {
+                python = {
+                    analysis = {
+                        autoSearchPaths = true,
+                        useLibraryCodeForTypes = true,
+                        diagnosticMode = 'openFilesOnly',
+                    },
+                    pythonPath = '/opt/homebrew/bin/python3',
+                },
+            },
         }
     end,
 }
