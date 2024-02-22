@@ -25,8 +25,8 @@ map('n', '<leader>cb', ':bdelete <CR>', { desc = '[C]lose [B]uffer' })
 map('n', '<leader>cw', '<C-w>q', { desc = '[C]lose [W]indow' })
 
 -- movement
-map({ 'n', 'v' }, 'H', '_', { desc = 'move to start' })
-map({ 'n', 'v' }, 'L', '$', { desc = 'move to end' })
+map({ 'n', 'v' }, 'H', 'g0', { desc = 'move to start' })
+map({ 'n', 'v' }, 'L', 'g$', { desc = 'move to end' })
 map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'move lines down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 
@@ -81,7 +81,7 @@ map('n', '<leader>fh', ':Telescope harpoon marks <CR>', { desc = '[F]ind [H]arpo
 map('n', '<leader>hl', require('harpoon.ui').toggle_quick_menu, { desc = '[H]arpoon [L]ist' })
 map('n', '[h', require('harpoon.ui').nav_prev, { desc = 'previous harpoon' })
 map('n', ']h', require('harpoon.ui').nav_next, { desc = 'next harpoon' })
-map('n', '<leader>hn', function()
+map('n', '<leader>h', function()
     local char = vim.fn.getchar() - 48
     require('harpoon.ui').nav_file(char)
 end, { desc = '[H]arpoon [N]av' })
@@ -109,4 +109,4 @@ map('n', 'zR', ufo.openAllFolds, { desc = 'folds: open all' })
 map('n', 'zM', ufo.closeAllFolds, { desc = 'folds: close all' })
 
 -- other
-map('n', '<C-n>', ':RunCurrentFile <CR>', { desc = 'Run current file' })
+map('n', '<C-n>', ':RunCurrentFile <CR>', { desc = 'Run current file in new pane' })

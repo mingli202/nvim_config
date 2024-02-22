@@ -23,6 +23,7 @@ vim.defer_fn(function()
             'regex',
             'markdown',
             'markdown_inline',
+            'norg',
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

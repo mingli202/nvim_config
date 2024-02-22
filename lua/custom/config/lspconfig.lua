@@ -83,15 +83,19 @@ mason_lspconfig.setup_handlers {
         }
     end,
     ['arduino_language_server'] = function()
+        local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+        default_capabilities.textDocument.semanticTokens = vim.NIL
+        default_capabilities.workspace.semanticTokens = vim.NIL
+
         lspconfig.arduino_language_server.setup {
-            capabilities = capabilities,
+            capabilities = default_capabilities,
             on_attach = on_attach,
             cmd = {
                 'arduino-language-server',
                 '-clangd',
-                '/opt/homebrew/Cellar/llvm/17.0.6_1/bin/clangd',
+                '/opt/homebrew/opt/llvm/bin/clangd',
                 '-cli',
-                '/opt/homebrew/Cellar/arduino-cli/0.35.2/bin/arduino-cli',
+                '/opt/homebrew/opt/arduino-cli/bin/arduino-cli',
                 '-cli-config',
                 '/Users/vincentliu/Library/Arduino15/arduino-cli.yaml',
                 '-fqbn',

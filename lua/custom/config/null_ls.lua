@@ -22,7 +22,6 @@ null_ls.setup {
         null_ls.builtins.formatting.clang_format.with {
             extra_filetypes = { 'arduino' },
             disabled_filetypes = { 'cs' },
-            extra_args = { '--style={BasedOnStyle: LLVM, IndentWidth: 4}' },
         },
         null_ls.builtins.formatting.autopep8,
         null_ls.builtins.formatting.csharpier.with {
@@ -32,10 +31,10 @@ null_ls.setup {
 
         -- check spelling for only markdown
         null_ls.builtins.diagnostics.cspell.with {
-            filetypes = { 'markdown' },
+            filetypes = { 'markdown', 'norg' },
         },
         null_ls.builtins.code_actions.cspell.with {
-            filetypes = { 'markdown' },
+            filetypes = { 'markdown', 'norg' },
         },
     },
     -- make root_dir = cwd

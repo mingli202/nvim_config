@@ -36,7 +36,7 @@ dap.listeners.before['event_terminated']['myConfig'] = onClose
 -- c/cpp
 dap.adapters.lldb = {
     type = 'executable',
-    command = '/opt/homebrew/Cellar/llvm/17.0.6_1/bin/lldb-vscode', -- adjust as needed, must be absolute path
+    command = '/opt/homebrew/opt/llvm/bin/lldb-vscode', -- adjust as needed, must be absolute path
     name = 'lldb',
 }
 dap.configurations.cpp = {

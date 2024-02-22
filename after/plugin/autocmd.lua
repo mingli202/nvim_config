@@ -72,7 +72,29 @@ local run = function()
         command = 'echo "No code runner configured!"'
     end
 
-    vim.cmd(string.format("silent !tmux splitw -h && tmux send-keys '%s' Enter", command:gsub('[%%%#]', '\\%1')))
+    -- check if a second pane is open
+    -- if open then send keys to the pane
+    -- else open new pane and send keys to new pane
+    local panes = vim.fn.systemlist 'tmux list-panes -F "#{pane_active}"'
+
+    -- if number of panes if 1, then make a new pane
+    if #panes == 1 then
+        vim.cmd(string.format("silent !tmux split-window -h -d && tmux send-keys -t2 '%s' Enter", command:gsub('[%%%#]', '\\%1')))
+        return
+    end
+
+    -- else send command to next pane
+    local inactiveIndex = 1
+
+    for i, v in ipairs(panes) do
+        -- '0' means inactive
+        if v == '0' then
+            inactiveIndex = i
+            break
+        end
+    end
+
+    vim.cmd(string.format("silent !tmux send-keys -t %i '%s' Enter", inactiveIndex, command:gsub('[%%%#]', '\\%1')))
 end
 vim.api.nvim_create_user_command('RunCurrentFile', run, {})
 vim.api.nvim_create_user_command('CCBuild', require('custom.util').build, {})

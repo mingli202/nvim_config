@@ -94,4 +94,6 @@ vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to de
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
+vim.opt.scrolloff = 5
+
 require 'custom.mappings'
