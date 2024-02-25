@@ -83,12 +83,7 @@ mason_lspconfig.setup_handlers {
         }
     end,
     ['arduino_language_server'] = function()
-        local default_capabilities = vim.lsp.protocol.make_client_capabilities()
-        default_capabilities.textDocument.semanticTokens = vim.NIL
-        default_capabilities.workspace.semanticTokens = vim.NIL
-
         lspconfig.arduino_language_server.setup {
-            capabilities = default_capabilities,
             on_attach = on_attach,
             cmd = {
                 'arduino-language-server',
