@@ -83,6 +83,5 @@ null_ls.setup {
 }
 
 require('mason-null-ls').setup {
-    ensure_installed = {},
-    automatic_installation = true,
+    automatic_installation = false,
 }
