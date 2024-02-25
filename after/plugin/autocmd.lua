@@ -68,8 +68,17 @@ local run = function()
         command = string.format('dotnet run "%s"', fullPath)
     elseif filetype == 'lua' then -- lua
         command = string.format('lua "%s"', fullPath)
+    elseif filetype == 'r' then
+        command = string.format('Rscript "%s"', fullPath)
     else
         command = 'echo "No code runner configured!"'
+    end
+
+    -- check if tmux is attached
+    -- if it's not then run command in a new terminal
+    if vim.fn.system('echo $TMUX'):len() == 1 then
+        vim.cmd.terminal(string.format('%s', command:gsub('[%%%#]', '\\%1')))
+        return
     end
 
     -- check if a second pane is open
