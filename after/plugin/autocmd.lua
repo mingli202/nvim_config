@@ -107,3 +107,18 @@ local run = function()
 end
 vim.api.nvim_create_user_command('RunCurrentFile', run, {})
 vim.api.nvim_create_user_command('CCBuild', require('custom.util').build, {})
+
+-- save folds
+local rememberFolds = vim.api.nvim_create_augroup('RememberFolds', { clear = true })
+vim.api.nvim_create_autocmd('BufWinLeave', {
+    group = rememberFolds,
+    desc = 'save folds',
+    pattern = '*.*',
+    command = 'mkview',
+})
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    group = rememberFolds,
+    pattern = '*.*',
+    desc = 'load folds',
+    command = 'silent! loadview',
+})
