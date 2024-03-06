@@ -30,12 +30,10 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup('custom.plugins', {})
 
--- mason and other related plugins
-require 'custom.config.mason'
-
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+-- catppuccin, ondark, tokyonight
 vim.cmd.colorscheme 'onedark'
 
 vim.opt.tabstop = 4 -- tab width 4

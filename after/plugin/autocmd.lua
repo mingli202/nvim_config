@@ -52,24 +52,27 @@ local run = function()
     local command = ''
 
     if filetype == 'javacript' then -- js
-        command = string.format('node "%s"', fullPath)
+        command = string.format('/usr/bin/time node "%s"', fullPath)
     elseif filetype == 'typescript' then -- ts
         local jsFile = fullPath:gsub('.ts$', '.js', 1)
-        command = string.format('tsc "%s" && node "%s" && rm -rf "%s"', fullPath, jsFile, jsFile)
+        command = string.format('tsc "%s" && /usr/bin/time node "%s" && rm -rf "%s"', fullPath, jsFile, jsFile)
     elseif filetype == 'c' then -- c
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.c$', '', 1)
-        command = string.format('mkdir -p "%s/bin" && clang -std=c2x "%s" -o "%s" -g && time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
+        command = string.format('mkdir -p "%s/bin" && clang -std=c2x "%s" -o "%s" -g && /usr/bin/time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     elseif filetype == 'cpp' then -- cpp
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.cpp$', '', 1)
-        command = string.format('mkdir -p "%s/bin" && clang++ -std=c++2b "%s" -o "%s" -g && time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
+        command =
+            string.format('mkdir -p "%s/bin" && clang++ -std=c++2b "%s" -o "%s" -g && /usr/bin/time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     elseif filetype == 'python' then -- py
-        command = string.format('python3 -u "%s"', fullPath)
+        command = string.format('/usr/bin/time python3 -u "%s"', fullPath)
     elseif filetype == 'cs' then -- cs
-        command = string.format('dotnet run "%s"', fullPath)
+        command = string.format('/usr/bin/time dotnet run "%s"', fullPath)
     elseif filetype == 'lua' then -- lua
-        command = string.format('lua "%s"', fullPath)
+        command = string.format('/usr/bin/time lua "%s"', fullPath)
     elseif filetype == 'r' then
-        command = string.format('Rscript "%s"', fullPath)
+        command = string.format('/usr/bin/time Rscript "%s"', fullPath)
+    elseif filetype == 'rust' then
+        command = string.format('/usr/bin/time cargo run "%s"', fullPath)
     else
         command = 'echo "No code runner configured!"'
     end
@@ -121,4 +124,10 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     pattern = '*.*',
     desc = 'load folds',
     command = 'silent! loadview',
+})
+
+-- lspAttach
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
+    callback = require('custom.util').on_attach,
 })

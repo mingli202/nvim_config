@@ -1,3 +1,17 @@
+---helper function
+---@param table table
+---@param value any
+---@return boolean
+local contains = function(table, value)
+    for i = 1, #table do
+        if table[i] == value then
+            return true
+        end
+    end
+
+    return false
+end
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 -- NOTE: Remember that lua is a real programming language, and as such it is possible
@@ -5,32 +19,52 @@
 -- many times.
 -- In this case, we create a function that lets us more easily define mappings specific
 -- for LSP related items. It sets the mode, buffer and description for us each time.
-local on_attach = function(_, bufnr)
+local formatters = {
+    ['null-ls'] = true,
+    r_language_server = true,
+}
+
+local trouble = require 'trouble'
+local telescope = require 'telescope.builtin'
+
+local on_attach = function(args)
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
         end
 
-        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+        vim.keymap.set('n', keys, func, { buffer = args.buf, desc = desc })
     end
 
     nmap('<leader>lr', vim.lsp.buf.rename, '[L]sp [R]ename')
     nmap('<leader>la', vim.lsp.buf.code_action, '[L]sp code [A]ction')
     nmap('<leader>lR', ':LspRestart <CR>', '[L]sp [R]estart')
 
-    nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-    nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
-    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-    nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-    nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[L]sp Document [S]ymbols')
-    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    -- diagnostics
+    nmap('<leader>td', function()
+        trouble.toggle 'document_diagnostics'
+    end, '[T]rouble [D]ocument diagnostics')
+    nmap('<leader>tw', function()
+        trouble.toggle 'document_diagnostics'
+    end, '[T]rouble [W]orkspace diagnostics')
 
-    nmap('<leader>fr', require('telescope.builtin').lsp_references, '[F]ind [R]eferences')
-    nmap('<leader>fi', require('telescope.builtin').lsp_implementations, '[F]ind [I]mplementations')
+    nmap('gd', function()
+        telescope.lsp_definitions()
+    end, '[G]oto [D]efinition')
+    nmap('gr', function()
+        trouble.toggle 'lsp_references'
+    end, '[G]oto [R]eferences')
+
+    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('<leader>D', telescope.lsp_type_definitions, 'Type [D]efinition')
+    nmap('<leader>ls', telescope.lsp_document_symbols, '[L]sp Document [S]ymbols')
+    nmap('<leader>ws', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+    nmap('<leader>fr', telescope.lsp_references, '[F]ind [R]eferences')
+    nmap('<leader>fi', telescope.lsp_implementations, '[F]ind [I]mplementations')
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('˚', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Lesser used LSP functionality
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -39,6 +73,66 @@ local on_attach = function(_, bufnr)
     nmap('<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, '[W]orkspace [L]ist Folders')
+
+    -- autoformat for null-ls
+    -- all my formatters come from null_ls
+    -- so make null_ls the primary source of formatting
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.supports_method 'textDocument/formatting' then
+        local aug = vim.api.nvim_create_augroup('LspFormatting', { clear = true })
+        vim.api.nvim_create_autocmd('BufWritePre', {
+            group = aug,
+            callback = function()
+                vim.lsp.buf.format {
+                    -- format only from null_ls or any other exceptions
+                    filter = function(cl)
+                        return formatters[cl.name]
+                    end,
+                    buffer = args.buf, -- format current buffer
+                }
+            end,
+        })
+    end
+
+    -- -- have to check if eslint_d and prettierd are running
+    -- -- because they are separate binaries that have to be shut down manually
+    -- -- they will run when the filetype matches their configured filetypes
+    local ft = vim.bo.filetype
+    local eslint_d = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' }
+    local prettierd = {
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescriptreact',
+        'vue',
+        'css',
+        'scss',
+        'less',
+        'html',
+        'json',
+        'jsonc',
+        'yaml',
+        'markdown',
+        'markdown.mdx',
+        'graphql',
+        'handlebars',
+    }
+
+    if contains(eslint_d, ft) then
+        local gr = vim.api.nvim_create_augroup('EslintQuit', { clear = true })
+        vim.api.nvim_create_autocmd('VimLeave', {
+            group = gr,
+            command = '!eslint_d stop',
+        })
+    end
+
+    if contains(prettierd, ft) then
+        local gr = vim.api.nvim_create_augroup('PrettierQuit', { clear = true })
+        vim.api.nvim_create_autocmd('VimLeave', {
+            group = gr,
+            command = '!prettierd stop',
+        })
+    end
 end
 
 -- for c and cpp
@@ -57,4 +151,13 @@ local build = function()
     end
 end
 
-return { on_attach = on_attach, build = build }
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
+capabilities.offsetEncoding = { 'utf-8', 'utf-16' }
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+}
+
+return { on_attach = on_attach, build = build, contains = contains, capabilities = capabilities }

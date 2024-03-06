@@ -62,8 +62,7 @@ map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev, { desc = 'go to previous diagnostic message' })
 map('n', ']d', vim.diagnostic.goto_next, { desc = 'go to next diagnostic message' })
-map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
-map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'open diagnostics list' })
+map('n', '<leader>d', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
 
 -- marks
 local marks = require 'marks'
@@ -107,6 +106,16 @@ local ufo = require 'ufo'
 
 map('n', 'zR', ufo.openAllFolds, { desc = 'folds: open all' })
 map('n', 'zM', ufo.closeAllFolds, { desc = 'folds: close all' })
+
+-- trouble
+local trouble = require 'trouble'
+map('n', '<leader>tt', trouble.toggle, { desc = '[T]oggle [T]rouble' })
+map('n', '<leader>tl', function()
+    trouble.toggle 'loclist'
+end, { desc = '[T]rouble [L]ocation list' })
+map('n', '<leader>tq', function()
+    trouble.toggle 'quickfix'
+end, { desc = '[T]rouble [Q]uickfix list' })
 
 -- other
 map('n', '<C-n>', ':RunCurrentFile <CR>', { desc = 'Run current file in new pane' })

@@ -8,6 +8,14 @@ return {
         -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
     config = function()
-        require 'custom.config.neotree'
+        require('neo-tree').setup {
+            window = {
+                mappings = {
+                    ['h'] = 'close_node',
+                    ['l'] = 'open',
+                },
+            },
+            close_if_last_window = true,
+        }
     end,
 }
