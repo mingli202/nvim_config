@@ -72,7 +72,7 @@ local run = function()
     elseif filetype == 'r' then
         command = string.format('/usr/bin/time Rscript "%s"', fullPath)
     elseif filetype == 'rust' then
-        command = string.format('/usr/bin/time cargo run "%s"', fullPath)
+        command = string.format '/usr/bin/time cargo run'
     else
         command = 'echo "No code runner configured!"'
     end

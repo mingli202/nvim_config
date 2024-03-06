@@ -4,6 +4,7 @@ return {
         ft = 'rust',
         init = function()
             vim.g.rustfmt_autosave = 1
+            vim.g.rustfmt_fail_silently = 1
         end,
     },
 
@@ -15,6 +16,9 @@ return {
                 server = {
                     capabilities = require('custom.util').capabilities,
                     on_attach = require('custom.util').on_attach,
+                    root_dir = function()
+                        return vim.fn.getcwd()
+                    end,
                 },
             }
         end,
