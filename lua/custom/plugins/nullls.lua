@@ -25,8 +25,6 @@ return {
                 null_ls.builtins.code_actions.cspell.with {
                     filetypes = { 'markdown', 'norg' },
                 },
-
-                -- null_ls.builtins.formatting.rustfmt,
             },
             -- make root_dir = cwd
             root_dir = function()

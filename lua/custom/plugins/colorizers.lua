@@ -12,6 +12,7 @@ return {
             filetypes = {
                 '*',
                 '!markdown', -- disable for markdown
+                '!norg',
             },
             user_default_options = {
                 tailwind = true,

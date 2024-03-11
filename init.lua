@@ -34,7 +34,7 @@ require('lazy').setup('custom.plugins', {})
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 -- catppuccin, ondark, tokyonight
-vim.cmd.colorscheme 'onedark'
+vim.cmd.colorscheme 'tokyonight'
 
 vim.opt.tabstop = 4 -- tab width 4
 vim.opt.softtabstop = 4
@@ -92,6 +92,7 @@ vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to de
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 6
+vim.opt.cursorline = true
 
 require 'custom.mappings'

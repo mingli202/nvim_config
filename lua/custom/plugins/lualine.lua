@@ -9,37 +9,27 @@ return {
                 icons_enabled = false,
                 component_separators = '|',
                 section_separators = { left = '', right = '' },
+                -- section_separators = { left = '', right = '' },
             },
             sections = {
+                lualine_a = { 'mode' },
+                lualine_b = { {
+                    'buffers',
+                    mode = 3,
+                } },
+                lualine_c = { {
+                    'filename',
+                    path = 1,
+                } },
                 lualine_x = {
-                    'encoding',
-                    'fileformat',
-                    {
-                        'filetype',
-                        on_click = require 'lspconfig.ui.lspinfo', -- opens the lsp info window
-                    },
+                    'diagnostics',
+                },
+                lualine_y = {
+                    'diff',
+                    'branch',
                 },
                 lualine_z = {
-                    -- removed line number
-                    -- custom function that gets current file location relative to cwd
-                    function()
-                        local cwd = vim.fn.getcwd()
-                        if cwd == nil then
-                            return ''
-                        end
-
-                        local flocation = vim.fn.expand '%:p:h'
-
-                        if flocation == cwd then
-                            return '/'
-                        end
-
-                        -- make sure all the magic characters are no longer magic
-                        cwd = cwd:gsub('([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1')
-
-                        local f = flocation:gsub(cwd, '')
-                        return f
-                    end,
+                    'progress',
                 },
             },
         }
