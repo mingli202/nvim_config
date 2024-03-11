@@ -51,7 +51,7 @@ local run = function()
     local fullPath = vim.fn.expand '%:p'
     local command = ''
 
-    if filetype == 'javacript' then -- js
+    if filetype == 'javascript' then -- js
         command = string.format('/usr/bin/time node "%s"', fullPath)
     elseif filetype == 'typescript' then -- ts
         local jsFile = fullPath:gsub('.ts$', '.js', 1)
@@ -69,14 +69,14 @@ local run = function()
         command = string.format('/usr/bin/time dotnet run "%s"', fullPath)
     elseif filetype == 'lua' then -- lua
         command = string.format('/usr/bin/time lua "%s"', fullPath)
-    elseif filetype == 'r' then
+    elseif filetype == 'r' then -- r
         command = string.format('/usr/bin/time Rscript "%s"', fullPath)
-    elseif filetype == 'rust' then
+    elseif filetype == 'rust' then -- rs
         command = string.format '/usr/bin/time cargo run'
     else
-        command = 'echo "No code runner configured!"'
+        vim.cmd.echo '"No runner configured!"'
+        return
     end
-
     -- check if tmux is attached
     -- if it's not then run command in a new terminal
     if vim.fn.system('echo $TMUX'):len() == 1 then

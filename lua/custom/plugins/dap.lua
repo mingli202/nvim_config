@@ -50,6 +50,24 @@ return {
         }
         dap.configurations.c = dap.configurations.cpp
 
+        dap.configurations.rust = {
+            {
+                name = 'Launch',
+                type = 'lldb',
+                request = 'launch',
+                program = function()
+                    vim.cmd '!cargo build'
+
+                    local bin = vim.fn.getcwd():gsub('.+/', '')
+                    return string.format('${workspaceFolder}/target/debug/%s', bin)
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
+                args = {},
+                runInTerminal = true,
+            },
+        }
+
         -- python
         dap.adapters.python = {
             type = 'executable',
@@ -79,6 +97,26 @@ return {
                     end
                 end,
                 console = 'integratedTerminal',
+            },
+        }
+
+        dap.adapters['pwa-node'] = {
+            type = 'server',
+            host = 'localhost',
+            port = '${port}',
+            executable = {
+                command = 'node',
+                -- 💀 Make sure to update this path to point to your installation
+                args = { '/Users/vincentliu/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js', '${port}' },
+            },
+        }
+        dap.configurations.javascript = {
+            {
+                type = 'pwa-node',
+                request = 'launch',
+                name = 'Launch file',
+                program = '${file}',
+                cwd = '${workspaceFolder}',
             },
         }
 
