@@ -75,7 +75,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -93,6 +93,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
 vim.opt.scrolloff = 6
+vim.opt.showmode = false
 vim.opt.cursorline = true
 
 require 'custom.mappings'
