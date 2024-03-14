@@ -9,14 +9,20 @@ return {
                 icons_enabled = false,
                 component_separators = '|',
                 section_separators = { left = '', right = '' },
-                -- section_separators = { left = '', right = '' },
             },
             sections = {
                 lualine_a = { 'mode' },
-                lualine_b = { {
-                    'buffers',
-                    mode = 3,
-                } },
+                lualine_b = {
+                    {
+                        'buffers',
+                        mode = 1,
+                        symbols = {
+                            modified = ' ●', -- Text to show when the buffer is modified
+                            alternate_file = '', -- Text to show to identify the alternate file
+                            directory = '', -- Text to show when the buffer is a directory
+                        },
+                    },
+                },
                 lualine_c = { {
                     'filename',
                     path = 1,

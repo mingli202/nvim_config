@@ -72,7 +72,7 @@ local run = function()
     elseif filetype == 'r' then -- r
         command = string.format('/usr/bin/time Rscript "%s"', fullPath)
     elseif filetype == 'rust' then -- rs
-        command = string.format '/usr/bin/time cargo run'
+        command = string.format '/usr/bin/time cargo run -q'
     else
         vim.cmd.echo '"No runner configured!"'
         return
