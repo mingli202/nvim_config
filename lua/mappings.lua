@@ -1,19 +1,4 @@
----helper function
----@param mode string | table
----@param key string
----@param cmd string | function
----@param opts table | nil
-local map = function(mode, key, cmd, opts)
-    local t1 = { noremap = true, silent = true }
-
-    if opts ~= nil then
-        for k, v in pairs(opts) do
-            t1[k] = v
-        end
-    end
-
-    vim.keymap.set(mode, key, cmd, t1)
-end
+local map = require('util').map
 
 -- escapes
 map('i', 'jk', '<Esc>', { desc = 'escape' })
@@ -116,6 +101,19 @@ end, { desc = '[T]rouble [L]ocation list' })
 map('n', '<leader>tq', function()
     trouble.toggle 'quickfix'
 end, { desc = '[T]rouble [Q]uickfix list' })
+
+map('n', '<leader>td', function()
+    trouble.toggle 'document_diagnostics'
+end, { desc = '[T]rouble [D]ocument diagnostics' })
+map('n', '<leader>tw', function()
+    trouble.toggle 'document_diagnostics'
+end, {
+    desc = '[T]rouble [W]orkspace diagnostics',
+})
+
+-- treesj
+local treesj = require 'treesj'
+map('n', 'gs', treesj.toggle, { desc = 'treesj toggle' })
 
 -- other
 map('n', '<C-n>', ':RunCurrentFile <CR>', { desc = 'Run current file in new pane' })

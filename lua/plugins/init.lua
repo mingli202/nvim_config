@@ -16,12 +16,7 @@ return {
 
     {
         'numToStr/Comment.nvim',
-        opts = {
-            opleader = {
-                ---Line-comment keymap
-                line = '<leader>/',
-            },
-        },
+        opts = {},
     },
 
     {
@@ -93,6 +88,18 @@ return {
             'nvim-lua/plenary.nvim',
             'hrsh7th/nvim-cmp',
         },
+        opts = {},
+    },
+
+    {
+        'Wansmer/treesj',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        opts = { use_default_keymaps = false },
+    },
+
+    {
+        'folke/trouble.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {},
     },
 }

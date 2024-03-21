@@ -28,7 +28,7 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
-require('lazy').setup('custom.plugins', {})
+require('lazy').setup('plugins', {})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -52,7 +52,7 @@ vim.opt.hlsearch = false
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
-vim.api.nvim_set_hl(0, 'LineNr', { fg = '#FFFFFF' }) -- make it brigther cuz i can't see shit
+vim.api.nvim_set_hl(0, 'LineNr', { fg = 'white' }) -- make it brigther cuz i can't see shit
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#999999' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#999999' })
 
@@ -96,4 +96,4 @@ vim.opt.scrolloff = 6
 vim.opt.showmode = false
 vim.opt.cursorline = true
 
-require 'custom.mappings'
+require 'mappings'

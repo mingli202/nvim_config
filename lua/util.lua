@@ -40,14 +40,6 @@ local on_attach = function(args)
     nmap('<leader>la', vim.lsp.buf.code_action, '[L]sp code [A]ction')
     nmap('<leader>lR', ':LspRestart <CR>', '[L]sp [R]estart')
 
-    -- diagnostics
-    nmap('<leader>td', function()
-        trouble.toggle 'document_diagnostics'
-    end, '[T]rouble [D]ocument diagnostics')
-    nmap('<leader>tw', function()
-        trouble.toggle 'document_diagnostics'
-    end, '[T]rouble [W]orkspace diagnostics')
-
     nmap('gd', function()
         telescope.lsp_definitions()
     end, '[G]oto [D]efinition')
@@ -154,10 +146,26 @@ end
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
 local capabilities = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
-capabilities.offsetEncoding = { 'utf-8', 'utf-16' }
 capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
 }
 
-return { on_attach = on_attach, build = build, contains = contains, capabilities = capabilities }
+---helper function
+---@param mode string | table
+---@param key string
+---@param cmd string | function
+---@param opts table | nil
+local map = function(mode, key, cmd, opts)
+    local t1 = { noremap = true, silent = true }
+
+    if opts ~= nil then
+        for k, v in pairs(opts) do
+            t1[k] = v
+        end
+    end
+
+    vim.keymap.set(mode, key, cmd, t1)
+end
+
+return { on_attach = on_attach, build = build, contains = contains, capabilities = capabilities, map = map }

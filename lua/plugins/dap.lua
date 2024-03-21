@@ -38,7 +38,7 @@ return {
                 type = 'lldb',
                 request = 'launch',
                 program = function()
-                    require('custom.util').build()
+                    require('util').build()
 
                     return '${fileDirname}/bin/${fileBasenameNoExtension}'
                 end,

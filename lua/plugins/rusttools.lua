@@ -14,8 +14,8 @@ return {
         config = function()
             require('rust-tools').setup {
                 server = {
-                    capabilities = require('custom.util').capabilities,
-                    on_attach = require('custom.util').on_attach,
+                    capabilities = require('util').capabilities,
+                    on_attach = require('util').on_attach,
                     root_dir = function()
                         return vim.fn.getcwd()
                     end,

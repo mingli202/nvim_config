@@ -109,7 +109,7 @@ local run = function()
     vim.cmd(string.format("silent !tmux send-keys -t %i '%s' Enter", inactiveIndex, command:gsub('[%%%#]', '\\%1')))
 end
 vim.api.nvim_create_user_command('RunCurrentFile', run, {})
-vim.api.nvim_create_user_command('CCBuild', require('custom.util').build, {})
+vim.api.nvim_create_user_command('CCBuild', require('util').build, {})
 
 -- save folds
 local rememberFolds = vim.api.nvim_create_augroup('RememberFolds', { clear = true })
@@ -129,5 +129,5 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
 -- lspAttach
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
-    callback = require('custom.util').on_attach,
+    callback = require('util').on_attach,
 })

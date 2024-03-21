@@ -42,7 +42,6 @@ return {
 
         local servers = {
             csharp_ls = {},
-            clangd = {},
             tsserver = {},
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             cssls = {},
@@ -53,7 +52,7 @@ return {
         -- Setup neovim lua configuration
         require('neodev').setup()
 
-        local capabilities = require('custom.util').capabilities
+        local capabilities = require('util').capabilities
 
         -- Ensure the servers above are installed
         local mason_lspconfig = require 'mason-lspconfig'
@@ -70,6 +69,19 @@ return {
                     end,
                     capabilities = capabilities,
                     filetypes = (servers[server_name] or {}).filetypes,
+                }
+            end,
+            ['clangd'] = function()
+                local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
+                local c = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
+                c.offsetEncoding = 'utf-8'
+                c.textDocument.foldingRange = {
+                    dynamicRegistration = false,
+                    lineFoldingOnly = true,
+                }
+                lspconfig.clangd.setup {
+                    filetypes = { 'c', 'cpp', 'arduino' },
+                    capabilities = c,
                 }
             end,
             ['lua_ls'] = function()
@@ -100,21 +112,6 @@ return {
                     root_dir = function()
                         return vim.fn.getcwd()
                     end,
-                }
-            end,
-            ['arduino_language_server'] = function()
-                lspconfig.arduino_language_server.setup {
-                    cmd = {
-                        'arduino-language-server',
-                        '-clangd',
-                        '/opt/homebrew/opt/llvm/bin/clangd',
-                        '-cli',
-                        '/opt/homebrew/opt/arduino-cli/bin/arduino-cli',
-                        '-cli-config',
-                        '/Users/vincentliu/Library/Arduino15/arduino-cli.yaml',
-                        '-fqbn',
-                        'arduino:avr:uno',
-                    },
                 }
             end,
             ['tailwindcss'] = function()
