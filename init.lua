@@ -34,6 +34,8 @@ require('lazy').setup('plugins', {})
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 -- catppuccin, ondark, tokyonight
+-- vim.cmd.colorscheme 'onedark'
+-- vim.cmd.colorscheme 'catppuccin'
 vim.cmd.colorscheme 'tokyonight'
 
 vim.opt.tabstop = 4 -- tab width 4

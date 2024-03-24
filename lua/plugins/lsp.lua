@@ -82,6 +82,9 @@ return {
                 lspconfig.clangd.setup {
                     filetypes = { 'c', 'cpp', 'arduino' },
                     capabilities = c,
+                    root_dir = function()
+                        return vim.fn.getcwd()
+                    end,
                 }
             end,
             ['lua_ls'] = function()
