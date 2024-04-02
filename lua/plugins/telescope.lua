@@ -70,6 +70,8 @@ return {
         vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = '[F]ind by [G]rep' })
         vim.keymap.set('n', '<leader>fG', ':LiveGrepGitRoot<cr>', { desc = '[F]ind by [G]rep on Git Root' })
         vim.keymap.set('n', '<leader>fd', telescope.diagnostics, { desc = '[F]ind [D]iagnostics' })
-        vim.keymap.set('n', '<leader>ft', telescope.colorscheme, { desc = '[F]ind [T]hemes' })
+        vim.keymap.set('n', '<leader>ft', function()
+            telescope.colorscheme { enable_preview = true }
+        end, { desc = '[F]ind [T]hemes' })
     end,
 }

@@ -5,7 +5,7 @@ return {
         priority = 1000,
         opts = {
             style = 'night',
-            transparent = false,
+            transparent = true,
         },
     },
     {
@@ -15,7 +15,7 @@ return {
         lazy = false,
         opts = {
             term_colors = true,
-            transparent_background = false,
+            transparent_background = true,
             integrations = {
                 neotree = true,
                 which_key = true,
@@ -32,9 +32,9 @@ return {
         opts = {
             -- Set a style preset. 'dark' is default.
             style = 'darker', -- dark, darker, cool, deep, warm, warmer, light
-            transparent = false,
+            transparent = true,
             lualine = {
-                transparent = false, -- lualine center bar transparency
+                transparent = true, -- lualine center bar transparency
             },
         },
     },

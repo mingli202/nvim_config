@@ -18,6 +18,7 @@ return {
 
         'onsails/lspkind.nvim',
     },
+    event = 'InsertEnter',
     config = function()
         -- [[ Configure nvim-cmp ]]
         -- See `:help cmp`
@@ -40,6 +41,7 @@ return {
                 completeopt = 'menu,menuone,noinsert,noselect',
             },
             formatting = {
+                -- fields = { 'kind', 'abbr', 'menu' },
                 format = require('lspkind').cmp_format {
                     mode = 'symbol_text', -- show only symbol annotations
                     maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)

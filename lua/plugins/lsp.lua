@@ -41,7 +41,6 @@ return {
         --  define the property 'filetypes' to the map in question.
 
         local servers = {
-            csharp_ls = {},
             tsserver = {},
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             cssls = {},
@@ -69,6 +68,11 @@ return {
                     end,
                     capabilities = capabilities,
                     filetypes = (servers[server_name] or {}).filetypes,
+                }
+            end,
+            ['omnisharp'] = function()
+                lspconfig.omnisharp.setup {
+                    capabilities = capabilities,
                 }
             end,
             ['clangd'] = function()

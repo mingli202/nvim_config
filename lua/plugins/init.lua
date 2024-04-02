@@ -46,13 +46,6 @@ return {
 
     'mbbill/undotree',
 
-    {
-        'kylechui/nvim-surround',
-        version = '*', -- Use for stability; omit to use `main` branch for the latest features
-        event = 'VeryLazy',
-        opts = {},
-    },
-
     'easymotion/vim-easymotion',
 
     { 'nvim-treesitter/nvim-treesitter-context', opts = { max_lines = 5 } },

@@ -29,8 +29,10 @@ map({ 'n', 'v' }, '<leader>p', '"_xP', { desc = 'paste' })
 map('v', '<C-k>', "y:'><CR>pgv", { desc = 'copy up' })
 map('v', '<C-j>', "y:'<<CR>Pgv", { desc = 'copy down' })
 
-map('n', '<leader>n', '/<C-r>*<CR>@n', { desc = 'execute macro on last yanked word' })
+map('n', '<leader>n', '#*viwne', { desc = 'go to next occurence of word' })
+map('v', '<leader>n', 'ne', { desc = 'go to next occurence of word' })
 map('n', 'yie', "ggyG''zz", { desc = 'yank everything' })
+map('n', 'die', 'ggdG', { desc = 'delete everything' })
 
 -- window
 map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
@@ -116,4 +118,9 @@ local treesj = require 'treesj'
 map('n', 'gs', treesj.toggle, { desc = 'treesj toggle' })
 
 -- other
-map('n', '<C-n>', ':RunCurrentFile <CR>', { desc = 'Run current file in new pane' })
+map('n', '<C-n>', function()
+    require('util').run(false)
+end, { desc = 'Run current file in new pane' })
+map('n', '<C-m>', function()
+    require('util').run(true)
+end, { desc = 'Run current file in new pane' })
