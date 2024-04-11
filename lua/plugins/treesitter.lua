@@ -32,6 +32,7 @@ return {
                     'markdown',
                     'markdown_inline',
                     'norg',
+                    'r',
                 },
 
                 -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

@@ -98,4 +98,6 @@ vim.opt.scrolloff = 6
 vim.opt.showmode = false
 vim.opt.cursorline = true
 
+vim.g.have_nerd_font = true
+
 require 'mappings'

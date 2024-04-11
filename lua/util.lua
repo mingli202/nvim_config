@@ -169,13 +169,13 @@ local map = function(mode, key, cmd, opts)
 end
 
 -- code runner
-local run = function(make)
+local run = function(custom)
     local filetype = vim.bo.ft
     local fullPath = vim.fn.expand '%:p'
     local command = ''
 
-    if make then
-        command = 'make'
+    if custom ~= nil then
+        command = custom
     elseif filetype == 'javascript' then -- js
         command = string.format('/usr/bin/time node "%s"', fullPath)
     elseif filetype == 'typescript' then -- ts

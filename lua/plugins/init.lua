@@ -75,15 +75,15 @@ return {
         lazy = false,
     },
 
-    {
-        'Exafunction/codeium.nvim',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'hrsh7th/nvim-cmp',
-        },
-        opts = {},
-    },
-
+    -- {
+    --     'Exafunction/codeium.nvim',
+    --     dependencies = {
+    --         'nvim-lua/plenary.nvim',
+    --         'hrsh7th/nvim-cmp',
+    --     },
+    --     opts = {},
+    -- },
+    --
     {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },

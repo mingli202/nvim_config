@@ -118,9 +118,7 @@ local treesj = require 'treesj'
 map('n', 'gs', treesj.toggle, { desc = 'treesj toggle' })
 
 -- other
-map('n', '<C-n>', function()
-    require('util').run(false)
-end, { desc = 'Run current file in new pane' })
-map('n', '<C-m>', function()
-    require('util').run(true)
-end, { desc = 'Run current file in new pane' })
+map('n', '<C-n>', require('util').run, { desc = 'run current file in new pane' })
+map('n', '<C-c>', function()
+    require('util').run 'C-c'
+end, { desc = 'stop' })
