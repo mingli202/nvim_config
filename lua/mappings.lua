@@ -1,8 +1,8 @@
 local map = require('util').map
 
 -- escapes
-map('i', 'jk', '<Esc>', { desc = 'escape' })
-map('i', 'jj', '<Esc>', { desc = 'escape' })
+map('i', 'jk', '<Esc>', { desc = 'escape', nowait = true })
+map('i', 'jj', '<Esc>', { desc = 'escape', nowait = true })
 map('i', '<S-BS>', '<Esc>', { desc = 'escape' })
 
 -- write
@@ -120,5 +120,5 @@ map('n', 'gs', treesj.toggle, { desc = 'treesj toggle' })
 -- other
 map('n', '<C-n>', require('util').run, { desc = 'run current file in new pane' })
 map('n', '<C-c>', function()
-    require('util').run 'C-c'
+    require('util').run 'clear'
 end, { desc = 'stop' })

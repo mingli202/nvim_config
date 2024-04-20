@@ -4,7 +4,10 @@
 -- See the kickstart.nvim README for more information
 return {
 
-    { 'nvim-tree/nvim-web-devicons', opts = {} },
+    {
+        'nvim-tree/nvim-web-devicons',
+        opts = {},
+    },
     -- NOTE: First, some plugins that don't require any configuration
 
     -- Git related plugins
@@ -75,15 +78,15 @@ return {
         lazy = false,
     },
 
-    -- {
-    --     'Exafunction/codeium.nvim',
-    --     dependencies = {
-    --         'nvim-lua/plenary.nvim',
-    --         'hrsh7th/nvim-cmp',
-    --     },
-    --     opts = {},
-    -- },
-    --
+    {
+        'Exafunction/codeium.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'hrsh7th/nvim-cmp',
+        },
+        opts = {},
+    },
+
     {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },

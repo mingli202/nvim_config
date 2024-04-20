@@ -28,7 +28,13 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
-require('lazy').setup('plugins', {})
+require('lazy').setup('plugins', {
+    change_detection = {
+        -- automatically check for config file changes and reload the ui
+        enabled = true,
+        notify = false, -- get a notification when changes are found
+    },
+})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -97,7 +103,5 @@ vim.opt.foldenable = true
 vim.opt.scrolloff = 6
 vim.opt.showmode = false
 vim.opt.cursorline = true
-
-vim.g.have_nerd_font = true
 
 require 'mappings'

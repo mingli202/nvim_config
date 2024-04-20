@@ -22,6 +22,7 @@ end
 local formatters = {
     ['null-ls'] = true,
     r_language_server = true,
+    ruff = true,
 }
 
 local trouble = require 'trouble'

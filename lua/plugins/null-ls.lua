@@ -13,7 +13,9 @@ return {
                     extra_filetypes = { 'arduino' },
                     disabled_filetypes = { 'cs' },
                 },
-                null_ls.builtins.formatting.black,
+                null_ls.builtins.formatting.ruff,
+                null_ls.builtins.diagnostics.ruff,
+
                 null_ls.builtins.formatting.csharpier.with {
                     extra_args = { '--config-path', '/Users/vincentliu/.csharperrc.json' },
                 },
