@@ -15,24 +15,23 @@ map({ 'n', 'v' }, 'L', 'g$', { desc = 'move to end' })
 map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'move lines down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 
-map('n', '<Tab>', ':bnext <CR>', { desc = 'next buffer' })
-map('n', '<S-Tab>', ':bprev <CR>', { desc = 'previous buffer' })
-
-map('n', '[t', ':tabprevious <CR>', { desc = 'previous tab' })
-map('n', ']t', ':tabnext <CR>', { desc = 'next tab' })
-map('n', '<leader>ct', ':tabclose <CR>', { desc = '[C]lose [T]ab' })
+map('n', ']b', ':bnext <CR>', { desc = 'next buffer' })
+map('n', '[b', ':bprev <CR>', { desc = 'previous buffer' })
 
 -- text
-map({ 'n', 'v' }, '<leader>x', '"_x', { desc = 'delete' })
-map({ 'n', 'v' }, '<leader>X', '0"_D', { desc = 'delete line' })
-map({ 'n', 'v' }, '<leader>p', '"_xP', { desc = 'paste' })
+map({ 'n', 'v' }, '<leader>x', '"_x', { desc = 'delete without copy' })
+map({ 'n', 'v' }, '<leader>X', '0"_D', { desc = 'delete line without copy' })
+map({ 'n', 'v' }, '<leader>p', '"_xP', { desc = 'paste without copy' })
 map('v', '<C-k>', "y:'><CR>pgv", { desc = 'copy up' })
 map('v', '<C-j>', "y:'<<CR>Pgv", { desc = 'copy down' })
 
 map('n', '<leader>n', '#*viwne', { desc = 'go to next occurence of word' })
 map('v', '<leader>n', 'ne', { desc = 'go to next occurence of word' })
+
 map('n', 'yie', "ggyG''zz", { desc = 'yank everything' })
 map('n', 'die', 'ggdG', { desc = 'delete everything' })
+map('n', 'cie', 'ggcG', { desc = 'change everything' })
+map('n', 'vie', 'ggvG$', { desc = 'select everything' })
 
 -- window
 map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
@@ -103,6 +102,12 @@ end, { desc = '[T]rouble [L]ocation list' })
 map('n', '<leader>tq', function()
     trouble.toggle 'quickfix'
 end, { desc = '[T]rouble [Q]uickfix list' })
+map('n', ']t', function()
+    trouble.next { skip_groups = true, jump = true }
+end, { desc = 'trouble next' })
+map('n', '[t', function()
+    trouble.previous { skip_groups = true, jump = true }
+end, { desc = 'trouble previous' })
 
 map('n', '<leader>td', function()
     trouble.toggle 'document_diagnostics'
@@ -121,4 +126,6 @@ map('n', 'gs', treesj.toggle, { desc = 'treesj toggle' })
 map('n', '<C-n>', require('util').run, { desc = 'run current file in new pane' })
 map('n', '<C-c>', function()
     require('util').run 'clear'
-end, { desc = 'stop' })
+end, { desc = 'clear' })
+
+map('n', '<leader>fml', '<cmd>CellularAutomaton make_it_rain<CR>', { desc = 'fml' })

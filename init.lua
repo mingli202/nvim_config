@@ -39,6 +39,7 @@ require('lazy').setup('plugins', {
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+
 -- catppuccin, ondark, tokyonight
 -- vim.cmd.colorscheme 'onedark'
 -- vim.cmd.colorscheme 'catppuccin'
@@ -95,13 +96,14 @@ vim.opt.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.opt.termguicolors = true
 
+-- for folding stuff
 vim.opt.foldcolumn = '0'
 vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
-vim.opt.scrolloff = 6
+vim.opt.scrolloff = 6 -- how much lines to keep above/below cursor
 vim.opt.showmode = false
-vim.opt.cursorline = true
+vim.opt.cursorline = true -- ui that show the cursor line
 
 require 'mappings'
