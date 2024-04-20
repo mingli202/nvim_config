@@ -143,22 +143,21 @@ return {
                     end,
                 }
             end,
-            ['pyright'] = function()
-                lspconfig.pyright.setup {
+            ['pylsp'] = function()
+                lspconfig.pylsp.setup {
                     capabilities = capabilities,
+                    settings = {
+                        pylsp = {
+                            plugins = {
+                                jedi = {
+                                    environment = '/opt/homebrew/bin/python3',
+                                },
+                            },
+                        },
+                    },
                     root_dir = function()
                         return vim.fn.getcwd()
                     end,
-                    settings = {
-                        python = {
-                            analysis = {
-                                autoSearchPaths = true,
-                                useLibraryCodeForTypes = true,
-                                diagnosticMode = 'openFilesOnly',
-                            },
-                            pythonPath = '/opt/homebrew/bin/python3',
-                        },
-                    },
                 }
             end,
         }
