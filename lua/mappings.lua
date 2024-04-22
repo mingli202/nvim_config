@@ -15,8 +15,10 @@ map({ 'n', 'v' }, 'L', 'g$', { desc = 'move to end' })
 map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'move lines down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 
-map('n', ']b', ':bnext <CR>', { desc = 'next buffer' })
-map('n', '[b', ':bprev <CR>', { desc = 'previous buffer' })
+map('n', '<Tab>', ':bnext <CR>', { desc = 'next buffer' })
+map('n', '<S-Tab>', ':bprev <CR>', { desc = 'previous buffer' })
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
 
 -- text
 map({ 'n', 'v' }, '<leader>x', '"_x', { desc = 'delete without copy' })
@@ -31,7 +33,7 @@ map('v', '<leader>n', 'ne', { desc = 'go to next occurence of word' })
 map('n', 'yie', "ggyG''zz", { desc = 'yank everything' })
 map('n', 'die', 'ggdG', { desc = 'delete everything' })
 map('n', 'cie', 'ggcG', { desc = 'change everything' })
-map('n', 'vie', 'ggvG$', { desc = 'select everything' })
+map('n', 'vie', 'gg0vG$', { desc = 'select everything' })
 
 -- window
 map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
@@ -73,7 +75,6 @@ end, { desc = '[H]arpoon [N]av' })
 
 -- neotree
 map('n', '<leader>o', ':Neotree position=current reveal=true <CR>', { desc = '[O]pen explorer window' })
-map('n', '<leader>e', ':Neotree reveal=true position=right <CR>', { desc = 'Explorer to side' })
 map('n', '<leader>ce', ':Neotree close <CR>', { desc = '[C]lose [E]xplorer' })
 
 -- undotree
@@ -129,3 +130,4 @@ map('n', '<C-c>', function()
 end, { desc = 'clear' })
 
 map('n', '<leader>fml', '<cmd>CellularAutomaton make_it_rain<CR>', { desc = 'fml' })
+map('n', '<leader>e', ':silent !tmux neww -c ~/.config/nvim <CR>', { desc = 'edit config files' })
