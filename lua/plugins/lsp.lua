@@ -47,6 +47,7 @@ return {
             marksman = {},
             r_language_server = {},
             texlab = {},
+            rust_analyzer = {},
         }
 
         -- Setup neovim lua configuration
