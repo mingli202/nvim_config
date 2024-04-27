@@ -3,7 +3,6 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-
     {
         'nvim-tree/nvim-web-devicons',
         opts = {},
@@ -76,15 +75,6 @@ return {
             { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
         },
         lazy = false,
-    },
-
-    {
-        'Exafunction/codeium.nvim',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'hrsh7th/nvim-cmp',
-        },
-        opts = {},
     },
 
     {
