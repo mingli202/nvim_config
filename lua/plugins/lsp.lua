@@ -46,6 +46,7 @@ return {
             cssls = {},
             marksman = {},
             r_language_server = {},
+            texlab = {},
         }
 
         -- Setup neovim lua configuration
