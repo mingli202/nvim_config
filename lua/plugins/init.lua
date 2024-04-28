@@ -34,29 +34,14 @@ return {
     },
 
     {
-        'chentoast/marks.nvim',
-        opts = {
-            force_write_shada = true,
-        },
-    },
-
-    {
         'lukas-reineke/indent-blankline.nvim',
         main = 'ibl',
         opts = {},
     },
 
-    'mbbill/undotree',
-
     'easymotion/vim-easymotion',
 
     { 'nvim-treesitter/nvim-treesitter-context', opts = { max_lines = 5 } },
-
-    {
-        'kevinhwang91/nvim-ufo',
-        dependencies = { 'kevinhwang91/promise-async' },
-        opts = {},
-    },
 
     {
         'christoomey/vim-tmux-navigator',
@@ -78,18 +63,6 @@ return {
     },
 
     {
-        'Wansmer/treesj',
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        opts = { use_default_keymaps = false },
-    },
-
-    {
-        'folke/trouble.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {},
-    },
-
-    {
         'folke/todo-comments.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {
@@ -101,5 +74,6 @@ return {
 
     {
         'Eandrju/cellular-automaton.nvim',
+        event = 'VeryLazy',
     },
 }

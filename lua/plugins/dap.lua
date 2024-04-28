@@ -3,9 +3,16 @@ return {
     dependencies = {
         { 'rcarriga/nvim-dap-ui', dependencies = { 'nvim-neotest/nvim-nio' } },
     },
+    event = 'VeryLazy',
     config = function()
         local dap = require 'dap'
         local dapui = require 'dapui'
+        local map = require('util').map
+
+        map('n', '<F4>', dap.restart, { desc = 'debug: restart adapter' })
+        map('n', '<F5>', dap.continue, { desc = 'debug: start/continue' })
+        map('n', '<F6>', dap.terminate, { desc = 'debug: terminate' })
+        map('n', '<leader>b', dap.toggle_breakpoint, { desc = 'toggle [B]reakpoint' })
 
         dap.listeners.after['event_initialized']['myConfig'] = function()
             dapui.open()

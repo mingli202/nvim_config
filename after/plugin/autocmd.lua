@@ -61,9 +61,3 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     desc = 'load folds',
     command = 'silent! loadview',
 })
-
--- lspAttach
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
-    callback = require('util').on_attach,
-})

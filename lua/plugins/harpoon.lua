@@ -24,7 +24,21 @@ return {
         tabline_prefix = '   ',
         tabline_suffix = '   ',
     },
-    config = function()
+    config = function(_, opts)
+        require('harpoon').setup(opts)
         require('telescope').load_extension 'harpoon'
+
+        local map = require('util').map
+
+        map('n', '<leader>ht', require('harpoon.mark').toggle_file, { desc = '[H]arpoon [T]oogle' })
+        map('n', '<leader>hc', require('harpoon.mark').clear_all, { desc = '[H]arpoon [C]lear all' })
+        map('n', '<leader>fh', ':Telescope harpoon marks <CR>', { desc = '[F]ind [H]arpoon' })
+        map('n', '<leader>hl', require('harpoon.ui').toggle_quick_menu, { desc = '[H]arpoon [L]ist' })
+        map('n', '[h', require('harpoon.ui').nav_prev, { desc = 'previous harpoon' })
+        map('n', ']h', require('harpoon.ui').nav_next, { desc = 'next harpoon' })
+        map('n', '<leader>h', function()
+            local char = vim.fn.getchar() - 48
+            require('harpoon.ui').nav_file(char)
+        end, { desc = '[H]arpoon [N]av' })
     end,
 }

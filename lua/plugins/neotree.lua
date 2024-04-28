@@ -17,5 +17,10 @@ return {
             },
             close_if_last_window = true,
         }
+
+        -- neotree
+        local map = require('util').map
+        map('n', '<leader>o', ':Neotree position=current reveal=true <CR>', { desc = '[O]pen explorer window' })
+        map('n', '<leader>ce', ':Neotree close <CR>', { desc = '[C]lose [E]xplorer' })
     end,
 }
