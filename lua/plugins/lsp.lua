@@ -84,7 +84,6 @@ return {
                 }
             end,
             ['clangd'] = function()
-                local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
                 local c = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
                 c.offsetEncoding = 'utf-8'
                 c.textDocument.foldingRange = {
@@ -111,11 +110,9 @@ return {
                                     -- "${3rd}/luv/library"
                                     -- "${3rd}/busted/library",
                                 },
-                                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                                -- library = vim.api.nvim_get_runtime_file("", true)
                             },
                             telemetry = { enable = false },
-                            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+                            -- toggle below to ignore Lua_LS's noisy `missing-fields` warnings
                             diagnostics = { disable = { 'missing-fields' }, globals = { 'vim' } },
                             runtime = {
                                 -- Tell the language server which version of Lua you're using
@@ -170,23 +167,8 @@ return {
             end,
         }
 
-        -- lspAttach
-
-        -- [[ Configure LSP ]]
-        --  This function gets run when an LSP connects to a particular buffer.
-        -- NOTE: Remember that lua is a real programming language, and as such it is possible
-        -- to define small helper and utility functions so you don't have to repeat yourself
-        -- many times.
-        -- In this case, we create a function that lets us more easily define mappings specific
-        -- for LSP related items. It sets the mode, buffer and description for us each time.
-        local formatters = {
-            ['null-ls'] = true,
-            r_language_server = true,
-        }
-
         local trouble = require 'trouble'
         local telescope = require 'telescope.builtin'
-        local contains = require('util').contains
 
         local on_attach = function(args)
             local nmap = function(keys, func, desc)
@@ -226,66 +208,6 @@ return {
             nmap('<leader>wl', function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end, '[W]orkspace [L]ist Folders')
-
-            -- autoformat for null-ls
-            -- all my formatters come from null_ls
-            -- so make null_ls the primary source of formatting
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if client.supports_method 'textDocument/formatting' then
-                local aug = vim.api.nvim_create_augroup('LspFormatting', { clear = true })
-                vim.api.nvim_create_autocmd('BufWritePre', {
-                    group = aug,
-                    callback = function()
-                        vim.lsp.buf.format {
-                            -- format only from null_ls or any other exceptions
-                            filter = function(cl)
-                                return formatters[cl.name]
-                            end,
-                            buffer = args.buf, -- format current buffer
-                        }
-                    end,
-                })
-            end
-
-            -- -- have to check if eslint_d and prettierd are running
-            -- -- because they are separate binaries that have to be shut down manually
-            -- -- they will run when the filetype matches their configured filetypes
-            local ft = vim.bo.filetype
-            local eslint_d = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' }
-            local prettierd = {
-                'javascript',
-                'javascriptreact',
-                'typescript',
-                'typescriptreact',
-                'vue',
-                'css',
-                'scss',
-                'less',
-                'html',
-                'json',
-                'jsonc',
-                'yaml',
-                'markdown',
-                'markdown.mdx',
-                'graphql',
-                'handlebars',
-            }
-
-            if contains(eslint_d, ft) then
-                local gr = vim.api.nvim_create_augroup('EslintQuit', { clear = true })
-                vim.api.nvim_create_autocmd('VimLeave', {
-                    group = gr,
-                    command = '!eslint_d stop',
-                })
-            end
-
-            if contains(prettierd, ft) then
-                local gr = vim.api.nvim_create_augroup('PrettierQuit', { clear = true })
-                vim.api.nvim_create_autocmd('VimLeave', {
-                    group = gr,
-                    command = '!prettierd stop',
-                })
-            end
         end
 
         vim.api.nvim_create_autocmd('LspAttach', {

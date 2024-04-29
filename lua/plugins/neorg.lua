@@ -1,10 +1,12 @@
 return {
     'nvim-neorg/neorg',
-    dependencies = { {
-        'vhyrro/luarocks.nvim',
-        priority = 1000,
-        config = true,
-    } },
+    dependencies = {
+        {
+            'vhyrro/luarocks.nvim',
+            priority = 1000,
+            config = true,
+        },
+    },
     -- tag = "*",
     lazy = true, -- enable lazy load
     ft = 'norg', -- lazy load on file type
@@ -26,6 +28,15 @@ return {
                     engine = 'nvim-cmp',
                 },
             },
+            ['core.export'] = {
+                config = {
+                    render_on_enter = true,
+                },
+            },
+            ['core.integrations.treesitter'] = {},
         },
     },
+    config = function(_, opts)
+        require('neorg').setup(opts)
+    end,
 }

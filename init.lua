@@ -1,6 +1,6 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+-- Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -23,7 +23,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure plugins ]]
--- NOTE: Here is where you install your plugins.
+--  Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
 --
 --  You can also configure plugins after the setup call,
@@ -32,13 +32,12 @@ require('lazy').setup('plugins', {
     change_detection = {
         -- automatically check for config file changes and reload the ui
         enabled = true,
-        notify = false, -- get a notification when changes are found
+        notify = false, -- disable notification when changes are found
     },
 })
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 
 -- catppuccin, ondark, tokyonight
 -- vim.cmd.colorscheme 'onedark'
@@ -93,7 +92,7 @@ vim.opt.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
+-- Make sure your terminal supports this
 vim.opt.termguicolors = true
 
 -- for folding stuff

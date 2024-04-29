@@ -41,8 +41,6 @@ return {
 
     'easymotion/vim-easymotion',
 
-    { 'nvim-treesitter/nvim-treesitter-context', opts = { max_lines = 5 } },
-
     {
         'christoomey/vim-tmux-navigator',
         cmd = {
