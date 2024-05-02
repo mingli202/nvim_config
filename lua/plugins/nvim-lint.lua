@@ -12,7 +12,7 @@ return {
             typescriptreact = { 'eslint_d' },
         }
 
-        vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {
             -- group = vim.api.nvim_create_augroup('Linter', { clear = true }),
             callback = function()
                 -- try_lint without arguments runs the linters defined in `linters_by_ft`

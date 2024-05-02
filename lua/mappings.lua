@@ -30,10 +30,10 @@ map('v', '<C-j>', "y:'<<CR>Pgv", { desc = 'copy down' })
 map('n', '<leader>n', '#*viwne', { desc = 'go to next occurence of word' })
 map('v', 'n', 'ne', { desc = 'go to next occurence of word' })
 
-map('n', 'yie', "ggyG''zz", { desc = 'yank everything' })
-map('n', 'die', 'ggdG', { desc = 'delete everything' })
-map('n', 'cie', 'ggcG', { desc = 'change everything' })
-map('n', 'vie', 'gg0vG$', { desc = 'select everything' })
+map('n', 'yE', "ggyG''zz", { desc = 'yank everything' })
+map('n', 'dE', 'ggdG', { desc = 'delete everything' })
+map('n', 'cE', 'ggcG', { desc = 'change everything' })
+map('n', 'vE', 'gg0vG$', { desc = 'select everything' })
 
 -- window
 map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
