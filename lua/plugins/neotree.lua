@@ -7,6 +7,9 @@ return {
         'MunifTanjim/nui.nvim',
         -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
+    keys = {
+        { '<leader>o', ':Neotree position=current reveal=true <CR>', desc = '[O]pen explorer window', noremap = true, silent = true },
+    },
     config = function()
         require('neo-tree').setup {
             window = {
@@ -14,13 +17,13 @@ return {
                     ['h'] = 'close_node',
                     ['l'] = 'open',
                 },
+                position = 'current',
             },
             close_if_last_window = true,
         }
 
         -- neotree
         local map = require('util').map
-        map('n', '<leader>o', ':Neotree position=current reveal=true <CR>', { desc = '[O]pen explorer window' })
         map('n', '<leader>ce', ':Neotree close <CR>', { desc = '[C]lose [E]xplorer' })
     end,
 }
