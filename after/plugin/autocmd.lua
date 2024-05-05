@@ -80,6 +80,7 @@ vim.api.nvim_create_autocmd('FileType', {
             'scss',
             'less',
             'html',
+            'markdown',
         }
 
         local contains = require('util').contains

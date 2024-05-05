@@ -36,7 +36,11 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         main = 'ibl',
-        opts = {},
+        opts = {
+            exclude = {
+                filetypes = { 'dashboard' },
+            },
+        },
     },
 
     'easymotion/vim-easymotion',
@@ -73,5 +77,18 @@ return {
     {
         'Eandrju/cellular-automaton.nvim',
         event = 'VeryLazy',
+    },
+
+    {
+        'nvimdev/dashboard-nvim',
+        event = 'VimEnter',
+        opts = {
+            config = {
+                week_header = {
+                    enable = true,
+                },
+            },
+        },
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } },
     },
 }
