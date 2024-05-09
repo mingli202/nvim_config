@@ -6,7 +6,7 @@ return {
             options = {
                 separator_style = { '', '' },
                 indicator = {
-                    style = 'none',
+                    style = 'underline',
                 },
                 show_buffer_icons = false, -- disable filetype icons for buffers
                 show_buffer_close_icons = false,
