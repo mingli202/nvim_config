@@ -24,6 +24,8 @@ return {
                 c = { 'clang-format' },
                 cpp = { 'clang-format' },
                 arduino = { 'clang-format' },
+
+                rust = { 'rustfmt' },
             },
 
             format_on_save = {
