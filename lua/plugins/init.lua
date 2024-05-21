@@ -17,11 +17,6 @@ return {
     'tpope/vim-sleuth',
 
     {
-        'numToStr/Comment.nvim',
-        opts = {},
-    },
-
-    {
         'windwp/nvim-autopairs',
         event = 'InsertEnter',
         opts = {},
@@ -77,18 +72,5 @@ return {
     {
         'Eandrju/cellular-automaton.nvim',
         event = 'VeryLazy',
-    },
-
-    {
-        'nvimdev/dashboard-nvim',
-        event = 'VimEnter',
-        opts = {
-            config = {
-                week_header = {
-                    enable = true,
-                },
-            },
-        },
-        dependencies = { { 'nvim-tree/nvim-web-devicons' } },
     },
 }

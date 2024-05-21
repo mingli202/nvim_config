@@ -4,12 +4,15 @@ return {
         local bufferline = require 'bufferline'
         bufferline.setup {
             options = {
-                separator_style = { '', '' },
+                separator_style = 'thick',
                 indicator = {
-                    style = 'underline',
+                    icon = '|',
+                    style = 'icon',
                 },
                 show_buffer_icons = false, -- disable filetype icons for buffers
                 show_buffer_close_icons = false,
+                themable = true,
+                diagnostics = 'nvim_lsp',
             },
         }
     end,

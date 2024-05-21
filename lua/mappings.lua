@@ -47,11 +47,6 @@ map({ 'n', 'v' }, '<Space>', '<Nop>')
 map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
--- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = 'go to previous diagnostic message' })
-map('n', ']d', vim.diagnostic.goto_next, { desc = 'go to next diagnostic message' })
-map('n', '<leader>d', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
-
 -- other
 map('n', '<C-n>', require('util').run, { desc = 'run current file in new pane' })
 map('n', '<C-c>', function()

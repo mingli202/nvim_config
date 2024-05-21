@@ -7,6 +7,7 @@ return {
         -- Automatically install LSPs to stdpath for neovim
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
 
         -- Useful status updates for LSP
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})
@@ -48,6 +49,11 @@ return {
             r_language_server = {},
             texlab = {},
             rust_analyzer = {},
+            omnisharp = {},
+            clangd = {},
+            lua_ls = {},
+            tailwindcss = {},
+            pylsp = {},
         }
 
         -- Setup neovim lua configuration
@@ -61,11 +67,15 @@ return {
             lineFoldingOnly = true,
         }
 
-        -- Ensure the servers above are installed
         local mason_lspconfig = require 'mason-lspconfig'
 
-        mason_lspconfig.setup {
-            ensure_installed = vim.tbl_keys(servers),
+        -- Ensure the servers above are installed
+        --
+        local ensure_installed = vim.tbl_keys(servers or {})
+        vim.list_extend(ensure_installed, { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell' })
+
+        require('mason-tool-installer').setup {
+            ensure_installed = ensure_installed,
         }
 
         mason_lspconfig.setup_handlers {
@@ -199,7 +209,7 @@ return {
             nmap('<leader>fi', telescope.lsp_implementations, '[F]ind [I]mplementations')
 
             -- See `:help K` for why this keymap
-            nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+            -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
             -- Lesser used LSP functionality
             nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
