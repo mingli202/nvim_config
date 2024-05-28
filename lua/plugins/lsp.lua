@@ -23,7 +23,7 @@ return {
         },
 
         -- Additional lua configuration, makes nvim stuff amazing!
-        'folke/neodev.nvim',
+        -- { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
         -- mason-lspconfig requires that these setup functions are called in this order
@@ -45,7 +45,6 @@ return {
             tsserver = {},
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             cssls = {},
-            marksman = {},
             r_language_server = {},
             texlab = {},
             rust_analyzer = {},
@@ -55,9 +54,6 @@ return {
             tailwindcss = {},
             pylsp = {},
         }
-
-        -- Setup neovim lua configuration
-        require('neodev').setup()
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
         local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
@@ -88,11 +84,6 @@ return {
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
             end,
-            ['omnisharp'] = function()
-                lspconfig.omnisharp.setup {
-                    capabilities = capabilities,
-                }
-            end,
             ['clangd'] = function()
                 local c = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
                 c.offsetEncoding = 'utf-8'
@@ -113,27 +104,25 @@ return {
                     capabilities = capabilities,
                     settings = {
                         Lua = {
-                            workspace = {
-                                checkThirdParty = false,
-                                library = {
-                                    vim.env.VIMRUNTIME,
-                                    -- "${3rd}/luv/library"
-                                    -- "${3rd}/busted/library",
-                                },
-                            },
-                            telemetry = { enable = false },
-                            -- toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                            diagnostics = { disable = { 'missing-fields' }, globals = { 'vim' } },
                             runtime = {
                                 -- Tell the language server which version of Lua you're using
                                 -- (most likely LuaJIT in the case of Neovim)
                                 version = 'LuaJIT',
                             },
+                            -- Make the server aware of Neovim runtime files
+                            workspace = {
+                                checkThirdParty = false,
+                                library = {
+                                    vim.env.VIMRUNTIME,
+                                    -- Depending on the usage, you might want to add additional paths here.
+                                    -- "${3rd}/luv/library"
+                                    -- "${3rd}/busted/library",
+                                },
+                                -- or pull in all of 'runtimepath'. this is a lot slower
+                                -- library = vim.api.nvim_get_runtime_file("", true)
+                            },
                         },
                     },
-                    root_dir = function()
-                        return vim.fn.getcwd()
-                    end,
                 }
             end,
             ['tailwindcss'] = function()
@@ -207,9 +196,6 @@ return {
 
             nmap('<leader>fr', telescope.lsp_references, '[F]ind [R]eferences')
             nmap('<leader>fi', telescope.lsp_implementations, '[F]ind [I]mplementations')
-
-            -- See `:help K` for why this keymap
-            -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
             -- Lesser used LSP functionality
             nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')

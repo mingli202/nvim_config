@@ -54,4 +54,4 @@ map('n', '<C-c>', function()
 end, { desc = 'clear' })
 
 map('n', '<leader>fml', '<cmd>CellularAutomaton make_it_rain<CR>', { desc = 'fml' })
-map('n', '<leader>e', ':silent !tmux neww -c ~/.config/nvim <CR>', { desc = 'edit config files' })
+map('n', '<leader>e', ':silent !tmux neww "nvim ~/.config/nvim/init.lua" <CR>', { desc = 'edit config files' })

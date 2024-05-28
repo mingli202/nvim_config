@@ -32,7 +32,7 @@ return {
                 end,
             },
             completion = {
-                completeopt = 'menu,menuone,noinsert,noselect',
+                completeopt = 'menu,menuone,noselect',
             },
             window = {
                 completion = {
@@ -55,6 +55,8 @@ return {
                         return vim_item
                     end,
                 },
+                fields = { 'abbr', 'kind', 'menu' },
+                expandable_indicator = true,
             },
             mapping = cmp.mapping.preset.insert {
                 ['<C-n>'] = cmp.mapping.select_next_item(),

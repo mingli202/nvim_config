@@ -10,12 +10,11 @@ return {
                 typescript = { 'prettierd' },
                 javascriptreact = { 'prettierd' },
                 typescriptreact = { 'prettierd' },
-                markdown = { 'prettierd' },
-                html = { 'prettierd' },
+                vue = { 'prettierd' },
                 css = { 'prettierd' },
                 scss = { 'prettierd' },
                 less = { 'prettierd' },
-                vue = { 'prettierd' },
+                html = { 'prettierd' },
 
                 json = { 'jq' },
 

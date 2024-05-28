@@ -30,11 +30,12 @@ return {
             'norg',
             'r',
             'json',
-            'fugitive',
+            'toml',
+            'yaml',
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-        auto_install = true,
+        auto_install = false,
         -- Install languages synchronously (only applied to `ensure_installed`)
         sync_install = false,
         -- List of parsers to ignore installing
