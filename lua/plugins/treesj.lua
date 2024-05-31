@@ -1,7 +1,6 @@
 return {
     'Wansmer/treesj',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    event = 'InsertEnter',
     opts = { use_default_keymaps = false },
     config = function(_, opts)
         local map = require('util').map

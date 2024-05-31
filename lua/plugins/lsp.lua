@@ -23,7 +23,7 @@ return {
         },
 
         -- Additional lua configuration, makes nvim stuff amazing!
-        -- { 'folke/neodev.nvim', opts = {} },
+        { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
         -- mason-lspconfig requires that these setup functions are called in this order
