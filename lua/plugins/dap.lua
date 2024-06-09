@@ -80,6 +80,7 @@ return {
             type = 'executable',
             command = vim.fn.exepath 'debugpy-adapter',
         }
+
         dap.configurations.python = {
             {
                 -- The first three options are required by nvim-dap

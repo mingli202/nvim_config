@@ -15,8 +15,8 @@ map({ 'n', 'v' }, 'L', 'g$', { desc = 'move to end' })
 map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'move lines down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 
-map('n', '<Tab>', ':bnext <CR>', { desc = 'next buffer' })
-map('n', '<S-Tab>', ':bprev <CR>', { desc = 'previous buffer' })
+map('n', ']b', ':bnext <CR>', { desc = 'next buffer' })
+map('n', '[b', ':bprev <CR>', { desc = 'previous buffer' })
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 
@@ -54,4 +54,4 @@ map('n', '<C-c>', function()
 end, { desc = 'clear' })
 
 map('n', '<leader>fml', '<cmd>CellularAutomaton make_it_rain<CR>', { desc = 'fml' })
-map('n', '<leader>e', ':silent !tmux neww "nvim ~/.config/nvim/init.lua" <CR>', { desc = 'edit config files' })
+map('n', '<leader>e', ':silent !tmux neww -c ~/.config/nvim <CR>', { desc = 'edit config files' })

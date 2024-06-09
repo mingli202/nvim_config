@@ -42,7 +42,7 @@ return {
         --  define the property 'filetypes' to the map in question.
 
         local servers = {
-            tsserver = {},
+            -- tsserver = {},
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             cssls = {},
             r_language_server = {},
@@ -53,6 +53,7 @@ return {
             lua_ls = {},
             tailwindcss = {},
             pylsp = {},
+            vtsls = {},
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -68,7 +69,7 @@ return {
         -- Ensure the servers above are installed
         --
         local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell' })
+        vim.list_extend(ensure_installed, { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy' })
 
         require('mason-tool-installer').setup {
             ensure_installed = ensure_installed,
@@ -84,6 +85,7 @@ return {
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
             end,
+            ['tsserver'] = function() end,
             ['clangd'] = function()
                 local c = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
                 c.offsetEncoding = 'utf-8'
@@ -150,15 +152,6 @@ return {
             ['pylsp'] = function()
                 lspconfig.pylsp.setup {
                     capabilities = capabilities,
-                    settings = {
-                        pylsp = {
-                            plugins = {
-                                jedi = {
-                                    environment = '/opt/homebrew/bin/python3',
-                                },
-                            },
-                        },
-                    },
                     root_dir = function()
                         return vim.fn.getcwd()
                     end,

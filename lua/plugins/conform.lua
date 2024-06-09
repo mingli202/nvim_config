@@ -25,6 +25,8 @@ return {
                 arduino = { 'clang-format' },
 
                 rust = { 'rustfmt' },
+
+                python = { 'black' },
             },
 
             format_on_save = {
