@@ -27,6 +27,8 @@ return {
                 rust = { 'rustfmt' },
 
                 python = { 'black' },
+                sh = { 'shfmt' },
+                zsh = { 'shfmt' },
             },
 
             format_on_save = {

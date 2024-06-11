@@ -2,6 +2,7 @@ return {
     'mfussenegger/nvim-lint',
     config = function()
         local lint = require 'lint'
+
         lint.linters_by_ft = {
             -- markdown = { 'cspell' },
             norg = { 'cspell' },
@@ -10,6 +11,8 @@ return {
             typescript = { 'eslint_d' },
             javascriptreact = { 'eslint_d' },
             typescriptreact = { 'eslint_d' },
+
+            sh = { 'shellcheck' },
         }
 
         vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {

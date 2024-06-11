@@ -54,6 +54,8 @@ return {
             tailwindcss = {},
             pylsp = {},
             vtsls = {},
+            bashls = { filetypes = { 'sh', 'zsh' } },
+            grammarly = { filetypes = { 'norg' } },
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -69,7 +71,10 @@ return {
         -- Ensure the servers above are installed
         --
         local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy' })
+        vim.list_extend(
+            ensure_installed,
+            { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy', 'shfmt', 'shellcheck' }
+        )
 
         require('mason-tool-installer').setup {
             ensure_installed = ensure_installed,
