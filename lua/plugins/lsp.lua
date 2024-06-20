@@ -21,9 +21,6 @@ return {
                 },
             },
         },
-
-        -- Additional lua configuration, makes nvim stuff amazing!
-        { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
         -- mason-lspconfig requires that these setup functions are called in this order
@@ -42,7 +39,6 @@ return {
         --  define the property 'filetypes' to the map in question.
 
         local servers = {
-            -- tsserver = {},
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             cssls = {},
             r_language_server = {},
@@ -52,10 +48,11 @@ return {
             clangd = {},
             lua_ls = {},
             tailwindcss = {},
-            pylsp = {},
+            pyright = {},
             vtsls = {},
             bashls = { filetypes = { 'sh', 'zsh' } },
             grammarly = { filetypes = { 'norg' } },
+            ruff = {},
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -69,7 +66,6 @@ return {
         local mason_lspconfig = require 'mason-lspconfig'
 
         -- Ensure the servers above are installed
-        --
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(
             ensure_installed,
@@ -90,7 +86,6 @@ return {
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
             end,
-            ['tsserver'] = function() end,
             ['clangd'] = function()
                 local c = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
                 c.offsetEncoding = 'utf-8'
@@ -151,14 +146,6 @@ return {
                         local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
 
                         return root == vim.fn.getcwd() and root or nil
-                    end,
-                }
-            end,
-            ['pylsp'] = function()
-                lspconfig.pylsp.setup {
-                    capabilities = capabilities,
-                    root_dir = function()
-                        return vim.fn.getcwd()
                     end,
                 }
             end,

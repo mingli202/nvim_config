@@ -15,7 +15,6 @@ return {
 
         'onsails/lspkind.nvim',
     },
-    event = 'InsertEnter',
     config = function()
         -- [[ Configure nvim-cmp ]]
         -- See `:help cmp`
@@ -75,6 +74,10 @@ return {
                 { name = 'codeium' },
                 { name = 'buffer' },
                 { name = 'path' },
+                {
+                    name = 'lazydev',
+                    group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+                },
             },
         }
 

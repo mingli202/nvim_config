@@ -10,10 +10,7 @@ return {
                 typescript = { 'prettierd' },
                 javascriptreact = { 'prettierd' },
                 typescriptreact = { 'prettierd' },
-                vue = { 'prettierd' },
                 css = { 'prettierd' },
-                scss = { 'prettierd' },
-                less = { 'prettierd' },
                 html = { 'prettierd' },
 
                 json = { 'jq' },
@@ -26,14 +23,13 @@ return {
 
                 rust = { 'rustfmt' },
 
-                python = { 'black' },
                 sh = { 'shfmt' },
                 zsh = { 'shfmt' },
             },
 
             format_on_save = {
                 timeout_ms = 3000,
-                lsp_fallback = true, -- not recommended to change
+                lsp_format = 'fallback', -- not recommended to change
             },
         }
     end,

@@ -54,27 +54,38 @@ local run = function(custom)
     if custom ~= nil then
         command = custom
     elseif filetype == 'javascript' then -- js
-        command = string.format('/usr/bin/time node "%s"', fullPath)
+        command = string.format('node "%s"', fullPath)
     elseif filetype == 'typescript' then -- ts
         local jsFile = fullPath:gsub('.ts$', '.js', 1)
-        command = string.format('tsc "%s" && /usr/bin/time node "%s" && rm -rf "%s"', fullPath, jsFile, jsFile)
+        command = string.format('tsc "%s" && node "%s" && rm -rf "%s"', fullPath, jsFile, jsFile)
     elseif filetype == 'c' then -- c
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.c$', '', 1)
-        command = string.format('mkdir -p "%s/bin" && clang -std=c2x "%s" -o "%s" -g && /usr/bin/time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
+        command = string.format('mkdir -p "%s/bin" && clang -std=c2x "%s" -o "%s" -g && "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     elseif filetype == 'cpp' then -- cpp
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.cpp$', '', 1)
-        command =
-            string.format('mkdir -p "%s/bin" && clang++ -std=c++2b "%s" -o "%s" -g && /usr/bin/time "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
+        command = string.format('mkdir -p "%s/bin" && clang++ -std=c++2b "%s" -o "%s" -g && "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     elseif filetype == 'python' then -- py
-        command = string.format('/usr/bin/time python3 -u "%s"', fullPath)
+        local cwd = vim.fn.getcwd()
+        local py = '/opt/homebrew/bin/python3'
+
+        if vim.fn.filereadable(cwd .. 'main.py') then
+            fullPath = cwd .. '/main.py'
+        end
+
+        if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+            py = cwd .. '/venv/bin/python'
+        elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+            py = cwd .. '/.venv/bin/python'
+        end
+        command = string.format('"%s" -u "%s"', py, fullPath)
     elseif filetype == 'cs' then -- cs
-        command = string.format('/usr/bin/time dotnet run --project "%s"', vim.fn.expand '%:p:h')
+        command = string.format('dotnet run --project "%s"', vim.fn.expand '%:p:h')
     elseif filetype == 'lua' then -- lua
-        command = string.format('/usr/bin/time lua "%s"', fullPath)
+        command = string.format('lua "%s"', fullPath)
     elseif filetype == 'r' then -- r
-        command = string.format('/usr/bin/time Rscript "%s"', fullPath)
+        command = string.format('Rscript "%s"', fullPath)
     elseif filetype == 'rust' then -- rs
-        command = string.format '/usr/bin/time cargo run -q'
+        command = string.format 'cargo run -q'
     elseif filetype == 'sh' then -- bash
         command = fullPath
     else

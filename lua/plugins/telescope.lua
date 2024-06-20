@@ -22,7 +22,6 @@ return {
     },
 
     config = function()
-        local open_with_trouble = require('trouble.sources.telescope').open
         -- [[ Configure Telescope ]]
         -- See `:help telescope` and `:help telescope.setup()`
         require('telescope').setup {
@@ -31,11 +30,9 @@ return {
                     i = {
                         ['<C-u>'] = false,
                         ['<C-d>'] = false,
-                        ['<C-q>'] = open_with_trouble,
                     },
                     n = {
                         ['q'] = require('telescope.actions').close,
-                        ['<C-q>'] = open_with_trouble,
                     },
                 },
             },
