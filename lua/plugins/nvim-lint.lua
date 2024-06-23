@@ -13,6 +13,7 @@ return {
             typescriptreact = { 'eslint_d' },
 
             sh = { 'shellcheck' },
+            dockerfile = { 'hadolint' },
         }
 
         vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {

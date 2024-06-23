@@ -50,9 +50,10 @@ return {
             tailwindcss = {},
             pyright = {},
             vtsls = {},
-            bashls = { filetypes = { 'sh', 'zsh' } },
+            bashls = {},
             grammarly = { filetypes = { 'norg' } },
             ruff = {},
+            dockerls = {},
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -69,7 +70,7 @@ return {
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(
             ensure_installed,
-            { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy', 'shfmt', 'shellcheck' }
+            { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy', 'shfmt', 'shellcheck', 'hadolint' }
         )
 
         require('mason-tool-installer').setup {
@@ -79,9 +80,6 @@ return {
         mason_lspconfig.setup_handlers {
             function(server_name)
                 lspconfig[server_name].setup {
-                    root_dir = function()
-                        return vim.fn.getcwd()
-                    end,
                     capabilities = capabilities,
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
@@ -96,9 +94,6 @@ return {
                 lspconfig.clangd.setup {
                     filetypes = { 'c', 'cpp', 'arduino' },
                     capabilities = c,
-                    root_dir = function()
-                        return vim.fn.getcwd()
-                    end,
                 }
             end,
             ['lua_ls'] = function()
