@@ -18,7 +18,6 @@ return {
                 return vim.fn.executable 'make' == 1
             end,
         },
-        'folke/trouble.nvim',
     },
 
     config = function()

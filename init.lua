@@ -11,33 +11,21 @@ vim.loader.enable()
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    vim.fn.system {
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
-    }
+    local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+    vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
 end
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure plugins ]]
---  Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
-require('lazy').setup('plugins', {
+require('lazy').setup {
+    spec = {
+        { import = 'plugins' },
+    },
     change_detection = {
         -- automatically check for config file changes and reload the ui
         enabled = true,
         notify = false, -- disable notification when changes are found
     },
-})
-
--- [[ Setting options ]]
--- See `:help vim.o`
+}
 
 -- catppuccin, ondark, tokyonight
 -- vim.cmd.colorscheme 'onedark'
@@ -50,7 +38,8 @@ vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
 vim.opt.signcolumn = 'yes'
 
-vim.opt.wrap = false -- no wrap
+vim.opt.wrap = true
+vim.wo.linebreak = true
 
 vim.opt.swapfile = false
 

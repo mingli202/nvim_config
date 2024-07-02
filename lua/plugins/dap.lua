@@ -34,15 +34,18 @@ return {
         dap.listeners.before['event_terminated']['myConfig'] = onClose
 
         -- c/cpp
-        dap.adapters.lldb = {
-            type = 'executable',
-            command = '/opt/homebrew/opt/llvm/bin/lldb-vscode', -- adjust as needed, must be absolute path
-            name = 'lldb',
+        dap.adapters.codelldb = {
+            type = 'server',
+            port = '${port}',
+            executable = {
+                command = vim.fn.exepath 'codelldb',
+                args = { '--port', '${port}' },
+            },
         }
         dap.configurations.cpp = {
             {
                 name = 'Launch',
-                type = 'lldb',
+                type = 'codelldb',
                 request = 'launch',
                 program = function()
                     require('util').build()
@@ -51,8 +54,6 @@ return {
                 end,
                 cwd = '${workspaceFolder}',
                 stopOnEntry = false,
-                args = {},
-                runInTerminal = true,
             },
         }
         dap.configurations.c = dap.configurations.cpp
@@ -60,7 +61,7 @@ return {
         dap.configurations.rust = {
             {
                 name = 'Launch',
-                type = 'lldb',
+                type = 'codelldb',
                 request = 'launch',
                 program = function()
                     vim.cmd '!cargo build'
@@ -70,8 +71,6 @@ return {
                 end,
                 cwd = '${workspaceFolder}',
                 stopOnEntry = false,
-                args = {},
-                runInTerminal = true,
             },
         }
 

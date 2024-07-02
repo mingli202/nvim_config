@@ -70,7 +70,7 @@ return {
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(
             ensure_installed,
-            { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy', 'shfmt', 'shellcheck', 'hadolint' }
+            { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy', 'shfmt', 'shellcheck', 'hadolint', 'codelldb' }
         )
 
         require('mason-tool-installer').setup {

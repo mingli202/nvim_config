@@ -34,15 +34,8 @@ end
 ---@param cmd string | function
 ---@param opts table | nil
 local map = function(mode, key, cmd, opts)
-    local t1 = { noremap = true, silent = true }
-
-    if opts ~= nil then
-        for k, v in pairs(opts) do
-            t1[k] = v
-        end
-    end
-
-    vim.keymap.set(mode, key, cmd, t1)
+    local default = { noremap = true, silent = true }
+    vim.keymap.set(mode, key, cmd, vim.tbl_extend('force', default, opts or {}))
 end
 
 -- code runner
@@ -68,15 +61,12 @@ local run = function(custom)
         local cwd = vim.fn.getcwd()
         local py = '/opt/homebrew/bin/python3'
 
-        if vim.fn.filereadable(cwd .. 'main.py') then
-            fullPath = cwd .. '/main.py'
-        end
-
         if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
             py = cwd .. '/venv/bin/python'
         elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
             py = cwd .. '/.venv/bin/python'
         end
+
         command = string.format('"%s" -u "%s"', py, fullPath)
     elseif filetype == 'cs' then -- cs
         command = string.format('dotnet run --project "%s"', vim.fn.expand '%:p:h')
