@@ -14,6 +14,8 @@ return {
 
             sh = { 'shellcheck' },
             dockerfile = { 'hadolint' },
+
+            python = { 'mypy' },
         }
 
         vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {

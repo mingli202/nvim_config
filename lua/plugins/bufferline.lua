@@ -14,8 +14,11 @@ return {
                 themable = true,
                 diagnostics = 'nvim_lsp',
             },
+            -- highlights = require('catppuccin.groups.integrations.bufferline').get(),
         }
     end,
     version = '*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = {
+        'nvim-tree/nvim-web-devicons', --[[ 'catppuccin' --]]
+    },
 }

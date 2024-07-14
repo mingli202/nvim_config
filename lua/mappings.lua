@@ -53,7 +53,7 @@ map('n', '<C-c>', function()
     require('util').run 'clear'
 end, { desc = 'clear' })
 
-map('n', '<C-N>', function()
+map('n', '<leader><C-n>', function()
     require('util').run 'make'
 end, { desc = 'make' })
 

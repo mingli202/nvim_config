@@ -70,8 +70,8 @@ return {
             sources = {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
-                { name = 'neorg' },
-                { name = 'codeium' },
+                -- { name = 'neorg' },
+                -- { name = 'codeium' },
                 { name = 'buffer' },
                 { name = 'path' },
                 {

@@ -41,10 +41,9 @@ return {
         local servers = {
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             cssls = {},
-            r_language_server = {},
-            texlab = {},
-            rust_analyzer = {},
-            omnisharp = {},
+            -- r_language_server = {},
+            -- texlab = {},
+            -- omnisharp = {},
             clangd = {},
             lua_ls = {},
             tailwindcss = {},
@@ -57,8 +56,8 @@ return {
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-        local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
-        local capabilities = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
+        local defaultcapabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = vim.tbl_deep_extend('force', defaultcapabilities, require('cmp_nvim_lsp').default_capabilities())
         capabilities.textDocument.foldingRange = {
             dynamicRegistration = false,
             lineFoldingOnly = true,
@@ -68,10 +67,21 @@ return {
 
         -- Ensure the servers above are installed
         local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(
-            ensure_installed,
-            { 'stylua', 'csharpier', 'jq', 'prettierd', 'eslint_d', 'cspell', 'js-debug-adapter', 'debugpy', 'shfmt', 'shellcheck', 'hadolint', 'codelldb' }
-        )
+        vim.list_extend(ensure_installed, {
+            'stylua',
+            -- 'csharpier',
+            'jq',
+            'prettierd',
+            'eslint_d',
+            'cspell',
+            'js-debug-adapter',
+            'debugpy',
+            'shfmt',
+            'shellcheck',
+            'hadolint',
+            'codelldb',
+            'mypy',
+        })
 
         require('mason-tool-installer').setup {
             ensure_installed = ensure_installed,
@@ -144,6 +154,32 @@ return {
                     end,
                 }
             end,
+            ['rust_analyzer'] = function()
+                lspconfig.rust_analyzer.setup {
+                    capabilities = capabilities,
+                    settings = {
+                        ['rust-analyzer'] = {
+                            check = {
+                                command = 'clippy',
+                            },
+                            imports = {
+                                granularity = {
+                                    group = 'module',
+                                },
+                                prefix = 'self',
+                            },
+                            cargo = {
+                                buildScripts = {
+                                    enable = true,
+                                },
+                            },
+                            procMacro = {
+                                enable = true,
+                            },
+                        },
+                    },
+                }
+            end,
         }
 
         local trouble = require 'trouble'
@@ -177,13 +213,20 @@ return {
             nmap('<leader>fr', telescope.lsp_references, '[F]ind [R]eferences')
             nmap('<leader>fi', telescope.lsp_implementations, '[F]ind [I]mplementations')
 
-            -- Lesser used LSP functionality
             nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
             nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
             nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
             nmap('<leader>wl', function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end, '[W]orkspace [L]ist Folders')
+
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+            if client and client.server_capabilities.inlayHintProvider then
+                nmap('<leader>ih', function()
+                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+                end, '[I]nlay [H]ints')
+            end
         end
 
         vim.api.nvim_create_autocmd('LspAttach', {
