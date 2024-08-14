@@ -29,7 +29,7 @@ require('lazy').setup {
 
 -- catppuccin, ondark, tokyonight
 -- vim.cmd.colorscheme 'onedark'
---vim.cmd.colorscheme 'catppuccin'
+-- vim.cmd.colorscheme 'catppuccin'
 vim.cmd.colorscheme 'tokyonight'
 
 vim.opt.tabstop = 4 -- tab width 4
@@ -93,5 +93,16 @@ vim.opt.foldenable = true
 vim.opt.scrolloff = 6 -- how much lines to keep above/below cursor
 vim.opt.showmode = false
 vim.opt.cursorline = true -- ui that show the cursor line
+
+vim.opt.colorcolumn = '120'
+
+if vim.g.neovide then
+    -- Put anything you want to happen only in Neovide here
+
+    vim.o.guifont = 'SauceCodePro Nerd Font:h17'
+
+    vim.g.neovide_window_blurred = true
+    vim.g.neovide_transparency = 0.8
+end
 
 require 'mappings'

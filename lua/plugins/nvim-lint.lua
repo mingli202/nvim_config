@@ -3,6 +3,18 @@ return {
     config = function()
         local lint = require 'lint'
 
+        lint.linters.mypy.args = {
+            '--show-column-numbers',
+            '--show-error-end',
+            '--hide-error-codes',
+            '--hide-error-context',
+            '--no-color-output',
+            '--no-error-summary',
+            '--no-pretty',
+            '--ignore-missing-imports',
+            '--check-untyped-defs',
+        }
+
         lint.linters_by_ft = {
             -- markdown = { 'cspell' },
             norg = { 'cspell' },

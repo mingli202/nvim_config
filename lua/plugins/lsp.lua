@@ -44,20 +44,79 @@ return {
             -- r_language_server = {},
             -- texlab = {},
             -- omnisharp = {},
-            clangd = {},
-            lua_ls = {},
             tailwindcss = {},
-            pyright = {},
+            pyright = {
+                settings = {
+                    pyright = {
+                        -- Using Ruff's import organizer
+                        disableOrganizeImports = true,
+                    },
+                    -- python = {
+                    --     analysis = {
+                    --         -- Ignore all files for analysis to exclusively use Ruff for linting
+                    --         ignore = { '*' },
+                    --     },
+                    -- },
+                },
+            },
+            ruff = {},
             vtsls = {},
             bashls = {},
             grammarly = { filetypes = { 'norg' } },
-            ruff = {},
             dockerls = {},
+            rust_analyzer = {
+                settings = {
+                    ['rust-analyzer'] = {
+                        check = {
+                            command = 'clippy',
+                        },
+                        imports = {
+                            granularity = {
+                                group = 'module',
+                            },
+                            prefix = 'self',
+                        },
+                        cargo = {
+                            buildScripts = {
+                                enable = true,
+                            },
+                        },
+                        procMacro = {
+                            enable = true,
+                        },
+                    },
+                },
+            },
+            lua_ls = {
+                settings = {
+                    Lua = {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using
+                            -- (most likely LuaJIT in the case of Neovim)
+                            version = 'LuaJIT',
+                        },
+                        -- Make the server aware of Neovim runtime files
+                        workspace = {
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME,
+                                -- Depending on the usage, you might want to add additional paths here.
+                                -- "${3rd}/luv/library"
+                                -- "${3rd}/busted/library",
+                            },
+                            -- or pull in all of 'runtimepath'. this is a lot slower
+                            -- library = vim.api.nvim_get_runtime_file("", true)
+                        },
+                    },
+                },
+            },
+            yamlls = {},
+            sqls = {},
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-        local defaultcapabilities = vim.lsp.protocol.make_client_capabilities()
-        local capabilities = vim.tbl_deep_extend('force', defaultcapabilities, require('cmp_nvim_lsp').default_capabilities())
+        local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = vim.tbl_deep_extend('force', defaultCapabilities, require('cmp_nvim_lsp').default_capabilities())
         capabilities.textDocument.foldingRange = {
             dynamicRegistration = false,
             lineFoldingOnly = true,
@@ -81,6 +140,7 @@ return {
             'hadolint',
             'codelldb',
             'mypy',
+            'clang-format',
         })
 
         require('mason-tool-installer').setup {
@@ -92,44 +152,7 @@ return {
                 lspconfig[server_name].setup {
                     capabilities = capabilities,
                     filetypes = (servers[server_name] or {}).filetypes,
-                }
-            end,
-            ['clangd'] = function()
-                local c = require('cmp_nvim_lsp').default_capabilities(defaultCapabilities)
-                c.offsetEncoding = 'utf-8'
-                c.textDocument.foldingRange = {
-                    dynamicRegistration = false,
-                    lineFoldingOnly = true,
-                }
-                lspconfig.clangd.setup {
-                    filetypes = { 'c', 'cpp', 'arduino' },
-                    capabilities = c,
-                }
-            end,
-            ['lua_ls'] = function()
-                lspconfig.lua_ls.setup {
-                    capabilities = capabilities,
-                    settings = {
-                        Lua = {
-                            runtime = {
-                                -- Tell the language server which version of Lua you're using
-                                -- (most likely LuaJIT in the case of Neovim)
-                                version = 'LuaJIT',
-                            },
-                            -- Make the server aware of Neovim runtime files
-                            workspace = {
-                                checkThirdParty = false,
-                                library = {
-                                    vim.env.VIMRUNTIME,
-                                    -- Depending on the usage, you might want to add additional paths here.
-                                    -- "${3rd}/luv/library"
-                                    -- "${3rd}/busted/library",
-                                },
-                                -- or pull in all of 'runtimepath'. this is a lot slower
-                                -- library = vim.api.nvim_get_runtime_file("", true)
-                            },
-                        },
-                    },
+                    settings = (servers[server_name] or {}).settings,
                 }
             end,
             ['tailwindcss'] = function()
@@ -154,38 +177,33 @@ return {
                     end,
                 }
             end,
-            ['rust_analyzer'] = function()
-                lspconfig.rust_analyzer.setup {
-                    capabilities = capabilities,
-                    settings = {
-                        ['rust-analyzer'] = {
-                            check = {
-                                command = 'clippy',
-                            },
-                            imports = {
-                                granularity = {
-                                    group = 'module',
-                                },
-                                prefix = 'self',
-                            },
-                            cargo = {
-                                buildScripts = {
-                                    enable = true,
-                                },
-                            },
-                            procMacro = {
-                                enable = true,
-                            },
-                        },
+        }
+
+        lspconfig.ccls.setup {
+            init_options = {
+                cache = {
+                    directory = '.ccls-cache',
+                },
+                clang = {
+                    extraArgs = {
+                        '-I/usr/local/include',
+                        '-I/opt/homebrew/opt/llvm/bin/../include/c++/v1',
+                        '-I/opt/homebrew/Cellar/llvm/18.1.8/lib/clang/18/include',
                     },
-                }
-            end,
+                },
+            },
         }
 
         local trouble = require 'trouble'
         local telescope = require 'telescope.builtin'
 
         local on_attach = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            if client.name == 'ruff_lsp' then
+                -- Disable hover in favor of Pyright
+                client.server_capabilities.hoverProvider = false
+            end
+
             local nmap = function(keys, func, desc)
                 if desc then
                     desc = 'LSP: ' .. desc

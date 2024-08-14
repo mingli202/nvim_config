@@ -46,11 +46,8 @@ local run = function(custom)
 
     if custom ~= nil then
         command = custom
-    elseif filetype == 'javascript' then -- js
-        command = string.format('node "%s"', fullPath)
-    elseif filetype == 'typescript' then -- ts
-        local jsFile = fullPath:gsub('.ts$', '.js', 1)
-        command = string.format('tsc "%s" && node "%s" && rm -rf "%s"', fullPath, jsFile, jsFile)
+    elseif filetype == 'javascript' or filetype == 'typescript' then -- js
+        command = string.format('bun run "%s"', fullPath)
     elseif filetype == 'c' then -- c
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.c$', '', 1)
         command = string.format('mkdir -p "%s/bin" && clang -std=c2x "%s" -o "%s" -g && "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)

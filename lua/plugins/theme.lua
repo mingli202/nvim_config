@@ -5,9 +5,11 @@ return {
         priority = 1000,
         opts = {
             style = 'night',
-            transparent = true,
+            transparent = not vim.g.neovide,
+            cache = false,
         },
     },
+
     -- {
     --     'catppuccin/nvim',
     --     priority = 1000,
@@ -15,7 +17,7 @@ return {
     --     lazy = false,
     --     opts = {
     --         term_colors = true,
-    --         transparent_background = true,
+    --         transparent_background = false,
     --         integrations = {
     --             neotree = true,
     --             which_key = true,
@@ -25,6 +27,7 @@ return {
     --         },
     --     },
     -- },
+
     -- {
     --     'navarasu/onedark.nvim',
     --     priority = 1000,

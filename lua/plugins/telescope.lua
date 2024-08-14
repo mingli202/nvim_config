@@ -34,6 +34,7 @@ return {
                         ['q'] = require('telescope.actions').close,
                     },
                 },
+                borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
             },
         }
 
