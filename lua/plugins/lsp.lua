@@ -51,12 +51,6 @@ return {
                         -- Using Ruff's import organizer
                         disableOrganizeImports = true,
                     },
-                    -- python = {
-                    --     analysis = {
-                    --         -- Ignore all files for analysis to exclusively use Ruff for linting
-                    --         ignore = { '*' },
-                    --     },
-                    -- },
                 },
             },
             ruff = {},
@@ -192,6 +186,18 @@ return {
                     },
                 },
             },
+
+            root_dir = function(filename)
+                local root_files = {
+                    'compile_commands.json',
+                    '.ccls',
+                    '.git',
+                }
+
+                local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
+
+                return root == vim.fn.getcwd() and root or nil
+            end,
         }
 
         local trouble = require 'trouble'
@@ -237,8 +243,6 @@ return {
             nmap('<leader>wl', function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end, '[W]orkspace [L]ist Folders')
-
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
 
             if client and client.server_capabilities.inlayHintProvider then
                 nmap('<leader>ih', function()

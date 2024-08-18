@@ -17,8 +17,6 @@ map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 
 map('n', '<Tab>', ':bnext <CR>', { desc = 'next buffer' })
 map('n', '<S-Tab>', ':bprev <CR>', { desc = 'previous buffer' })
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
 
 -- text
 map({ 'n', 'v' }, '<leader>x', '"_x', { desc = 'delete without copy' })
