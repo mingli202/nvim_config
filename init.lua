@@ -102,7 +102,12 @@ if vim.g.neovide then
     vim.o.guifont = 'SauceCodePro Nerd Font:h17'
 
     vim.g.neovide_window_blurred = true
-    vim.g.neovide_transparency = 0.8
+    vim.g.neovide_transparency = 0.85
+
+    vim.g.neovide_padding_top = 5
+    vim.g.neovide_padding_bottom = 5
+    vim.g.neovide_padding_right = 5
+    vim.g.neovide_padding_left = 5
 end
 
 require 'mappings'
