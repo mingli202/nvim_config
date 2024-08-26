@@ -33,6 +33,9 @@ map('n', 'dE', 'ggdG', { desc = 'delete everything' })
 map('n', 'cE', 'ggcG', { desc = 'change everything' })
 map('n', 'vE', 'gg0vG$', { desc = 'select everything' })
 
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
+
 -- window
 map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
 map('n', '-', ':sp <CR>', { desc = 'horizontal split' })
