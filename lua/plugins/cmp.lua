@@ -13,6 +13,8 @@ return {
         'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-buffer',
 
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+
         'onsails/lspkind.nvim',
     },
     config = function()
@@ -24,7 +26,14 @@ return {
         luasnip.config.setup {}
 
         cmp.setup {
-            preselect = 'None',
+            view = {
+                entries = {
+                    name = 'custom',
+                    selection_order = 'top_down',
+                    follow_cursor = false,
+                },
+            },
+            -- preselect = 'None',
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -70,8 +79,7 @@ return {
             sources = {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
-                -- { name = 'neorg' },
-                -- { name = 'codeium' },
+                { name = 'nvim_lsp_signature_help' },
                 { name = 'buffer' },
                 { name = 'path' },
                 {
