@@ -54,6 +54,8 @@ return {
                 end,
                 cwd = '${workspaceFolder}',
                 stopOnEntry = false,
+                args = {},
+                console = 'integratedTerminal',
             },
         }
         dap.configurations.c = dap.configurations.cpp
@@ -71,6 +73,8 @@ return {
                 end,
                 cwd = '${workspaceFolder}',
                 stopOnEntry = false,
+                args = {},
+                console = 'integratedTerminal',
             },
         }
 
