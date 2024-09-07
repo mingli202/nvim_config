@@ -10,23 +10,60 @@ return {
         },
     },
 
-    -- {
-    --     'catppuccin/nvim',
-    --     priority = 1000,
-    --     name = 'catppuccin',
-    --     lazy = false,
-    --     opts = {
-    --         term_colors = true,
-    --         transparent_background = false,
-    --         integrations = {
-    --             neotree = true,
-    --             which_key = true,
-    --             ufo = true,
-    --             mason = true,
-    --             harpoon = true,
-    --         },
-    --     },
-    -- },
+    {
+        'catppuccin/nvim',
+        priority = 1000,
+        name = 'catppuccin',
+        lazy = false,
+        opts = {
+            term_colors = true,
+            transparent_background = true,
+            integrations = {
+                neotree = true,
+                which_key = true,
+                ufo = true,
+                mason = true,
+                harpoon = true,
+                dashboard = true,
+                fidget = true,
+                indent_blankline = true,
+                mini = {
+                    enabled = true,
+                    indentscope_color = '', -- catppuccin color (eg. `lavender`) Default: text
+                },
+                cmp = true,
+                dap = true,
+                dap_ui = true,
+                native_lsp = {
+                    enabled = true,
+                    virtual_text = {
+                        errors = { 'italic' },
+                        hints = { 'italic' },
+                        warnings = { 'italic' },
+                        information = { 'italic' },
+                        ok = { 'italic' },
+                    },
+                    underlines = {
+                        errors = { 'underline' },
+                        hints = { 'underline' },
+                        warnings = { 'underline' },
+                        information = { 'underline' },
+                        ok = { 'underline' },
+                    },
+                    inlay_hints = {
+                        background = true,
+                    },
+                },
+                treesitter_context = true,
+                treesitter = true,
+                lsp_trouble = true,
+                telescope = {
+                    enabled = true,
+                    -- style = "nvchad"
+                },
+            },
+        },
+    },
 
     -- {
     --     'navarasu/onedark.nvim',
