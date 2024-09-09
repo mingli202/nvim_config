@@ -187,16 +187,17 @@ return {
                 },
             },
 
-            root_dir = function(filename)
-                local root_files = {
-                    'compile_commands.json',
-                    '.ccls',
-                    '.git',
-                }
-
-                local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
-
-                return root == vim.fn.getcwd() and root or nil
+            root_dir = function()
+                -- local root_files = {
+                --     'compile_commands.json',
+                --     '.ccls',
+                --     '.git',
+                -- }
+                --
+                -- local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
+                --
+                -- return root == vim.fn.getcwd() and root or nil
+                return vim.fn.getcwd()
             end,
         }
 

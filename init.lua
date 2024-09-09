@@ -29,8 +29,9 @@ require('lazy').setup {
 
 -- catppuccin, ondark, tokyonight
 -- vim.cmd.colorscheme 'onedark'
-vim.cmd.colorscheme 'catppuccin'
+-- vim.cmd.colorscheme 'catppuccin'
 -- vim.cmd.colorscheme 'tokyonight'
+vim.cmd.colorscheme 'gruvbox-material'
 
 vim.opt.tabstop = 4 -- tab width 4
 vim.opt.softtabstop = 4
