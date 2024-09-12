@@ -100,7 +100,7 @@ vim.opt.colorcolumn = '120'
 if vim.g.neovide then
     -- Put anything you want to happen only in Neovide here
 
-    vim.o.guifont = 'SauceCodePro Nerd Font:h17'
+    vim.o.guifont = 'SauceCodePro Nerd Font:h12'
 
     vim.g.neovide_window_blurred = true
     vim.g.neovide_transparency = 0.85

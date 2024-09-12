@@ -15,6 +15,8 @@ return {
 
         'hrsh7th/cmp-nvim-lsp-signature-help',
 
+        'f3fora/cmp-spell',
+
         'onsails/lspkind.nvim',
     },
     config = function()
@@ -72,7 +74,7 @@ return {
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete {},
-                ['<CR>'] = cmp.mapping.confirm {
+                ['<C-y>'] = cmp.mapping.confirm {
                     select = false,
                 },
             },
@@ -81,6 +83,16 @@ return {
                 { name = 'luasnip' },
                 { name = 'nvim_lsp_signature_help' },
                 { name = 'buffer' },
+                {
+                    name = 'spell',
+                    option = {
+                        keep_all_entries = false,
+                        enable_in_context = function()
+                            return true
+                        end,
+                        preselect_correct_word = false,
+                    },
+                },
                 { name = 'path' },
                 {
                     name = 'lazydev',

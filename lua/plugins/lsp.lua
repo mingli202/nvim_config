@@ -56,7 +56,6 @@ return {
             ruff = {},
             vtsls = {},
             bashls = {},
-            grammarly = { filetypes = { 'norg' } },
             dockerls = {},
             rust_analyzer = {
                 settings = {

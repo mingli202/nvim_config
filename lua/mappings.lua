@@ -48,6 +48,15 @@ map({ 'n', 'v' }, '<Space>', '<Nop>')
 map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
+-- spelling
+map('n', '<leader>st', function()
+    if vim.o.spell then
+        vim.cmd 'set nospell'
+    else
+        vim.cmd 'setlocal spell spelllang=en_ca'
+    end
+end, { desc = 'toggle spelling' })
+
 -- other
 map('n', '<C-n>', require('util').run, { desc = 'run current file in new pane' })
 map('n', '<C-c>', function()
