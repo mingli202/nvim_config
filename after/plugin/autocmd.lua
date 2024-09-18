@@ -101,3 +101,13 @@ vim.api.nvim_create_autocmd('FileType', {
         end
     end,
 })
+
+-- enable spelling
+
+vim.api.nvim_create_user_command('SpellToggle', function()
+    if vim.o.spell then
+        vim.cmd 'set nospell'
+    else
+        vim.cmd 'setlocal spell spelllang=en_ca'
+    end
+end, { desc = 'toggle spelling' })

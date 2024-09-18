@@ -32,7 +32,7 @@ return {
                 entries = {
                     name = 'custom',
                     selection_order = 'top_down',
-                    follow_cursor = false,
+                    follow_cursor = true,
                 },
             },
             -- preselect = 'None',
