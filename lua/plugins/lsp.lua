@@ -105,6 +105,15 @@ return {
             },
             yamlls = {},
             sqls = {},
+            nil_ls = {
+                settings = {
+                    ['nil'] = {
+                        formatting = {
+                            command = { 'nixfmt' },
+                        },
+                    },
+                },
+            },
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

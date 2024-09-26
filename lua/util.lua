@@ -75,6 +75,8 @@ local run = function(custom)
         command = string.format 'cargo run -q'
     elseif filetype == 'sh' then -- bash
         command = fullPath
+    elseif filetype == 'nix' then
+        command = string.format('nix-instantiate --eval "%s"', fullPath)
     else
         vim.cmd.echo '"No runner configured!"'
         return

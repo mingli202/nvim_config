@@ -35,6 +35,7 @@ return {
             'css',
             'html',
             'dockerfile',
+            'nix',
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
