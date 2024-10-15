@@ -35,7 +35,6 @@ return {
                     follow_cursor = true,
                 },
             },
-            -- preselect = 'None',
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -74,7 +73,7 @@ return {
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete {},
-                ['<C-y>'] = cmp.mapping.confirm {
+                ['<C-e>'] = cmp.mapping.confirm {
                     select = false,
                 },
             },
