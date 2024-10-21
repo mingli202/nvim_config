@@ -55,13 +55,10 @@ local run = function(custom)
         local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.cpp$', '', 1)
         command = string.format('mkdir -p "%s/bin" && clang++ -std=c++2b "%s" -o "%s" -g && "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     elseif filetype == 'python' then -- py
-        local cwd = vim.fn.getcwd()
         local py = '/opt/homebrew/bin/python3'
 
-        if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-            py = cwd .. '/venv/bin/python'
-        elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-            py = cwd .. '/.venv/bin/python'
+        if vim.fn.executable 'python' == 1 then
+            py = vim.fn.exepath 'python'
         end
 
         command = string.format('"%s" -u "%s"', py, fullPath)
@@ -83,7 +80,7 @@ local run = function(custom)
     end
     -- check if tmux is attached
     -- if it's not then run command in a new terminal
-    if vim.fn.system('echo $TMUX'):len() == 1 then
+    if vim.fn.system('echo $TMUX'):len() == 1 or vim.g.neovide then
         vim.cmd.terminal(string.format('%s', command:gsub('[%%%#]', '\\%1')))
         return
     end
