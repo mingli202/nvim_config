@@ -59,6 +59,8 @@ local run = function(custom)
 
         if vim.fn.executable 'python' == 1 then
             py = vim.fn.exepath 'python'
+        elseif vim.fn.executable 'python3' == 1 then
+            py = vim.fn.exepath 'python3'
         end
 
         command = string.format('"%s" -u "%s"', py, fullPath)
