@@ -50,6 +50,10 @@ return {
                 program = function()
                     require('util').build()
 
+                    if vim.fn.getenv 'DEBUG_PATH' ~= vim.NIL then
+                        return vim.fn.getenv 'DEBUG_PATH'
+                    end
+
                     return '${fileDirname}/bin/${fileBasenameNoExtension}'
                 end,
                 cwd = '${workspaceFolder}',
@@ -66,7 +70,11 @@ return {
                 type = 'codelldb',
                 request = 'launch',
                 program = function()
-                    vim.cmd '!cargo build'
+                    vim.cmd '!cargo build -q'
+
+                    if vim.fn.getenv 'DEBUG_PATH' ~= vim.NIL then
+                        return vim.fn.getenv 'DEBUG_PATH'
+                    end
 
                     local bin = vim.fn.getcwd():gsub('.+/', '')
                     return string.format('${workspaceFolder}/target/debug/%s', bin)

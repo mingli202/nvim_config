@@ -103,7 +103,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- enable spelling
-
 vim.api.nvim_create_user_command('SpellToggle', function()
     if vim.o.spell then
         vim.cmd 'set nospell'
