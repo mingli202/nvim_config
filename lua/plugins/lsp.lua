@@ -210,14 +210,36 @@ return {
             end,
         }
 
+        lspconfig.dartls.setup {
+            cmd = { 'dart', 'language-server', '--protocol=lsp' },
+            filetypes = { 'dart' },
+            root_dir = function(filename)
+                return vim.fn.getcwd()
+            end,
+            init_options = {
+                onlyAnalyzeProjectsWithOpenFiles = true,
+                suggestFromUnimportedLibraries = true,
+                closingLabels = true,
+                outline = true,
+                flutterOutline = true,
+            },
+            settings = {
+                dart = {
+                    completeFunctionCalls = true,
+                    showTodos = true,
+                },
+            },
+        }
+
         local trouble = require 'trouble'
         local telescope = require 'telescope.builtin'
 
         local on_attach = function(args)
             local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if client.name == 'ruff_lsp' then
+            if client and client.name == 'ruff_lsp' then
                 -- Disable hover in favor of Pyright
                 client.server_capabilities.hoverProvider = false
+                -- client.server_capabilities.codeActionProvider = false
             end
 
             local nmap = function(keys, func, desc)

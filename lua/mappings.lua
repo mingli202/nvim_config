@@ -36,6 +36,9 @@ map('n', 'vE', 'gg0vG$', { desc = 'select everything' })
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 
+map('v', '>', '>gv')
+map('v', '<', '<gv')
+
 -- window
 map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
 map('n', '-', ':sp <CR>', { desc = 'horizontal split' })

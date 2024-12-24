@@ -44,7 +44,9 @@ local run = function(custom)
     local fullPath = vim.fn.expand '%:p'
     local command = ''
 
-    if custom ~= nil then
+    if vim.fn.getenv 'CMD' ~= vim.NIL then
+        command = vim.fn.getenv 'CMD'
+    elseif custom ~= nil then
         command = custom
     elseif filetype == 'javascript' or filetype == 'typescript' then -- js
         command = string.format('bun run "%s"', fullPath)
@@ -74,8 +76,10 @@ local run = function(custom)
         command = string.format 'cargo run -q'
     elseif filetype == 'sh' then -- bash
         command = fullPath
-    elseif filetype == 'nix' then
+    elseif filetype == 'nix' then -- nix
         command = string.format('nix-instantiate --eval "%s"', fullPath)
+    elseif filetype == 'dart' then
+        command = string.format('dart run %s', fullPath)
     else
         vim.cmd.echo '"No runner configured!"'
         return

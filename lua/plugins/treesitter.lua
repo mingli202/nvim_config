@@ -36,6 +36,7 @@ return {
             'html',
             'dockerfile',
             'nix',
+            'dart',
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

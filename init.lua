@@ -80,7 +80,7 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
 
 -- Make sure your terminal supports this
 vim.opt.termguicolors = true

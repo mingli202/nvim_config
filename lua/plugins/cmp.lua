@@ -28,20 +28,13 @@ return {
         luasnip.config.setup {}
 
         cmp.setup {
-            view = {
-                entries = {
-                    name = 'custom',
-                    selection_order = 'top_down',
-                    follow_cursor = true,
-                },
-            },
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
                 end,
             },
             completion = {
-                completeopt = 'menu,menuone,noselect',
+                completeopt = 'menu,menuone,noselect,noinsert',
             },
             window = {
                 completion = {
