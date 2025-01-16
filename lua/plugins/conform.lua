@@ -20,6 +20,7 @@ return {
                 c = { 'clang-format' },
                 cpp = { 'clang-format' },
                 arduino = { 'clang-format' },
+                java = { 'clang-format' },
 
                 rust = { 'rustfmt' },
 

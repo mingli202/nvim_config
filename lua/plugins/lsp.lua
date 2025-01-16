@@ -115,6 +115,7 @@ return {
                 },
             },
             taplo = {},
+            jdtls = {},
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -196,18 +197,18 @@ return {
                 },
             },
 
-            root_dir = function()
-                -- local root_files = {
-                --     'compile_commands.json',
-                --     '.ccls',
-                --     '.git',
-                -- }
-                --
-                -- local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
-                --
-                -- return root == vim.fn.getcwd() and root or nil
-                return vim.fn.getcwd()
-            end,
+            -- root_dir = function()
+            --     -- local root_files = {
+            --     --     'compile_commands.json',
+            --     --     '.ccls',
+            --     --     '.git',
+            --     -- }
+            --     --
+            --     -- local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
+            --     --
+            --     -- return root == vim.fn.getcwd() and root or nil
+            --     return vim.fn.getcwd()
+            -- end,
         }
 
         lspconfig.dartls.setup {
@@ -276,11 +277,9 @@ return {
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end, '[W]orkspace [L]ist Folders')
 
-            if client and client.server_capabilities.inlayHintProvider then
-                nmap('<leader>ih', function()
-                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-                end, '[I]nlay [H]ints')
-            end
+            nmap('<leader>ih', function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end, '[I]nlay [H]ints')
         end
 
         vim.api.nvim_create_autocmd('LspAttach', {

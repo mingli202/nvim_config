@@ -44,10 +44,10 @@ local run = function(custom)
     local fullPath = vim.fn.expand '%:p'
     local command = ''
 
-    if vim.fn.getenv 'CMD' ~= vim.NIL then
-        command = vim.fn.getenv 'CMD'
-    elseif custom ~= nil then
+    if custom ~= nil then
         command = custom
+    elseif vim.fn.getenv 'CMD' ~= vim.NIL then
+        command = vim.fn.getenv 'CMD'
     elseif filetype == 'javascript' or filetype == 'typescript' then -- js
         command = string.format('bun run "%s"', fullPath)
     elseif filetype == 'c' then -- c
@@ -78,8 +78,10 @@ local run = function(custom)
         command = fullPath
     elseif filetype == 'nix' then -- nix
         command = string.format('nix-instantiate --eval "%s"', fullPath)
-    elseif filetype == 'dart' then
+    elseif filetype == 'dart' then -- dart
         command = string.format('dart run %s', fullPath)
+    elseif filetype == 'java' then -- java
+        command = string.format('java %s', fullPath)
     else
         vim.cmd.echo '"No runner configured!"'
         return
