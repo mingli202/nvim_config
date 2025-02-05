@@ -81,7 +81,7 @@ local run = function(custom)
     elseif filetype == 'dart' then -- dart
         command = string.format('dart run %s', fullPath)
     elseif filetype == 'java' then -- java
-        command = string.format('java %s', fullPath)
+        command = string.format('javac **/*.java && java Main', fullPath)
     else
         vim.cmd.echo '"No runner configured!"'
         return

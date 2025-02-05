@@ -104,7 +104,7 @@ return {
                 },
             },
             yamlls = {},
-            sqls = {},
+            -- sqls = {},
             nil_ls = {
                 settings = {
                     ['nil'] = {
@@ -116,6 +116,8 @@ return {
             },
             taplo = {},
             jdtls = {},
+            vhdl_ls = {},
+            clangd = {},
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -145,6 +147,8 @@ return {
             'codelldb',
             'mypy',
             'clang-format',
+            'java-debug-adapter',
+            'java-test',
         })
 
         require('mason-tool-installer').setup {
@@ -181,35 +185,37 @@ return {
                     end,
                 }
             end,
+
+            ['jdtls'] = function() end,
         }
 
-        lspconfig.ccls.setup {
-            init_options = {
-                cache = {
-                    directory = '.ccls-cache',
-                },
-                clang = {
-                    extraArgs = {
-                        '-I/usr/local/include',
-                        '-I/opt/homebrew/opt/llvm/bin/../include/c++/v1',
-                        '-I/opt/homebrew/Cellar/llvm/18.1.8/lib/clang/18/include',
-                    },
-                },
-            },
-
-            -- root_dir = function()
-            --     -- local root_files = {
-            --     --     'compile_commands.json',
-            --     --     '.ccls',
-            --     --     '.git',
-            --     -- }
-            --     --
-            --     -- local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
-            --     --
-            --     -- return root == vim.fn.getcwd() and root or nil
-            --     return vim.fn.getcwd()
-            -- end,
-        }
+        -- lspconfig.ccls.setup {
+        --     init_options = {
+        --         cache = {
+        --             directory = '.ccls-cache',
+        --         },
+        --         clang = {
+        --             extraArgs = {
+        --                 '-I/usr/local/include',
+        --                 '-I/opt/homebrew/opt/llvm/bin/../include/c++/v1',
+        --                 '-I/opt/homebrew/Cellar/llvm/18.1.8/lib/clang/18/include',
+        --             },
+        --         },
+        --     },
+        --
+        --     -- root_dir = function()
+        --     --     -- local root_files = {
+        --     --     --     'compile_commands.json',
+        --     --     --     '.ccls',
+        --     --     --     '.git',
+        --     --     -- }
+        --     --     --
+        --     --     -- local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
+        --     --     --
+        --     --     -- return root == vim.fn.getcwd() and root or nil
+        --     --     return vim.fn.getcwd()
+        --     -- end,
+        -- }
 
         lspconfig.dartls.setup {
             cmd = { 'dart', 'language-server', '--protocol=lsp' },
