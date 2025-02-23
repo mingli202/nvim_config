@@ -138,7 +138,7 @@ return {
             'jq',
             'prettierd',
             'eslint_d',
-            'cspell',
+            -- 'cspell',
             'js-debug-adapter',
             'debugpy',
             'shfmt',

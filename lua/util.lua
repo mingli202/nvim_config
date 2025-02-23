@@ -73,7 +73,7 @@ local run = function(custom)
     elseif filetype == 'r' then -- r
         command = string.format('Rscript "%s"', fullPath)
     elseif filetype == 'rust' then -- rs
-        command = string.format 'cargo run -q'
+        command = 'cargo run -q'
     elseif filetype == 'sh' then -- bash
         command = fullPath
     elseif filetype == 'nix' then -- nix
@@ -81,7 +81,7 @@ local run = function(custom)
     elseif filetype == 'dart' then -- dart
         command = string.format('dart run %s', fullPath)
     elseif filetype == 'java' then -- java
-        command = string.format('javac **/*.java && java Main', fullPath)
+        command = 'javac -d build src/**/*.java && java -cp build Main'
     else
         vim.cmd.echo '"No runner configured!"'
         return
