@@ -53,6 +53,17 @@ map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- other
 map('n', '<C-n>', require('util').run, { desc = 'run current file in new pane' })
+map('v', '<C-n>', function()
+    vim.cmd.normal '"ny'
+
+    local cmd = vim.fn.getreg 'n'
+
+    for str in string.gmatch(cmd, '([^\n]+)') do
+        require('util').run(str)
+    end
+
+    require('util').run ''
+end, { desc = 'run selected line in new pane' })
 map('n', '<C-c>', function()
     require('util').run 'clear'
 end, { desc = 'clear' })
