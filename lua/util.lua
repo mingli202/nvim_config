@@ -118,4 +118,34 @@ local run = function(custom)
     vim.cmd(string.format("silent !tmux send-keys -t %i '%s' Enter", inactiveIndex, command:gsub('[%%%#]', '\\%1')))
 end
 
-return { build = build, contains = contains, map = map, run = run }
+local printVar = function()
+    local var = vim.fn.getreg 'l'
+
+    local print_formats = {
+        python = 'print(f"%s: {%s}")', -- Using f-string for clean output
+        lua = 'print("%s:", vim.inspect(%s))', -- vim.inspect handles tables nicely
+        javascript = 'console.log("%s:", %s);',
+        typescript = 'console.log("%s:", %s);',
+        javascriptreact = 'console.log("%s:", %s);',
+        typescriptreact = 'console.log("%s:", %s);',
+        java = 'System.out.println("%s: " + %s);',
+        csharp = 'System.Console.Writeline("%s: " + %s);',
+        c = 'printf("%s: %d\\n", %s);', -- Note: %d is just an example, might need adjustment (%s, %p, etc.)
+        cpp = 'std::cout << "%s: " << %s << std::endl;',
+        go = 'fmt.Printf("%s: %+v\\n", %s)', -- %+v prints fields in structs
+        rust = 'println!("%s: {:?}", %s);', -- {:?} uses the Debug trait
+        -- Add more languages and their preferred debug print syntax here
+        default = 'print("%s: %s")', -- A generic fallback
+    }
+
+    local ft = vim.bo.filetype
+    local format = print_formats[ft] or print_formats.default
+    local print_statement = string.format(format, var, var)
+
+    vim.fn.setreg('l', print_statement)
+    vim.cmd 'normal o'
+    vim.cmd 'normal "lp'
+    vim.cmd.write()
+end
+
+return { build = build, contains = contains, map = map, run = run, printVar = printVar }

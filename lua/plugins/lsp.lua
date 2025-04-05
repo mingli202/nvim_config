@@ -43,7 +43,7 @@ return {
             cssls = {},
             -- r_language_server = {},
             -- texlab = {},
-            -- omnisharp = {},
+            omnisharp = {},
             tailwindcss = {},
             pyright = {
                 settings = {
@@ -161,28 +161,6 @@ return {
                     capabilities = capabilities,
                     filetypes = (servers[server_name] or {}).filetypes,
                     settings = (servers[server_name] or {}).settings,
-                }
-            end,
-            ['tailwindcss'] = function()
-                lspconfig.tailwindcss.setup {
-                    capabilities = capabilities,
-                    filetypes = { 'javacript', 'javascriptreact', 'typescript', 'typescriptreact' },
-                    root_dir = function(filename)
-                        local root_files = {
-                            'tailwind.config.js',
-                            'tailwind.config.cjs',
-                            'tailwind.config.mjs',
-                            'tailwind.config.ts',
-                            'postcss.config.js',
-                            'postcss.config.cjs',
-                            'postcss.config.mjs',
-                            'postcss.config.ts',
-                        }
-
-                        local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
-
-                        return root == vim.fn.getcwd() and root or nil
-                    end,
                 }
             end,
 

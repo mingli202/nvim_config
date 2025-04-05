@@ -1,4 +1,5 @@
 local map = require('util').map
+local printVar = require('util').printVar
 
 -- escapes
 map('i', 'jk', '<Esc>', { desc = 'escape', nowait = true })
@@ -38,6 +39,15 @@ map('n', '<C-u>', '<C-u>zz')
 
 map('v', '>', '>gv')
 map('v', '<', '<gv')
+
+map('n', '<C-p>', function()
+    vim.cmd 'normal "lyiw'
+    printVar()
+end, { desc = 'Generate print statement for variable' })
+map('v', '<C-p>', function()
+    vim.cmd 'normal "ly'
+    printVar()
+end, { desc = 'Generate print statement for variable' })
 
 -- window
 map('n', '\\', ':vsp <CR>', { desc = 'vertical split' })
