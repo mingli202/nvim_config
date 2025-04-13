@@ -165,6 +165,14 @@ return {
             end,
 
             ['jdtls'] = function() end,
+            omnisharp = function()
+                lspconfig.omnisharp.setup {
+                    capabilities = capabilities,
+                    root_dir = function()
+                        return vim.fn.getcwd()
+                    end,
+                }
+            end,
         }
 
         -- lspconfig.ccls.setup {
@@ -198,7 +206,7 @@ return {
         lspconfig.dartls.setup {
             cmd = { 'dart', 'language-server', '--protocol=lsp' },
             filetypes = { 'dart' },
-            root_dir = function(filename)
+            root_dir = function()
                 return vim.fn.getcwd()
             end,
             init_options = {
