@@ -27,7 +27,6 @@ return {
         -- before setting up the servers.
         require('mason').setup()
         require('mason-lspconfig').setup()
-        local lspconfig = require 'lspconfig'
 
         -- Enable the following language servers
         --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -39,85 +38,25 @@ return {
         --  define the property 'filetypes' to the map in question.
 
         local servers = {
-            html = { filetypes = { 'html', 'twig', 'hbs' } },
-            cssls = {},
-            -- r_language_server = {},
-            -- texlab = {},
-            omnisharp = {},
-            tailwindcss = {},
-            pyright = {
-                settings = {
-                    pyright = {
-                        -- Using Ruff's import organizer
-                        disableOrganizeImports = true,
-                    },
-                },
-            },
-            ruff = {},
-            vtsls = {},
-            bashls = {},
-            dockerls = {},
-            rust_analyzer = {
-                settings = {
-                    ['rust-analyzer'] = {
-                        check = {
-                            command = 'clippy',
-                        },
-                        imports = {
-                            granularity = {
-                                group = 'module',
-                            },
-                            prefix = 'self',
-                        },
-                        cargo = {
-                            buildScripts = {
-                                enable = true,
-                            },
-                        },
-                        procMacro = {
-                            enable = true,
-                        },
-                    },
-                },
-            },
-            lua_ls = {
-                settings = {
-                    Lua = {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using
-                            -- (most likely LuaJIT in the case of Neovim)
-                            version = 'LuaJIT',
-                        },
-                        -- Make the server aware of Neovim runtime files
-                        workspace = {
-                            checkThirdParty = false,
-                            library = {
-                                vim.env.VIMRUNTIME,
-                                -- Depending on the usage, you might want to add additional paths here.
-                                -- "${3rd}/luv/library"
-                                -- "${3rd}/busted/library",
-                            },
-                            -- or pull in all of 'runtimepath'. this is a lot slower
-                            -- library = vim.api.nvim_get_runtime_file("", true)
-                        },
-                    },
-                },
-            },
-            yamlls = {},
-            -- sqls = {},
-            nil_ls = {
-                settings = {
-                    ['nil'] = {
-                        formatting = {
-                            command = { 'nixfmt' },
-                        },
-                    },
-                },
-            },
-            taplo = {},
-            jdtls = {},
-            vhdl_ls = {},
-            clangd = {},
+            'html',
+            'cssls',
+            --'r_language_server',
+            --'texlab',
+            'omnisharp',
+            'tailwindcss',
+            'pyright',
+            'ruff',
+            'vtsls',
+            'bashls',
+            'dockerls',
+            'rust_analyzer',
+            'lua_ls',
+            'yamlls',
+            --'sqls',
+            'nil_ls',
+            'taplo',
+            'jdtls',
+            'clangd',
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -128,10 +67,8 @@ return {
             lineFoldingOnly = true,
         }
 
-        local mason_lspconfig = require 'mason-lspconfig'
-
         -- Ensure the servers above are installed
-        local ensure_installed = vim.tbl_keys(servers or {})
+        local ensure_installed = vim.list_slice(servers, 0, #servers)
         vim.list_extend(ensure_installed, {
             'stylua',
             -- 'csharpier',
@@ -155,74 +92,10 @@ return {
             ensure_installed = ensure_installed,
         }
 
-        mason_lspconfig.setup_handlers {
-            function(server_name)
-                lspconfig[server_name].setup {
-                    capabilities = capabilities,
-                    filetypes = (servers[server_name] or {}).filetypes,
-                    settings = (servers[server_name] or {}).settings,
-                }
-            end,
-
-            ['jdtls'] = function() end,
-            omnisharp = function()
-                lspconfig.omnisharp.setup {
-                    capabilities = capabilities,
-                    root_dir = function()
-                        return vim.fn.getcwd()
-                    end,
-                }
-            end,
-        }
-
-        -- lspconfig.ccls.setup {
-        --     init_options = {
-        --         cache = {
-        --             directory = '.ccls-cache',
-        --         },
-        --         clang = {
-        --             extraArgs = {
-        --                 '-I/usr/local/include',
-        --                 '-I/opt/homebrew/opt/llvm/bin/../include/c++/v1',
-        --                 '-I/opt/homebrew/Cellar/llvm/18.1.8/lib/clang/18/include',
-        --             },
-        --         },
-        --     },
-        --
-        --     -- root_dir = function()
-        --     --     -- local root_files = {
-        --     --     --     'compile_commands.json',
-        --     --     --     '.ccls',
-        --     --     --     '.git',
-        --     --     -- }
-        --     --     --
-        --     --     -- local root = lspconfig.util.root_pattern(unpack(root_files))(filename)
-        --     --     --
-        --     --     -- return root == vim.fn.getcwd() and root or nil
-        --     --     return vim.fn.getcwd()
-        --     -- end,
-        -- }
-
-        lspconfig.dartls.setup {
-            cmd = { 'dart', 'language-server', '--protocol=lsp' },
-            filetypes = { 'dart' },
-            root_dir = function()
-                return vim.fn.getcwd()
-            end,
-            init_options = {
-                onlyAnalyzeProjectsWithOpenFiles = true,
-                suggestFromUnimportedLibraries = true,
-                closingLabels = true,
-                outline = true,
-                flutterOutline = true,
-            },
-            settings = {
-                dart = {
-                    completeFunctionCalls = true,
-                    showTodos = true,
-                },
-            },
-        }
+        vim.lsp.enable(servers)
+        vim.lsp.config('*', {
+            capabilities = capabilities,
+        })
 
         local trouble = require 'trouble'
         local telescope = require 'telescope.builtin'
@@ -232,7 +105,7 @@ return {
             if client and client.name == 'ruff_lsp' then
                 -- Disable hover in favor of Pyright
                 client.server_capabilities.hoverProvider = false
-                -- client.server_capabilities.codeActionProvider = false
+                client.server_capabilities.codeActionProvider = false
             end
 
             local nmap = function(keys, func, desc)
@@ -243,6 +116,11 @@ return {
                 vim.keymap.set('n', keys, func, { buffer = args.buf, desc = desc })
             end
 
+            nmap('K', function()
+                -- local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
+                local border = 'solid'
+                vim.lsp.buf.hover { border = border }
+            end, 'Lsp Hover')
             nmap('<leader>lr', vim.lsp.buf.rename, '[L]sp [R]ename')
             nmap('<leader>la', vim.lsp.buf.code_action, '[L]sp code [A]ction')
             nmap('<leader>lR', ':LspRestart <CR>', '[L]sp [R]estart')
@@ -263,11 +141,6 @@ return {
             nmap('<leader>fi', telescope.lsp_implementations, '[F]ind [I]mplementations')
 
             nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-            nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-            nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-            nmap('<leader>wl', function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, '[W]orkspace [L]ist Folders')
 
             nmap('<leader>ih', function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())

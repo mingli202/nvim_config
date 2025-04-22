@@ -80,7 +80,7 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
+vim.opt.completeopt = 'menu,menuone,noselect,popup'
 
 -- Make sure your terminal supports this
 vim.opt.termguicolors = true
@@ -96,6 +96,11 @@ vim.opt.showmode = false
 vim.opt.cursorline = true -- ui that show the cursor line
 
 vim.opt.colorcolumn = '120'
+
+vim.diagnostic.config {
+    virtual_text = true,
+    -- virtual_lines = true,
+} -- give me the text bruh
 
 if vim.g.neovide then
     -- Put anything you want to happen only in Neovide here

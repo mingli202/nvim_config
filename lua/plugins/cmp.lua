@@ -34,7 +34,7 @@ return {
                 end,
             },
             completion = {
-                completeopt = 'menu,menuone,noselect,noinsert',
+                completeopt = 'menu,menuone,noselect,popup',
             },
             window = {
                 completion = {
