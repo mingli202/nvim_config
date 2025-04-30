@@ -100,6 +100,12 @@ vim.opt.colorcolumn = '120'
 vim.diagnostic.config {
     virtual_text = true,
     -- virtual_lines = true,
+    jump = {
+        float = true,
+    },
+    float = {
+        border = 'solid',
+    },
 } -- give me the text bruh
 
 if vim.g.neovide then
@@ -107,13 +113,21 @@ if vim.g.neovide then
 
     vim.o.guifont = 'SauceCodePro Nerd Font:h12'
 
+    vim.g.transparency = 0.8
     vim.g.neovide_window_blurred = true
-    vim.g.neovide_transparency = 0.85
+    vim.g.neovide_opacity = 0.85
+    vim.g.neovide_cursor_vfx_mode = 'railgun'
 
     vim.g.neovide_padding_top = 5
     vim.g.neovide_padding_bottom = 5
     vim.g.neovide_padding_right = 5
     vim.g.neovide_padding_left = 5
+    vim.g.neovide_hide_mouse_when_typing = true
+
+    vim.diagnostic.config {
+        -- virtual_text = true,
+        virtual_lines = true,
+    } -- give me the text bruh
 end
 
 require 'mappings'

@@ -1,6 +1,11 @@
 return {
     settings = {
         ['rust-analyzer'] = {
+            diagnostics = {
+                styleLints = {
+                    enable = true,
+                },
+            },
             check = {
                 command = 'clippy',
             },
