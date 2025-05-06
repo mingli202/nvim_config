@@ -53,7 +53,7 @@ return {
             'lua_ls',
             'yamlls',
             --'sqls',
-            'nil_ls',
+            -- 'nil_ls',
             'taplo',
             'jdtls',
             'clangd',

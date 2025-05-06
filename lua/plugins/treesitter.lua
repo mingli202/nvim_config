@@ -27,7 +27,7 @@ return {
             'regex',
             'markdown',
             'markdown_inline',
-            'norg',
+            -- 'norg',
             'r',
             'json',
             'toml',
