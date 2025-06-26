@@ -12,10 +12,11 @@ return {
                 typescriptreact = { 'prettierd' },
                 css = { 'prettierd' },
                 html = { 'prettierd' },
+                htmlangular = { 'prettierd' },
 
                 json = { 'jq' },
 
-                cs = { 'csharpier' },
+                -- cs = { 'csharpier' },
 
                 c = { 'clang-format' },
                 cpp = { 'clang-format' },

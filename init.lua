@@ -116,7 +116,7 @@ if vim.g.neovide then
     vim.g.transparency = 0.8
     vim.g.neovide_window_blurred = true
     vim.g.neovide_opacity = 0.85
-    vim.g.neovide_cursor_vfx_mode = 'railgun'
+    -- vim.g.neovide_cursor_vfx_mode = 'railgun'
 
     vim.g.neovide_padding_top = 5
     vim.g.neovide_padding_bottom = 5

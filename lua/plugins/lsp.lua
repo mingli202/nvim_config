@@ -43,13 +43,13 @@ return {
             --'r_language_server',
             --'texlab',
             'omnisharp',
-            'tailwindcss',
+            -- 'tailwindcss',
             -- 'pyright',
             -- 'ruff',
             'vtsls',
             -- 'bashls',
             -- 'dockerls',
-            -- 'rust_analyzer',
+            'rust_analyzer',
             'lua_ls',
             -- 'yamlls',
             --'sqls',
@@ -73,13 +73,13 @@ return {
         vim.list_extend(ensure_installed, {
             'stylua',
             -- 'csharpier',
-            'jq',
+            -- 'jq',
             'prettierd',
             'eslint_d',
             -- 'cspell',
             'js-debug-adapter',
             -- 'debugpy',
-            'shfmt',
+            -- 'shfmt',
             -- 'shellcheck',
             -- 'hadolint',
             -- 'codelldb',
@@ -87,26 +87,62 @@ return {
             -- 'clang-format',
             -- 'java-debug-adapter',
             -- 'java-test',
+            'netcoredbg',
         })
 
         require('mason-tool-installer').setup {
             ensure_installed = ensure_installed,
         }
 
-        vim.lsp.enable(servers)
         vim.lsp.config('*', {
             capabilities = capabilities,
         })
+        vim.lsp.config('html', {
+            filetypes = { 'html', 'htmlangular' },
+        })
+        vim.lsp.config('vtsls', {
+            root_dir = function(_, cb)
+                cb(vim.fn.getcwd())
+            end,
+            root_markers = {},
+        })
+        vim.lsp.config('angularls', {
+            root_dir = function(_, cb)
+                cb(vim.fn.getcwd())
+            end,
+            root_markers = {},
+        })
+
+        vim.lsp.enable(servers)
 
         local trouble = require 'trouble'
         local telescope = require 'telescope.builtin'
 
+        local isAngular = false
+        local vtsls_client = nil
+
         local on_attach = function(args)
             local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if client and client.name == 'ruff_lsp' then
-                -- Disable hover in favor of Pyright
-                client.server_capabilities.hoverProvider = false
-                client.server_capabilities.codeActionProvider = false
+            if client then
+                local name = client.name
+
+                if name == 'ruff_lsp' then
+                    -- Disable hover in favor of Pyright
+                    client.server_capabilities.hoverProvider = false
+                    client.server_capabilities.codeActionProvider = false
+                elseif name == 'angularls' then
+                    if vtsls_client then
+                        vtsls_client.server_capabilities.renameProvider = false
+                    else
+                        isAngular = true
+                    end
+                elseif name == 'vtsls' then
+                    if isAngular then
+                        client.server_capabilities.renameProvider = false
+                    else
+                        vtsls_client = client
+                    end
+                end
             end
 
             local nmap = function(keys, func, desc)
