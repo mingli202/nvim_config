@@ -39,7 +39,7 @@ vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
 vim.opt.signcolumn = 'yes'
 
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.wo.linebreak = true
 
 vim.opt.swapfile = false
