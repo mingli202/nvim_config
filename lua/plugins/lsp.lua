@@ -45,6 +45,8 @@ return {
             'omnisharp',
             'tailwindcss',
             'pyright',
+            -- 'pylyzer',
+            -- 'ty',
             'ruff',
             'vtsls',
             'bashls',
@@ -57,6 +59,7 @@ return {
             'taplo',
             'jdtls',
             'clangd',
+            'biome',
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -92,7 +95,7 @@ return {
             ensure_installed = ensure_installed,
         }
 
-        vim.lsp.enable(servers)
+        -- vim.lsp.enable(servers)
         vim.lsp.config('*', {
             capabilities = capabilities,
         })
@@ -102,10 +105,9 @@ return {
 
         local on_attach = function(args)
             local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if client and client.name == 'ruff_lsp' then
+            if client and client.name == 'ruff' then
                 -- Disable hover in favor of Pyright
                 client.server_capabilities.hoverProvider = false
-                client.server_capabilities.codeActionProvider = false
             end
 
             local nmap = function(keys, func, desc)
@@ -117,7 +119,6 @@ return {
             end
 
             nmap('K', function()
-                -- local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
                 local border = 'solid'
                 vim.lsp.buf.hover { border = border }
             end, 'Lsp Hover')

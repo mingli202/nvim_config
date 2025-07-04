@@ -73,7 +73,7 @@ local run = function(custom)
     elseif filetype == 'r' then -- r
         command = string.format('Rscript "%s"', fullPath)
     elseif filetype == 'rust' then -- rs
-        command = 'cargo run -q'
+        command = 'cargo run'
     elseif filetype == 'sh' then -- bash
         command = fullPath
     elseif filetype == 'nix' then -- nix

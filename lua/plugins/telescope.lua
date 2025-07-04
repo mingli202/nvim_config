@@ -23,15 +23,18 @@ return {
     config = function()
         -- [[ Configure Telescope ]]
         -- See `:help telescope` and `:help telescope.setup()`
+        local actions = require 'telescope.actions'
+
         require('telescope').setup {
             defaults = {
                 mappings = {
                     i = {
                         ['<C-u>'] = false,
-                        ['<C-d>'] = false,
+                        ['<C-d>'] = actions.delete_buffer,
                     },
                     n = {
-                        ['q'] = require('telescope.actions').close,
+                        ['q'] = actions.close,
+                        ['d'] = actions.delete_buffer,
                     },
                 },
                 borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
