@@ -58,7 +58,7 @@ return {
             -- 'nil_ls',
             'taplo',
             'jdtls',
-            'clangd',
+            -- 'clangd',
             'biome',
         }
 
@@ -96,6 +96,8 @@ return {
         }
 
         -- vim.lsp.enable(servers)
+        vim.lsp.enable 'ccls'
+
         vim.lsp.config('*', {
             capabilities = capabilities,
         })
