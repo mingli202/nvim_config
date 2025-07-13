@@ -15,8 +15,6 @@ return {
 
                 json = { 'jq' },
 
-                cs = { 'csharpier' },
-
                 c = { 'clang-format' },
                 cpp = { 'clang-format' },
                 arduino = { 'clang-format' },
