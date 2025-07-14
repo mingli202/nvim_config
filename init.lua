@@ -58,9 +58,12 @@ vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#999999' })
 vim.opt.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+vim.schedule(function()
+    vim.o.clipboard = 'unnamedplus'
+end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -98,8 +101,8 @@ vim.opt.cursorline = true -- ui that show the cursor line
 vim.opt.colorcolumn = '120'
 
 vim.diagnostic.config {
-    virtual_text = true,
     -- virtual_lines = true,
+    virtual_text = true,
     jump = {
         float = true,
     },
@@ -125,9 +128,8 @@ if vim.g.neovide then
     vim.g.neovide_hide_mouse_when_typing = true
 
     vim.diagnostic.config {
-        -- virtual_text = true,
         virtual_lines = true,
-    } -- give me the text bruh
+    }
 end
 
 require 'mappings'

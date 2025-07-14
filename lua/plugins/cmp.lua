@@ -8,9 +8,6 @@ return {
             version = 'v2.*', -- Replace <CurrentMajor> by the latest released major
             build = 'make install_jsregexp',
             dependencies = 'rafamadriz/friendly-snippets',
-            config = function()
-                require('luasnip.loaders.from_vscode').lazy_load()
-            end,
         },
         'saadparwaiz1/cmp_luasnip',
 

@@ -18,6 +18,8 @@ return {
                 return vim.fn.executable 'make' == 1
             end,
         },
+        { 'nvim-telescope/telescope-ui-select.nvim' },
+        { 'nvim-tree/nvim-web-devicons' },
     },
 
     config = function()
@@ -43,6 +45,7 @@ return {
 
         -- Enable telescope fzf native, if installed
         pcall(require('telescope').load_extension, 'fzf')
+        pcall(require('telescope').load_extension, 'ui-select')
         local telescope = require 'telescope.builtin'
 
         -- See `:help telescope.builtin`
@@ -64,7 +67,7 @@ return {
 
         vim.keymap.set('n', '<leader>f/', telescope_live_grep_open_files, { desc = '[F]ind [/] in Open Files' })
         vim.keymap.set('n', '<leader>fs', telescope.builtin, { desc = '[F]ind [S]elect Telescope' })
-        vim.keymap.set('n', '<leader>gf', telescope.git_files, { desc = 'Search [G]it [F]iles' })
+        vim.keymap.set('n', '<leader>fG', telescope.git_files, { desc = 'Search [G]it [F]iles' })
         vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = '[F]ind [F]iles' })
         vim.keymap.set('n', '<leader>fF', function()
             telescope.find_files { hidden = true }
@@ -72,7 +75,6 @@ return {
         vim.keymap.set('n', '<leader>fh', telescope.help_tags, { desc = '[F]ind [H]elp' })
         vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = '[F]ind current [W]ord' })
         vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = '[F]ind by [G]rep' })
-        vim.keymap.set('n', '<leader>fG', ':LiveGrepGitRoot<cr>', { desc = '[F]ind by [G]rep on Git Root' })
         vim.keymap.set('n', '<leader>fd', telescope.diagnostics, { desc = '[F]ind [D]iagnostics' })
         vim.keymap.set('n', '<leader>ft', function()
             telescope.colorscheme { enable_preview = true }
