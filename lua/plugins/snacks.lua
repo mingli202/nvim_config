@@ -9,6 +9,7 @@ return {
         -- refer to the configuration section below
         bigfile = { enabled = true },
         dim = { enabled = false },
+        explorer = { enabled = true },
         bufdelete = { enabled = true },
         dashboard = {
             enabled = true,
@@ -45,6 +46,15 @@ return {
         notify = { enabled = true },
         picker = {
             enabled = true,
+            sources = {
+                explorer = {
+                    layout = {
+                        fullscreen = true,
+                        preview = false,
+                        layout = { position = 'float' },
+                    },
+                },
+            },
         },
         profiler = { enabled = true },
         quickfile = { enabled = true },
@@ -170,6 +180,13 @@ return {
                 Snacks.picker.git_log_file()
             end,
             desc = 'Git Log File',
+        },
+        {
+            '<leader>o',
+            function()
+                Snacks.explorer.open()
+            end,
+            desc = '[O]pen',
         },
     },
     init = function()
