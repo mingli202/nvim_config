@@ -48,49 +48,56 @@ return {
             function()
                 Snacks.picker.files()
             end,
-            '[F]ind [F]ile',
+            desc = '[F]ind [F]ile',
         },
         {
             '<leader>fb',
             function()
                 Snacks.picker.buffers()
             end,
-            '[F]ind [B]uffer',
+            desc = '[F]ind [B]uffer',
         },
         {
             '<leader>fg',
             function()
                 Snacks.picker.grep()
             end,
-            '[F]ind [G]rep',
+            desc = '[F]ind [G]rep',
         },
         {
             '<leader>.',
             function()
                 Snacks.picker.lines()
             end,
-            '[F]ind lines',
+            desc = '[F]ind lines',
         },
         {
             '<leader>ft',
             function()
                 Snacks.picker.colorschemes()
             end,
-            '[F]ind theme',
+            desc = '[F]ind theme',
         },
         {
             '<leader>z',
             function()
                 Snacks.zen()
             end,
-            'Zen',
+            desc = '[Z]en',
         },
         {
             '<leader>cb',
             function()
                 Snacks.bufdelete()
             end,
-            '[C]lose [B]uffer',
+            desc = '[C]lose [B]uffer',
+        },
+        {
+            '<leader>fm',
+            function()
+                Snacks.picker.marks()
+            end,
+            desc = '[F]ind [M]ark',
         },
     },
 }

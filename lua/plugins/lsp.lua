@@ -63,8 +63,7 @@ return {
         }
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-        local defaultCapabilities = vim.lsp.protocol.make_client_capabilities()
-        local capabilities = vim.tbl_deep_extend('force', defaultCapabilities, require('cmp_nvim_lsp').default_capabilities())
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.foldingRange = {
             dynamicRegistration = false,
             lineFoldingOnly = true,
@@ -139,6 +138,7 @@ return {
 
             nmap('<leader>fr', picker.lsp_references, '[F]ind [R]eferences')
             nmap('<leader>fi', picker.lsp_implementations, '[F]ind [I]mplementations')
+            nmap('<leader>fd', picker.diagnostics, '[F]ind [D]iagnostics')
 
             nmap('gD', picker.lsp_declarations, '[G]oto [D]eclaration')
 
