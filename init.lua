@@ -27,6 +27,8 @@ require('lazy').setup {
     },
 }
 
+vim.g.snacks_animate = false
+
 -- catppuccin, ondark, tokyonight
 -- vim.cmd.colorscheme 'onedark'
 -- vim.cmd.colorscheme 'catppuccin'
