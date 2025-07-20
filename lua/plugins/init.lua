@@ -17,12 +17,6 @@ return {
     'tpope/vim-sleuth',
 
     {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
-        opts = {},
-    },
-
-    {
         'windwp/nvim-ts-autotag',
         opts = {},
         ft = { 'html', 'javascriptreact', 'typescriptreact' },
@@ -55,6 +49,4 @@ return {
     },
 
     'folke/trouble.nvim',
-
-    'ThePrimeagen/vim-be-good',
 }
