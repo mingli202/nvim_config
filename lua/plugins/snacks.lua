@@ -48,10 +48,11 @@ return {
             enabled = true,
             sources = {
                 explorer = {
+                    auto_close = true,
                     layout = {
                         fullscreen = true,
                         preview = false,
-                        layout = { position = 'float' },
+                        -- layout = { position = 'float' },
                     },
                 },
             },
