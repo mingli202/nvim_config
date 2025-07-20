@@ -116,7 +116,7 @@ return {
         vim.lsp.enable(servers)
 
         local trouble = require 'trouble'
-        local telescope = require 'telescope.builtin'
+        local picker = Snacks.picker
 
         local isAngular = false
         local vtsls_client = nil
@@ -162,22 +162,19 @@ return {
             nmap('<leader>la', vim.lsp.buf.code_action, '[L]sp code [A]ction')
             nmap('<leader>lR', ':LspRestart <CR>', '[L]sp [R]estart')
 
-            nmap('gd', function()
-                telescope.lsp_definitions()
-            end, '[G]oto [D]efinition')
+            nmap('gd', picker.lsp_definitions, '[G]oto [D]efinition')
             nmap('gr', function()
                 trouble.toggle 'lsp_references'
             end, '[G]oto [R]eferences')
 
             nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-            nmap('<leader>D', telescope.lsp_type_definitions, 'Type [D]efinition')
-            nmap('<leader>ls', telescope.lsp_document_symbols, '[L]sp Document [S]ymbols')
-            nmap('<leader>ws', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+            nmap('<leader>lD', picker.lsp_type_definitions, '[L]sp Type [D]efinition')
+            nmap('<leader>ls', picker.lsp_symbols, '[L]sp Document [S]ymbols')
 
-            nmap('<leader>fr', telescope.lsp_references, '[F]ind [R]eferences')
-            nmap('<leader>fi', telescope.lsp_implementations, '[F]ind [I]mplementations')
+            nmap('<leader>fr', picker.lsp_references, '[F]ind [R]eferences')
+            nmap('<leader>fi', picker.lsp_implementations, '[F]ind [I]mplementations')
 
-            nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+            nmap('gD', picker.lsp_declarations, '[G]oto [D]eclaration')
 
             nmap('<leader>ih', function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())

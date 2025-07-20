@@ -7,7 +7,6 @@ map('i', 'jj', '<Esc>', { desc = 'escape', nowait = true })
 map('i', '<S-BS>', '<Esc>', { desc = 'escape' })
 
 -- write
-map('n', '<leader>cb', ':bdelete <CR>', { desc = '[C]lose [B]uffer' })
 map('n', '<leader>cw', '<C-w>q', { desc = '[C]lose [W]indow' })
 
 -- movement
