@@ -10,7 +10,30 @@ return {
         bigfile = { enabled = true },
         dim = { enabled = false },
         bufdelete = { enabled = true },
-        dashboard = { enabled = true },
+        dashboard = {
+            enabled = true,
+            sections = {
+                { section = 'header' },
+                { section = 'keys', padding = 1, indent = 2, title = 'Keymaps' },
+                { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+                { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
+                {
+
+                    icon = ' ',
+                    title = 'Git Status',
+                    section = 'terminal',
+                    enabled = function()
+                        return Snacks.git.get_root() ~= nil
+                    end,
+                    cmd = 'git status --short --branch --renames',
+                    height = 5,
+                    padding = 1,
+                    ttl = 5 * 60,
+                    indent = 3,
+                },
+                { section = 'startup' },
+            },
+        },
         debug = { enabled = true },
         git = { enabled = true },
         gitbrowse = { enabled = true },
@@ -99,5 +122,69 @@ return {
             end,
             desc = '[F]ind [M]ark',
         },
+        {
+            '<leader>gb',
+            function()
+                Snacks.picker.git_branches()
+            end,
+            desc = 'Git Branches',
+        },
+        {
+            '<leader>gl',
+            function()
+                Snacks.picker.git_log()
+            end,
+            desc = 'Git Log',
+        },
+        {
+            '<leader>gL',
+            function()
+                Snacks.picker.git_log_line()
+            end,
+            desc = 'Git Log Line',
+        },
+        {
+            '<leader>gs',
+            function()
+                Snacks.picker.git_status()
+            end,
+            desc = 'Git Status',
+        },
+        {
+            '<leader>gS',
+            function()
+                Snacks.picker.git_stash()
+            end,
+            desc = 'Git Stash',
+        },
+        {
+            '<leader>gd',
+            function()
+                Snacks.picker.git_diff()
+            end,
+            desc = 'Git Diff (Hunks)',
+        },
+        {
+            '<leader>gf',
+            function()
+                Snacks.picker.git_log_file()
+            end,
+            desc = 'Git Log File',
+        },
     },
+    init = function()
+        vim.api.nvim_create_autocmd('User', {
+            pattern = 'VeryLazy',
+            callback = function()
+                -- Setup some globals for debugging (lazy-loaded)
+                _G.dd = function(...)
+                    Snacks.debug.inspect(...)
+                end
+                _G.bt = function()
+                    Snacks.debug.backtrace()
+                end
+                vim.print = _G.dd -- Override print to use snacks for `:=` command
+            end,
+        })
+    end,
 }
