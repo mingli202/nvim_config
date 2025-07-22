@@ -169,11 +169,11 @@ return {
         dap.configurations.cs = {
 
             {
-                type = 'coreclr',
+                type = 'netcoredbg',
                 name = 'NetCoreDbg: Launch',
                 request = 'launch',
                 cwd = '${fileDirname}',
-                program = get_dll,
+                program = 'C:\\Users\\mlliu\\repos\\Genetec.SecurityCenter.WebApp\\Web\\bin\\debug\\net9.0\\Genetec.WebApp.Core.Launch.dll',
             },
         }
 
