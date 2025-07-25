@@ -68,6 +68,11 @@ return {
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
                 },
+                path = {
+                    opts = {
+                        show_hidden_files_by_default = true,
+                    },
+                },
             },
         },
 
