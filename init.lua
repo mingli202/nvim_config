@@ -1,37 +1,30 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 vim.g.snacks_animate = false
 vim.g.have_nerd_font = false
 
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.mouse = 'a'
-
 vim.o.showmode = false
-
+vim.o.breakindent = true
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.tabstop = 4 -- tab width 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.autoindent = true
+vim.o.signcolumn = 'yes'
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+vim.o.inccommand = 'split'
+vim.o.cursorline = true
+vim.o.scrolloff = 5
+vim.wo.linebreak = true
 vim.schedule(function()
     vim.o.clipboard = 'unnamedplus'
 end)
-
-vim.o.breakindent = true
-
-vim.o.undofile = true
-
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
-vim.o.signcolumn = 'yes'
-
-vim.o.updatetime = 250
-
-vim.o.timeoutlen = 300
-
-vim.o.inccommand = 'split'
-
-vim.o.cursorline = true
-
-vim.o.scrolloff = 5
 
 require 'mappings'
 
@@ -50,7 +43,7 @@ rtp:prepend(lazypath)
 
 require('lazy').setup {
     -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-    'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+    { 'NMAC427/guess-indent.nvim', opts = {} }, -- Detect tabstop and shiftwidth automatically
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
 
@@ -124,14 +117,14 @@ require('lazy').setup {
         'folke/snacks.nvim',
         priority = 1000,
         lazy = false,
-        ---@type snacks.Config
+        ---@type snacks.Confg
         opts = {
             -- your configuration comes here
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
             bigfile = { enabled = true },
             dim = { enabled = false },
-            explorer = { enabled = true },
+            explorer = { enabled = true, replace_netrw = false },
             bufdelete = { enabled = true },
             dashboard = {
                 enabled = true,
@@ -305,7 +298,7 @@ require('lazy').setup {
                 desc = 'Git Log File',
             },
             {
-                '<leader>o',
+                '<leader>e',
                 function()
                     Snacks.explorer.open()
                 end,
@@ -378,6 +371,10 @@ require('lazy').setup {
                     map('K', function()
                         vim.lsp.buf.hover { border = 'solid' }
                     end, 'Lsp Hover')
+
+                    map('gd', function()
+                        Snacks.picker.lsp_definitions()
+                    end, '[G]oto [D]efinitions')
 
                     map('grr', function()
                         Snacks.picker.lsp_references()
@@ -673,7 +670,7 @@ require('lazy').setup {
         priority = 1000,
         config = function()
             vim.g.gruvbox_material_enable_italic = true
-            vim.g.gruvbox_material_enable_bold = 1
+            vim.g.gruvbox_material_enable_bold = 0
             vim.g.gruvbox_material_better_performance = 1
             vim.g.gruvbox_material_transparent_background = not vim.g.neovide
             vim.g.gruvbox_material_dim_inactive_windows = 1
@@ -691,7 +688,7 @@ require('lazy').setup {
         config = function()
             require('mini.ai').setup { n_lines = 500 }
             require('mini.surround').setup()
-            -- require('mini.pairs').setup()
+            require('mini.pairs').setup()
         end,
     },
 
@@ -820,6 +817,81 @@ require('lazy').setup {
         },
         lazy = false,
     },
+
+    {
+        'ThePrimeagen/harpoon',
+        branch = 'harpoon2',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            local harpoon = require 'harpoon'
+            local map = require('util').map
+
+            harpoon:setup()
+
+            map('n', '<leader>hl', function()
+                harpoon.ui:toggle_quick_menu(harpoon:list())
+            end)
+
+            map('n', '<leader>ha', function()
+                harpoon:list():add()
+            end)
+
+            map('n', '<leader>h1', function()
+                harpoon:list():select(1)
+            end)
+            map('n', '<leader>h2', function()
+                harpoon:list():select(2)
+            end)
+            map('n', '<leader>h3', function()
+                harpoon:list():select(3)
+            end)
+            map('n', '<leader>h4', function()
+                harpoon:list():select(4)
+            end)
+            map('n', '<leader>h5', function()
+                harpoon:list():select(5)
+            end)
+            map('n', '<leader>h6', function()
+                harpoon:list():select(6)
+            end)
+            map('n', '<leader>h7', function()
+                harpoon:list():select(7)
+            end)
+            map('n', '<leader>h8', function()
+                harpoon:list():select(8)
+            end)
+            map('n', '<leader>h9', function()
+                harpoon:list():select(9)
+            end)
+
+            map('n', '<leader>hd', function()
+                harpoon:list():remove()
+            end)
+        end,
+    },
+
+    {
+        'supermaven-inc/supermaven-nvim',
+        config = function()
+            require('supermaven-nvim').setup {}
+        end,
+    },
+
+    {
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons
+        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+        lazy = false,
+        keys = {
+            { '<leader>o', ':Oil<CR>' },
+        },
+    },
+
+    { 'windwp/nvim-ts-autotag', opts = {}, dependencies = { 'nvim-treesitter/nvim-treesitter' } },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`

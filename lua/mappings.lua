@@ -88,5 +88,4 @@ map('n', '<leader><C-n>', function()
     require('util').run 'make'
 end, { desc = 'make' })
 
-map('n', '<leader>fml', '<cmd>CellularAutomaton make_it_rain<CR>', { desc = 'fml' })
 map('n', '<leader>e', ':silent !tmux neww -c ~/.config/nvim <CR>', { desc = 'edit config files' })
