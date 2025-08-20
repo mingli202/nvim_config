@@ -696,10 +696,16 @@ require('lazy').setup {
                 windows = {
                     preview = true,
                 },
+                mappings = {
+                    go_in = '',
+                    go_in_plus = '<CR>',
+                    go_out = '-',
+                    go_out_plus = '',
+                },
             }
 
             map('n', '<leader>o', function()
-                MiniFiles.open()
+                MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
             end)
         end,
     },

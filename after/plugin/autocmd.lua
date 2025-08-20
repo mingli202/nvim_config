@@ -69,3 +69,35 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     desc = 'load folds',
     command = 'silent! loadview',
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('UserFiletypeTabWidth', { clear = true }),
+    callback = function()
+        local twoSpacesFiletypes = {
+            'javascript',
+            'typescript',
+            'typescriptreact',
+            'vue',
+            'css',
+            'scss',
+            'less',
+            'html',
+            'json',
+            'yaml',
+            'markdown',
+            'markdown_inline',
+            'jsonc',
+            'json5',
+        }
+
+        if vim.tbl_contains(twoSpacesFiletypes, vim.bo.filetype) then
+            vim.opt.tabstop = 2
+            vim.opt.softtabstop = 2
+            vim.opt.shiftwidth = 2
+        else
+            vim.opt.tabstop = 4
+            vim.opt.softtabstop = 4
+            vim.opt.shiftwidth = 4
+        end
+    end,
+})
