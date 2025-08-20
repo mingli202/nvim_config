@@ -37,6 +37,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     end
 end
 
+local map = require('util').map
+
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
@@ -689,6 +691,16 @@ require('lazy').setup {
             require('mini.ai').setup { n_lines = 500 }
             require('mini.surround').setup()
             require('mini.pairs').setup()
+            require('mini.files').setup {
+                use_as_default_explorer = true,
+                windows = {
+                    preview = true,
+                },
+            }
+
+            map('n', '<leader>o', function()
+                MiniFiles.open()
+            end)
         end,
     },
 
@@ -824,7 +836,6 @@ require('lazy').setup {
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             local harpoon = require 'harpoon'
-            local map = require('util').map
 
             harpoon:setup()
 
@@ -877,23 +888,23 @@ require('lazy').setup {
         end,
     },
 
-    {
-        'stevearc/oil.nvim',
-        ---@module 'oil'
-        ---@type oil.SetupOpts
-        opts = {
-            view_options = {
-                show_hidden = true,
-            },
-        },
-        -- Optional dependencies
-        dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons
-        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-        lazy = false,
-        keys = {
-            { '<leader>o', ':Oil<CR>' },
-        },
-    },
+    -- {
+    --     'stevearc/oil.nvim',
+    --     ---@module 'oil'
+    --     ---@type oil.SetupOpts
+    --     opts = {
+    --         view_options = {
+    --             show_hidden = true,
+    --         },
+    --     },
+    --     -- Optional dependencies
+    --     dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons
+    --     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    --     lazy = false,
+    --     keys = {
+    --         { '<leader>o', ':Oil<CR>' },
+    --     },
+    -- },
 
     { 'windwp/nvim-ts-autotag', opts = {}, dependencies = { 'nvim-treesitter/nvim-treesitter' } },
 
