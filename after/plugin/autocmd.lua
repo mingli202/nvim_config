@@ -13,7 +13,6 @@ vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('CheckFtChange', { clear = true }),
     callback = function()
         local ft = vim.bo.filetype
-        local eslint_d = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' }
         local prettierd = {
             'javascript',
             'javascriptreact',
@@ -27,14 +26,6 @@ vim.api.nvim_create_autocmd('FileType', {
         }
 
         local contains = require('util').contains
-
-        if contains(eslint_d, ft) then
-            local gr = vim.api.nvim_create_augroup('EslintQuit', { clear = true })
-            vim.api.nvim_create_autocmd('VimLeave', {
-                group = gr,
-                command = '!eslint_d stop',
-            })
-        end
 
         if contains(prettierd, ft) then
             local gr = vim.api.nvim_create_augroup('PrettierQuit', { clear = true })
@@ -54,21 +45,6 @@ vim.api.nvim_create_user_command('SpellToggle', function()
         vim.cmd 'setlocal spell spelllang=en_ca'
     end
 end, { desc = 'toggle spelling' })
-
--- save folds
-local rememberFolds = vim.api.nvim_create_augroup('RememberFolds', { clear = true })
-vim.api.nvim_create_autocmd('BufWinLeave', {
-    group = rememberFolds,
-    desc = 'save folds',
-    pattern = '*.*',
-    command = 'mkview',
-})
-vim.api.nvim_create_autocmd('BufWinEnter', {
-    group = rememberFolds,
-    pattern = '*.*',
-    desc = 'load folds',
-    command = 'silent! loadview',
-})
 
 vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('UserFiletypeTabWidth', { clear = true }),

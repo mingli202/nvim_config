@@ -22,7 +22,7 @@ map({ 'n', 'v' }, 'L', 'g$', { desc = 'move to end' })
 map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'move lines down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'move lines up' })
 
-map('n', '<Tab>', ':bnext <CR>', { desc = 'next buffer' })
+map('n', '<Tab>', ':b# <CR>', { desc = 'next buffer' })
 map('n', '<S-Tab>', ':bprev <CR>', { desc = 'previous buffer' })
 
 -- text

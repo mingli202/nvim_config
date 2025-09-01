@@ -21,7 +21,13 @@ vim.o.timeoutlen = 300
 vim.o.inccommand = 'split'
 vim.o.cursorline = true
 vim.o.scrolloff = 5
+
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 vim.wo.linebreak = true
+
 vim.schedule(function()
     vim.o.clipboard = 'unnamedplus'
 end)
@@ -214,6 +220,13 @@ require('lazy').setup {
                     Snacks.picker.grep()
                 end,
                 desc = '[F]ind [G]rep',
+            },
+            {
+                '<leader>fr',
+                function()
+                    Snacks.picker.recent()
+                end,
+                desc = 'Recent',
             },
             {
                 '<leader>.',
@@ -417,9 +430,9 @@ require('lazy').setup {
                     --
                     -- This may be unwanted, since they displace some of your code
                     if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-                        map('<leader>th', function()
+                        map('<leader>ih', function()
                             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-                        end, '[T]oggle Inlay [H]ints')
+                        end, 'Toggle [I]nlay [H]ints')
                     end
                 end,
             })
@@ -444,6 +457,10 @@ require('lazy').setup {
             }
 
             local capabilities = require('blink.cmp').get_lsp_capabilities()
+            capabilities.textDocument.foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            }
 
             local servers = {
                 -- clangd = {},
@@ -507,7 +524,7 @@ require('lazy').setup {
                 -- 'csharpier',
                 'jq',
                 'prettierd',
-                'eslint_d',
+                'oxlint',
                 -- 'cspell',
                 'js-debug-adapter',
                 'debugpy',
@@ -535,6 +552,7 @@ require('lazy').setup {
                     end,
                 },
             }
+            require('ufo').setup()
         end,
     },
 
@@ -796,10 +814,10 @@ require('lazy').setup {
             }
 
             lint.linters_by_ft = {
-                javascript = { 'eslint_d' },
-                typescript = { 'eslint_d' },
-                javascriptreact = { 'eslint_d' },
-                typescriptreact = { 'eslint_d' },
+                javascript = { 'oxlint' },
+                typescript = { 'oxlint' },
+                javascriptreact = { 'oxlint' },
+                typescriptreact = { 'oxlint' },
 
                 sh = { 'shellcheck' },
 
@@ -893,24 +911,6 @@ require('lazy').setup {
             require('supermaven-nvim').setup {}
         end,
     },
-
-    -- {
-    --     'stevearc/oil.nvim',
-    --     ---@module 'oil'
-    --     ---@type oil.SetupOpts
-    --     opts = {
-    --         view_options = {
-    --             show_hidden = true,
-    --         },
-    --     },
-    --     -- Optional dependencies
-    --     dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons
-    --     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-    --     lazy = false,
-    --     keys = {
-    --         { '<leader>o', ':Oil<CR>' },
-    --     },
-    -- },
 
     { 'windwp/nvim-ts-autotag', opts = {}, dependencies = { 'nvim-treesitter/nvim-treesitter' } },
 
@@ -1055,6 +1055,41 @@ require('lazy').setup {
 
             dapui.setup()
         end,
+    },
+
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = 'kevinhwang91/promise-async',
+        config = function()
+            vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+            vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+        end,
+    },
+
+    {
+        'akinsho/bufferline.nvim',
+        config = function()
+            local bufferline = require 'bufferline'
+            bufferline.setup {
+                options = {
+                    separator_style = 'thick',
+                    indicator = {
+                        icon = '|',
+                        style = 'icon',
+                    },
+                    show_buffer_icons = false, -- disable filetype icons for buffers
+                    show_buffer_close_icons = false,
+                    themable = true,
+                    diagnostics = 'nvim_lsp',
+                },
+                -- highlights = require('catppuccin.groups.integrations.bufferline').get(),
+            }
+        end,
+        version = '*',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            -- 'catppuccin',
+        },
     },
 }
 
