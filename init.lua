@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.snacks_animate = false
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -42,8 +42,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
         error('Error cloning lazy.nvim:\n' .. out)
     end
 end
-
-local map = require('util').map
 
 ---@type vim.Option
 local rtp = vim.opt.rtp

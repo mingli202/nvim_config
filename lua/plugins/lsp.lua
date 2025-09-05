@@ -74,6 +74,7 @@ return {
                     end
                 end
 
+                local client = vim.lsp.get_client_by_id(event.data.client_id)
                 -- The following code creates a keymap to toggle inlay hints in your
                 -- code, if the language server you are using supports them
                 --
