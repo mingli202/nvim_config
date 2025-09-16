@@ -26,6 +26,7 @@ return { -- Autocompletion
     opts = {
         keymap = {
             preset = 'default',
+            ['<c-y>'] = { 'select_and_accept', 'fallback' },
         },
 
         appearance = {
@@ -37,6 +38,11 @@ return { -- Autocompletion
             -- Optionally, set `auto_show = true` to show the documentation after a delay.
             documentation = { auto_show = true, auto_show_delay_ms = 0 },
             list = { selection = { preselect = false, auto_insert = true } },
+            accept = {
+                auto_brackets = {
+                    enabled = false,
+                },
+            },
         },
 
         sources = {

@@ -36,6 +36,10 @@ return {
                     vim.lsp.buf.hover { border = 'solid' }
                 end, 'Lsp Hover')
 
+                map('g.', function()
+                    vim.lsp.buf.code_action()
+                end, 'Lsp Hover')
+
                 map('gd', function()
                     Snacks.picker.lsp_definitions()
                 end, '[G]oto [D]efinitions')
@@ -113,7 +117,7 @@ return {
         }
 
         local servers = {
-            -- clangd = {},
+            clangd = {},
             -- gopls = {},
             pyright = {},
             rust_analyzer = {
