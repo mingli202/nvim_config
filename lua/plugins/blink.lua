@@ -68,7 +68,7 @@ return { -- Autocompletion
         signature = { enabled = true },
 
         cmdline = {
-            keymap = { preset = 'inherit' },
+            keymap = { preset = 'inherit', ['<Up>'] = false, ['<Down>'] = false },
             completion = {
                 menu = { auto_show = true },
                 list = { selection = { preselect = false, auto_insert = true } },
