@@ -22,6 +22,8 @@ return {
         },
         -- Allows extra capabilities provided by blink.cmp
         'saghen/blink.cmp',
+
+        'b0o/schemastore.nvim',
     },
     config = function()
         vim.api.nvim_create_autocmd('LspAttach', {
@@ -158,6 +160,14 @@ return {
             dockerls = {},
             yamlls = {},
             taplo = {},
+            jsonls = {
+                settings = {
+                    json = {
+                        schemas = require('schemastore').json.schemas(),
+                        validate = { enable = true },
+                    },
+                },
+            },
 
             lua_ls = {
                 settings = {
