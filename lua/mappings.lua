@@ -6,8 +6,6 @@ map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 -- escapes
 map('i', 'jk', '<Esc>', { desc = 'escape', nowait = true })
 map('i', 'jj', '<Esc>', { desc = 'escape', nowait = true })
@@ -89,3 +87,6 @@ map('n', '<leader><C-n>', function()
 end, { desc = 'make' })
 
 map('n', '<leader>e', ':silent !tmux neww -c ~/.config/nvim <CR>', { desc = 'edit config files' })
+
+map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map('n', '+', '<C-a>', { desc = 'increment number' })
