@@ -187,8 +187,9 @@ return {
             'codelldb',
             'mypy',
             'clang-format',
-            -- 'java-debug-adapter',
-            -- 'java-test',
+            'jdtls',
+            'java-debug-adapter',
+            'java-test',
         })
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
