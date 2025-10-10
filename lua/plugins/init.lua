@@ -41,4 +41,6 @@ return {
             vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
         end,
     },
+
+    'mfussenegger/nvim-jdtls',
 }

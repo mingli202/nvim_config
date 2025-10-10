@@ -208,6 +208,10 @@ return {
             automatic_installation = false,
             handlers = {
                 function(server_name)
+                    if server_name == 'jdtls' then
+                        return
+                    end
+
                     local server = servers[server_name] or {}
                     -- This handles overriding only values explicitly passed
                     -- by the server configuration above. Useful when disabling
