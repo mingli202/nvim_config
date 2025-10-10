@@ -206,12 +206,9 @@ return {
         require('mason-lspconfig').setup {
             ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
             automatic_installation = false,
+            automatic_enable = false,
             handlers = {
                 function(server_name)
-                    if server_name == 'jdtls' then
-                        return
-                    end
-
                     local server = servers[server_name] or {}
                     -- This handles overriding only values explicitly passed
                     -- by the server configuration above. Useful when disabling
