@@ -41,10 +41,10 @@ local config = {
 }
 
 local bundles = {
-    vim.fn.glob(vim.fn.expand '~/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin-*.jar', 1),
+    vim.fn.glob('/Users/vincentliu/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar', 1),
 }
 
-local java_test_bundles = vim.split(vim.fn.glob(vim.fn.expand '~/.local/share/nvim/mason/packages/java-test/extension/server/*.jar', 1), '\n')
+local java_test_bundles = vim.split(vim.fn.glob('/Users/vincentliu/.local/share/nvim/mason/packages/java-test/extension/server/*.jar', 1), '\n')
 
 local excluded = {
     'com.microsoft.java.test.runner-jar-with-dependencies.jar',
@@ -57,6 +57,6 @@ for _, java_test_jar in ipairs(java_test_bundles) do
     end
 end
 
-config['init_option'] = { bundles = bundles }
+config['init_options'] = { bundles = bundles }
 
 require('jdtls').start_or_attach(config)
