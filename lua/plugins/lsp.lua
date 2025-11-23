@@ -169,6 +169,23 @@ return {
                 },
             },
             glsl_analyzer = {},
+            lemminx = {
+                settings = {
+                    xml = {
+                        format = {
+                            enabled = true,
+                            splitAttributes = false,
+                            joinCDATALines = false,
+                            joinCommentLines = false,
+                            formatComments = true,
+                            joinContentLines = true,
+                            spaceBeforeEmptyCloseTag = true,
+                            tabSize = 4,
+                            insertSpaces = true,
+                        },
+                    },
+                },
+            },
 
             lua_ls = {
                 settings = {
