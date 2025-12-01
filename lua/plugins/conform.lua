@@ -37,6 +37,7 @@ return { -- Autoformat
             typescriptreact = { 'prettierd' },
             css = { 'prettierd' },
             html = { 'prettierd' },
+            xml = { 'prettierd' },
 
             json = { 'jq' },
 
