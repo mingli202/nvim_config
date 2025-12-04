@@ -50,7 +50,10 @@ return {
 
     'mfussenegger/nvim-jdtls',
 
-    { 'mbbill/undotree', keys = {
-        { '<leader>u', '<cmd>UndotreeToggle<cr>' },
-    } },
+    {
+        'mbbill/undotree',
+        keys = {
+            { '<leader>u', '<cmd>UndotreeToggle<cr>' },
+        },
+    },
 }
