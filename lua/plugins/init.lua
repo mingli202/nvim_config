@@ -48,7 +48,10 @@ return {
         end,
     },
 
-    'mfussenegger/nvim-jdtls',
+    {
+        'mfussenegger/nvim-jdtls',
+        ft = { 'java' },
+    },
 
     {
         'mbbill/undotree',
