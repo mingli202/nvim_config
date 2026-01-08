@@ -60,12 +60,26 @@ local run = function(custom)
         local py = '/opt/homebrew/bin/python3'
 
         if vim.fn.executable 'python' == 1 then
-            py = vim.fn.exepath 'python'
+            py = 'python'
         elseif vim.fn.executable 'python3' == 1 then
-            py = vim.fn.exepath 'python3'
+            py = 'python3'
         end
 
-        command = string.format('"%s" -u "%s"', py, fullPath)
+        local cwd = vim.fn.getcwd() .. '/'
+
+        local module = ''
+        if fullPath:sub(1, #cwd) == cwd then
+            -- Subtract the CWD part
+            module = fullPath:sub(#cwd + 1)
+        else
+            vim.notify 'File not in the CWD'
+            return
+        end
+
+        module = module:gsub('.py', '', 1):gsub('/', '.')
+        module = module:gsub('^%.+', ''):gsub('%.+$', '')
+
+        command = string.format('%s -u -m "%s"', py, module)
     elseif filetype == 'cs' then -- cs
         command = string.format('dotnet run --project "%s"', vim.fn.expand '%:p:h')
     elseif filetype == 'lua' then -- lua

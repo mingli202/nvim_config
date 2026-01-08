@@ -150,7 +150,13 @@ return {
                     },
                 },
             },
-            vtsls = {},
+            vtsls = {
+                settings = {
+                    vtsls = {
+                        autoUseWorkspaceTsdk = true,
+                    },
+                },
+            },
             html = {},
             cssls = {},
             omnisharp = {},
@@ -207,6 +213,7 @@ return {
             'jq',
             'prettierd',
             'oxlint',
+            'eslint_d',
             -- 'cspell',
             'js-debug-adapter',
             'debugpy',
