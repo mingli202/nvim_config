@@ -13,6 +13,9 @@ vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('CheckFtChange', { clear = true }),
     callback = function()
         local ft = vim.bo.filetype
+
+        local eslint_d = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' }
+
         local prettierd = {
             'javascript',
             'javascriptreact',
@@ -32,6 +35,14 @@ vim.api.nvim_create_autocmd('FileType', {
             vim.api.nvim_create_autocmd('VimLeave', {
                 group = gr,
                 command = '!prettierd stop',
+            })
+        end
+
+        if contains(eslint_d, ft) then
+            local gr = vim.api.nvim_create_augroup('EslintQuit', { clear = true })
+            vim.api.nvim_create_autocmd('VimLeave', {
+                group = gr,
+                command = '!eslint_d stop',
             })
         end
     end,
@@ -64,6 +75,7 @@ vim.api.nvim_create_autocmd('FileType', {
             'markdown_inline',
             'jsonc',
             'json5',
+            'java',
         }
 
         if vim.tbl_contains(twoSpacesFiletypes, vim.bo.filetype) then
