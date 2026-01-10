@@ -29,6 +29,20 @@ vim.o.foldenable = true
 vim.wo.linebreak = true
 vim.o.wrap = true
 
+if vim.g.neovide then
+    -- Put anything you want to happen only in Neovide here
+
+    vim.o.guifont = 'JetBrainsMono Nerd Font'
+
+    vim.g.neovide_window_blurred = true
+    vim.g.neovide_opacity = 0.85
+
+    vim.g.neovide_padding_top = 5
+    vim.g.neovide_padding_bottom = 5
+    vim.g.neovide_padding_right = 5
+    vim.g.neovide_padding_left = 5
+end
+
 vim.schedule(function()
     vim.o.clipboard = 'unnamedplus'
 end)
