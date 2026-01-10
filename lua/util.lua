@@ -60,9 +60,9 @@ local run = function(custom)
         local py = '/opt/homebrew/bin/python3'
 
         if vim.fn.executable 'python' == 1 then
-            py = 'python'
+            py = vim.fn.exepath 'python'
         elseif vim.fn.executable 'python3' == 1 then
-            py = 'python3'
+            py = vim.fn.exepath 'python3'
         end
 
         local cwd = vim.fn.getcwd() .. '/'
