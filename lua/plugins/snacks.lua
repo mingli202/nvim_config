@@ -193,6 +193,13 @@ return {
             end,
             desc = '[O]pen',
         },
+        {
+            '<leader>lg',
+            function()
+                Snacks.lazygit()
+            end,
+            desc = '[L]azy[G]it',
+        },
     },
     init = function()
         vim.api.nvim_create_autocmd('User', {
