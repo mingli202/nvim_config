@@ -41,8 +41,6 @@ return {
         input = { enabled = true },
         layout = { enabled = true },
         lazygit = { enabled = true },
-        notifier = { enabled = true },
-        notify = { enabled = true },
         picker = {
             enabled = true,
             sources = {

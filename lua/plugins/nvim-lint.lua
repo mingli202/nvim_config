@@ -17,10 +17,10 @@ return {
         }
 
         lint.linters_by_ft = {
-            javascript = { 'biomejs', 'oxlint', 'eslint_d' },
-            typescript = { 'biomejs', 'oxlint', 'eslint_d' },
-            javascriptreact = { 'biomejs', 'oxlint', 'eslint_d' },
-            typescriptreact = { 'biomejs', 'oxlint', 'eslint_d' },
+            -- javascript = { 'biomejs', 'oxlint', 'eslint_d' },
+            -- typescript = { 'biomejs', 'oxlint', 'eslint_d' },
+            -- javascriptreact = { 'biomejs', 'oxlint', 'eslint_d' },
+            -- typescriptreact = { 'biomejs', 'oxlint', 'eslint_d' },
 
             sh = { 'shellcheck' },
 

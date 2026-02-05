@@ -200,6 +200,8 @@ return {
                     },
                 },
             },
+            biome = {},
+            gopls = {},
 
             lua_ls = {
                 settings = {
