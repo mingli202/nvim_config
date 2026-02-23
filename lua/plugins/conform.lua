@@ -31,13 +31,13 @@ return { -- Autoformat
         formatters_by_ft = {
             lua = { 'stylua' },
 
-            javascript = { 'prettierd' },
-            typescript = { 'prettierd' },
-            javascriptreact = { 'prettierd' },
-            typescriptreact = { 'prettierd' },
-            css = { 'prettierd' },
-            html = { 'prettierd' },
-            xml = { 'prettierd' },
+            javascript = { 'oxfmt', 'prettierd' },
+            typescript = { 'oxfmt', 'prettierd' },
+            javascriptreact = { 'oxfmt', 'prettierd' },
+            typescriptreact = { 'oxfmt', 'prettierd' },
+            css = { 'oxfmt', 'prettierd' },
+            html = { 'oxfmt', 'prettierd' },
+            xml = { 'oxfmt', 'prettierd' },
 
             json = { 'jq' },
 

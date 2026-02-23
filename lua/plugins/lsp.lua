@@ -158,13 +158,14 @@ return {
                     },
                 },
             },
-            vtsls = {
-                settings = {
-                    vtsls = {
-                        autoUseWorkspaceTsdk = true,
-                    },
-                },
-            },
+            -- vtsls = {
+            --     settings = {
+            --         vtsls = {
+            --             autoUseWorkspaceTsdk = true,
+            --         },
+            --     },
+            -- },
+            tsgo = {},
             html = {},
             cssls = {},
             roslyn = {},
@@ -235,6 +236,7 @@ return {
             'jdtls',
             'java-debug-adapter',
             'java-test',
+            'oxfmt',
         })
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

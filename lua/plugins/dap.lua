@@ -99,8 +99,25 @@ return {
                 name = 'Python: launch file',
 
                 -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+                module = function()
+                    local fullPath = vim.fn.expand '%:p'
+                    local cwd = vim.fn.getcwd() .. '/'
 
-                program = '${file}', -- This configuration will launch the current file if used.
+                    local module = ''
+                    if fullPath:sub(1, #cwd) == cwd then
+                        -- Subtract the CWD part
+                        module = fullPath:sub(#cwd + 1)
+                    else
+                        vim.notify 'File not in the CWD'
+                        return
+                    end
+
+                    module = module:gsub('.py', '', 1):gsub('/', '.')
+                    module = module:gsub('^%.+', ''):gsub('%.+$', '')
+
+                    return module
+                end,
+
                 pythonPath = function()
                     -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
                     -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
@@ -124,7 +141,7 @@ return {
             executable = {
                 command = 'node',
                 -- 💀 Make sure to update this path to point to your installation
-                args = { '/Users/vincentliu/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js', '${port}' },
+                args = { vim.fn.expand '~/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js', '${port}' },
             },
         }
         dap.configurations.javascript = {
