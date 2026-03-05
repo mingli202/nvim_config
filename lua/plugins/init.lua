@@ -54,16 +54,16 @@ return {
         end,
     },
 
-    {
-        'mfussenegger/nvim-jdtls',
-        ft = { 'java' },
-        config = function()
-            vim.api.nvim_create_user_command('JdtJunitTest', function()
-                local jdtls = require 'jdtls'
-                jdtls.test_class()
-            end, { desc = 'run junit tests' })
-        end,
-    },
+    -- {
+    --     'mfussenegger/nvim-jdtls',
+    --     ft = { 'java' },
+    --     config = function()
+    --         vim.api.nvim_create_user_command('JdtJunitTest', function()
+    --             local jdtls = require 'jdtls'
+    --             jdtls.test_class()
+    --         end, { desc = 'run junit tests' })
+    --     end,
+    -- },
 
     {
         'mbbill/undotree',

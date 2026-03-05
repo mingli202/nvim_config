@@ -233,7 +233,7 @@ return {
             'codelldb',
             'mypy',
             'clang-format',
-            'jdtls',
+            -- 'jdtls',
             'java-debug-adapter',
             'java-test',
             'oxfmt',
