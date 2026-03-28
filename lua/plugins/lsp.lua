@@ -168,7 +168,7 @@ return {
             tsgo = {},
             html = {},
             cssls = {},
-            roslyn = {},
+            -- roslyn = {},
             tailwindcss = {},
             ruff = {},
             bashls = {},
@@ -183,24 +183,24 @@ return {
                     },
                 },
             },
-            glsl_analyzer = {},
-            lemminx = {
-                settings = {
-                    xml = {
-                        format = {
-                            enabled = true,
-                            splitAttributes = false,
-                            joinCDATALines = false,
-                            joinCommentLines = false,
-                            formatComments = true,
-                            joinContentLines = true,
-                            spaceBeforeEmptyCloseTag = true,
-                            tabSize = 4,
-                            insertSpaces = true,
-                        },
-                    },
-                },
-            },
+            -- glsl_analyzer = {},
+            -- lemminx = {
+            --     settings = {
+            --         xml = {
+            --             format = {
+            --                 enabled = true,
+            --                 splitAttributes = false,
+            --                 joinCDATALines = false,
+            --                 joinCommentLines = false,
+            --                 formatComments = true,
+            --                 joinContentLines = true,
+            --                 spaceBeforeEmptyCloseTag = true,
+            --                 tabSize = 4,
+            --                 insertSpaces = true,
+            --             },
+            --         },
+            --     },
+            -- },
             biome = {},
             gopls = {},
 
@@ -234,8 +234,8 @@ return {
             'mypy',
             'clang-format',
             -- 'jdtls',
-            'java-debug-adapter',
-            'java-test',
+            -- 'java-debug-adapter',
+            -- 'java-test',
             'oxfmt',
         })
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
