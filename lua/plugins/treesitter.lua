@@ -6,6 +6,7 @@ return { -- Highlight, edit, and navigate code
         { 'nvim-treesitter/nvim-treesitter-context', opts = { max_lines = 5 } },
     },
     branch = 'master',
+    lazy = false,
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
         ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
@@ -31,4 +32,7 @@ return { -- Highlight, edit, and navigate code
             },
         },
     },
+    config = function(_, opts)
+        require('nvim-treesitter.configs').setup(opts)
+    end,
 }
