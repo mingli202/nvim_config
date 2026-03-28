@@ -33,8 +33,8 @@ return { -- Autoformat
 
             javascript = { 'oxfmt', 'prettierd' },
             typescript = { 'oxfmt', 'prettierd' },
-            javascriptreact = { 'oxfmt', 'prettierd' },
-            typescriptreact = { 'oxfmt', 'prettierd' },
+            javascriptreact = { 'prettierd' },
+            typescriptreact = { 'prettierd' },
             css = { 'oxfmt', 'prettierd' },
             html = { 'oxfmt', 'prettierd' },
             xml = { 'oxfmt', 'prettierd' },
