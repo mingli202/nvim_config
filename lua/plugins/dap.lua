@@ -34,12 +34,8 @@ return {
 
         -- c/cpp
         dap.adapters.codelldb = {
-            type = 'server',
-            port = '${port}',
-            executable = {
-                command = vim.fn.exepath 'codelldb',
-                args = { '--port', '${port}' },
-            },
+            type = 'executable',
+            command = 'codelldb',
         }
         dap.configurations.cpp = {
             {
@@ -65,7 +61,7 @@ return {
 
         dap.configurations.rust = {
             {
-                name = 'Launch',
+                name = 'Launch main binary',
                 type = 'codelldb',
                 request = 'launch',
                 program = function()
@@ -80,8 +76,40 @@ return {
                 end,
                 cwd = '${workspaceFolder}',
                 stopOnEntry = false,
-                args = {},
-                console = 'integratedTerminal',
+            },
+            {
+                name = 'Select binary',
+                type = 'codelldb',
+                request = 'launch',
+                program = function()
+                    local co = assert(coroutine.running(), 'must be called inside a coroutine')
+
+                    Snacks.picker.files {
+                        cwd = vim.fs.joinpath(vim.fn.getcwd(), 'target/debug'),
+                        hidden = true,
+                        preview = function()
+                            return false
+                        end,
+                        confirm = function(picker, item)
+                            picker:close()
+
+                            if not item then
+                                return
+                            end
+
+                            local path = item.cwd and vim.fs.joinpath(item.cwd, item.file) or item.file
+
+                            vim.schedule(function()
+                                coroutine.resume(co, path)
+                            end)
+                        end,
+                    }
+
+                    local path = coroutine.yield()
+                    return path
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
             },
         }
 
