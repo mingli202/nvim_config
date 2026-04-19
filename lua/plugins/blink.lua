@@ -19,6 +19,8 @@ return { -- Autocompletion
         keymap = {
             preset = 'default',
             ['<c-y>'] = { 'select_and_accept', 'fallback' },
+            ['<Tab>'] = false,
+            ['<S-Tab>'] = false,
         },
 
         appearance = {
