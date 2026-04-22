@@ -148,7 +148,7 @@ local printVar = function()
         cs = 'System.Console.WriteLine("%s: " + %s);',
         c = 'printf("%s: %d\\n", %s);', -- Note: %d is just an example, might need adjustment (%s, %p, etc.)
         cpp = 'std::cout << "%s: " << %s << std::endl;',
-        go = 'fmt.Printf("%s: %+v\\n", %s)', -- %+v prints fields in structs
+        go = 'fmt.Printf("%s: %%+v\\n", %s)', -- %+v prints fields in structs
         rust = 'println!("%s: {:?}", %s);', -- {:?} uses the Debug trait
         -- Add more languages and their preferred debug print syntax here
         default = 'print("%s: %s")', -- A generic fallback
