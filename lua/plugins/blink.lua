@@ -19,6 +19,49 @@ return { -- Autocompletion
                     end,
                 },
             },
+
+            config = function()
+                local ls = require 'luasnip'
+                local s = ls.snippet
+                local i = ls.insert_node
+                local f = ls.function_node
+
+                local function comment_prefix()
+                    local cs = vim.bo.commentstring
+                    local left = cs:match '^(.-)%%s'
+                    left = vim.trim(left or '')
+
+                    if left == '' then
+                        return '//'
+                    end
+
+                    return left
+                end
+
+                ls.add_snippets('all', {
+                    s('aaa', {
+                        f(function()
+                            local prefix = comment_prefix()
+                            return {
+                                prefix .. ' Arrange',
+                                '',
+                            }
+                        end, {}),
+                        i(1),
+                        f(function()
+                            local prefix = comment_prefix()
+                            return {
+                                '',
+                                '',
+                                prefix .. ' Act',
+                                '',
+                                '',
+                                prefix .. ' Assert',
+                            }
+                        end, {}),
+                    }),
+                })
+            end,
         },
         'folke/lazydev.nvim',
     },
