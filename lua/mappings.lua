@@ -90,4 +90,4 @@ map('n', '<leader>e', ':silent !tmux neww -c ~/.config/nvim <CR>', { desc = 'edi
 
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 map('n', '+', '<C-a>', { desc = 'increment number' })
-map('n', '<leader>gp', ':G push', { desc = 'git push' })
+map('n', '<leader>gp', ':G push<CR>', { desc = 'git push' })
