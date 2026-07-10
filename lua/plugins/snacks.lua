@@ -213,6 +213,14 @@ return {
                     Snacks.debug.backtrace()
                 end
                 vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+                local hl = vim.api.nvim_get_hl(0, { name = 'SnacksPickerListCursorLine', link = false })
+                local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
+
+                vim.api.nvim_set_hl(0, 'SnacksPickerListCursorLine', {
+                    fg = hl.bg or normal.bg,
+                    bg = hl.fg or normal.fg,
+                })
             end,
         })
     end,
