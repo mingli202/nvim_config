@@ -89,3 +89,32 @@ vim.api.nvim_create_autocmd('FileType', {
         end
     end,
 })
+
+-- folding
+-- Persist folds (and optionally the cursor) per file.
+vim.opt.viewoptions = { 'folds', 'cursor' }
+
+local fold_view_group = vim.api.nvim_create_augroup('PersistFolds', {
+    clear = true,
+})
+
+vim.api.nvim_create_autocmd('BufWinLeave', {
+    group = fold_view_group,
+    pattern = '?*',
+    callback = function(args)
+        -- Do not create views for terminals, plugin windows, unnamed buffers, etc.
+        if vim.bo[args.buf].buftype == '' and vim.api.nvim_buf_get_name(args.buf) ~= '' then
+            vim.cmd 'silent! mkview'
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    group = fold_view_group,
+    pattern = '?*',
+    callback = function(args)
+        if vim.bo[args.buf].buftype == '' and vim.api.nvim_buf_get_name(args.buf) ~= '' then
+            vim.cmd 'silent! loadview'
+        end
+    end,
+})
