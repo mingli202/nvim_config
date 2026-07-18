@@ -2,12 +2,11 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
-    ---@type snacks.Confg
+    ---@type snacks.Config
     opts = {
         -- your configuration comes here
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
-        dim = { enabled = false },
         explorer = { enabled = true, replace_netrw = false },
         bufdelete = { enabled = true },
         dashboard = {
@@ -34,12 +33,12 @@ return {
                 { section = 'startup' },
             },
         },
-        debug = { enabled = true },
-        git = { enabled = true },
+        -- debug = { enabled = true },
+        -- git = { enabled = true },
         gitbrowse = { enabled = true },
         indent = { enabled = true },
-        input = { enabled = true },
-        layout = { enabled = true },
+        -- input = { enabled = true },
+        -- layout = { enabled = true },
         lazygit = { enabled = true },
         picker = {
             enabled = true,
@@ -48,30 +47,30 @@ return {
                     auto_close = true,
                     layout = {
                         fullscreen = true,
-                        preview = false,
+                        -- preview = false,
                         -- layout = { position = 'float' },
                     },
                 },
             },
         },
-        profiler = { enabled = true },
+        -- profiler = { enabled = true },
         quickfile = { enabled = true },
-        rename = { enabled = true },
-        scope = { enabled = true },
-        statuscolumn = { enabled = true },
-        util = { enabled = true },
-        win = { enabled = true },
-        words = { enabled = true },
-        zen = {
-            enabled = true,
-            toggles = {
-                dim = false,
-                git_signs = true,
-                mini_diff_signs = false,
-                -- diagnostics = false,
-                -- inlay_hints = false,
-            },
-        },
+        -- rename = { enabled = true },
+        -- scope = { enabled = true },
+        -- statuscolumn = { enabled = true },
+        -- util = { enabled = true },
+        -- win = { enabled = true },
+        -- words = { enabled = true },
+        -- zen = {
+        --     enabled = true,
+        --     toggles = {
+        --         dim = false,
+        --         git_signs = true,
+        --         mini_diff_signs = false,
+        --         -- diagnostics = false,
+        --         -- inlay_hints = false,
+        --     },
+        -- },
     },
     keys = {
         {
@@ -116,13 +115,13 @@ return {
             end,
             desc = '[F]ind theme',
         },
-        {
-            '<leader>z',
-            function()
-                Snacks.zen()
-            end,
-            desc = '[Z]en',
-        },
+        -- {
+        --     '<leader>z',
+        --     function()
+        --         Snacks.zen()
+        --     end,
+        --     desc = '[Z]en',
+        -- },
         {
             '<leader>cb',
             function()
@@ -199,6 +198,13 @@ return {
                 Snacks.lazygit()
             end,
             desc = '[L]azy[G]it',
+        },
+        {
+            '<leader>go',
+            function()
+                Snacks.gitbrowse()
+            end,
+            desc = '[G]it [O]pen in browser',
         },
     },
     init = function()
