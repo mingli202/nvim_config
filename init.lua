@@ -32,7 +32,7 @@ vim.o.wrap = true
 
 vim.o.autocomplete = true
 vim.o.complete = '.'
-vim.o.completeopt = 'menuone,noselect,noinsert'
+vim.o.completeopt = 'menuone,noselect,noinsert,popup'
 vim.o.pumheight = 5
 vim.o.wildmode = 'noselect:lastused,full'
 vim.o.wildoptions = 'pum'
