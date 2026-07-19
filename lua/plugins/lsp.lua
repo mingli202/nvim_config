@@ -37,6 +37,8 @@ return {
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
             callback = function(event)
+                vim.o.complete = 'o'
+
                 local map = function(keys, func, desc, mode)
                     mode = mode or 'n'
                     vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -132,6 +134,7 @@ return {
 
         -- local capabilities = require('blink.cmp').get_lsp_capabilities()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
+        -- local capabilities = MiniCompletion.get_lsp_capabilities()
         -- capabilities.textDocument.foldingRange = {
         --     dynamicRegistration = false,
         --     lineFoldingOnly = true,

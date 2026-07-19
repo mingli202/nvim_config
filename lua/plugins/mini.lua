@@ -1,6 +1,15 @@
 return { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
+    dependencies = { 'rafamadriz/friendly-snippets' },
     config = function()
+        require('mini.icons').setup()
+
+        local gen_loader = require('mini.snippets').gen_loader
+        require('mini.snippets').setup {
+            snippets = {
+                gen_loader.from_lang(),
+            },
+        }
         require('mini.ai').setup { n_lines = 500 }
         require('mini.surround').setup()
         -- require('mini.pairs').setup()
@@ -24,6 +33,7 @@ return { -- Collection of various small independent plugins/modules
                     local diff = MiniStatusline.section_diff { trunc_width = 75 }
                     local git = MiniStatusline.section_git { trunc_width = 40 }
                     local diagnostics = MiniStatusline.section_diagnostics { trunc_width = 75 }
+
                     return MiniStatusline.combine_groups {
                         { hl = mode_hl, strings = { mode } },
                         { hl = 'MiniStatuslineFilename', strings = { filename } },

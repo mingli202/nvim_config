@@ -18,8 +18,8 @@ return {
         }
     end,
     version = '*',
-    dependencies = {
-        'nvim-tree/nvim-web-devicons',
-        -- 'catppuccin',
-    },
+    -- dependencies = {
+    --     'nvim-tree/nvim-web-devicons',
+    --     -- 'catppuccin',
+    -- },
 }
