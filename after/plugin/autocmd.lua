@@ -89,3 +89,11 @@ vim.api.nvim_create_autocmd('FileType', {
         end
     end,
 })
+
+vim.api.nvim_create_autocmd('CmdlineChanged', {
+    group = vim.api.nvim_create_augroup('UserCmdlineAutocomplete', { clear = true }),
+    pattern = { ':', '/', '?' },
+    callback = function()
+        vim.fn.wildtrigger()
+    end,
+})

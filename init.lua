@@ -30,6 +30,13 @@ vim.o.foldenable = true
 vim.wo.linebreak = true
 vim.o.wrap = true
 
+vim.o.autocomplete = true
+vim.o.complete = 'o,.'
+vim.o.completeopt = 'menuone,noselect,noinsert'
+vim.o.pumheight = 5
+vim.o.wildmode = 'noselect:lastused,full'
+vim.o.wildoptions = 'pum'
+
 if vim.g.neovide then
     -- Put anything you want to happen only in Neovide here
 
