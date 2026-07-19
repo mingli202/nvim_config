@@ -248,5 +248,15 @@ return {
                 settings = config.settings,
             })
         end
+
+        vim.api.nvim_create_autocmd('LspProgress', {
+            callback = function()
+                local message = vim.lsp.status()
+
+                if message ~= '' then
+                    vim.api.nvim_echo({ { '[LSP] ' .. message } }, true, {})
+                end
+            end,
+        })
     end,
 }
