@@ -37,7 +37,7 @@ return {
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
             callback = function(event)
-                vim.o.complete = 'o'
+                vim.bo.complete = 'o'
 
                 local map = function(keys, func, desc, mode)
                     mode = mode or 'n'
