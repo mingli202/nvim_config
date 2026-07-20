@@ -227,6 +227,14 @@ return {
                     fg = hl.bg or normal.bg,
                     bg = hl.fg or normal.fg,
                 })
+
+                Snacks.toggle.profiler():map '<leader>pp'
+                -- Toggle the profiler highlights
+                Snacks.toggle.profiler_highlights():map '<leader>ph'
+
+                vim.api.nvim_create_user_command('SnacksProfiler', function()
+                    Snacks.profiler.scratch()
+                end, { desc = 'Snacks profiler' })
             end,
         })
     end,
