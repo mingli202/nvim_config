@@ -26,6 +26,7 @@ return { -- Collection of various small independent plugins/modules
                     local diagnostics = MiniStatusline.section_diagnostics { trunc_width = 75 }
                     return MiniStatusline.combine_groups {
                         { hl = mode_hl, strings = { mode } },
+                        '%<',
                         { hl = 'MiniStatuslineFilename', strings = { filename } },
                         '%=',
                         { hl = 'MiniStatuslineFilename', strings = { diagnostics } },
