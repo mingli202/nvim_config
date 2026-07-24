@@ -14,7 +14,7 @@ return {
             sections = {
                 { section = 'header' },
                 { section = 'keys', padding = 1, indent = 2, title = 'Keymaps' },
-                { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+                { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1, cwd = true },
                 { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
                 {
 
@@ -37,7 +37,7 @@ return {
         -- git = { enabled = true },
         gitbrowse = { enabled = true },
         indent = { enabled = true },
-        -- input = { enabled = true },
+        input = { enabled = true },
         -- layout = { enabled = true },
         lazygit = { enabled = true },
         picker = {
