@@ -42,7 +42,12 @@ return {
         -- use opts = {} for passing setup options
         -- this is equivalent to setup({}) function
     },
-    { 'windwp/nvim-ts-autotag', opts = {}, dependencies = { 'nvim-treesitter/nvim-treesitter' } },
+    {
+        'windwp/nvim-ts-autotag',
+        event = 'InsertEnter',
+        opts = {},
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    },
 
     -- {
     --     'kevinhwang91/nvim-ufo',
