@@ -129,7 +129,8 @@ return {
         local servers = {
             clangd = {},
             -- gopls = {},
-            basedpyright = {},
+            -- basedpyright = {},
+            ty = {},
             rust_analyzer = {
                 settings = {
                     ['rust-analyzer'] = {

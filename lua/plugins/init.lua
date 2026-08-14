@@ -23,18 +23,6 @@ return {
         lazy = false,
     },
 
-    -- {
-    --     'supermaven-inc/supermaven-nvim',
-    --     config = function()
-    --         require('supermaven-nvim').setup {
-    --             keymaps = {
-    --                 accept_suggestion = '<C-l>',
-    --                 clear_suggestion = '<C-]>',
-    --                 accept_word = '<C-j>',
-    --             },
-    --         }
-    --     end,
-    -- },
     {
         'windwp/nvim-autopairs',
         event = 'InsertEnter',
@@ -48,46 +36,6 @@ return {
         opts = {},
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
     },
-
-    -- {
-    --     'kevinhwang91/nvim-ufo',
-    --     dependencies = { 'kevinhwang91/promise-async', 'mason-org/mason-lspconfig.nvim' },
-    --     config = function()
-    --         vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-    --         vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-    --
-    --         -- folding
-    --         -- Persist folds (and optionally the cursor) per file.
-    --         vim.opt.viewoptions = { 'folds', 'cursor' }
-    --
-    --         local fold_view_group = vim.api.nvim_create_augroup('PersistFolds', {
-    --             clear = true,
-    --         })
-    --
-    --         vim.api.nvim_create_autocmd('BufWinLeave', {
-    --             group = fold_view_group,
-    --             pattern = '?*',
-    --             callback = function(args)
-    --                 -- Do not create views for terminals, plugin windows, unnamed buffers, etc.
-    --                 if vim.bo[args.buf].buftype == '' and vim.api.nvim_buf_get_name(args.buf) ~= '' then
-    --                     vim.cmd 'silent! mkview'
-    --                 end
-    --             end,
-    --         })
-    --
-    --         vim.api.nvim_create_autocmd('BufWinEnter', {
-    --             group = fold_view_group,
-    --             pattern = '?*',
-    --             callback = function(args)
-    --                 if vim.bo[args.buf].buftype == '' and vim.api.nvim_buf_get_name(args.buf) ~= '' then
-    --                     vim.cmd 'silent! loadview'
-    --                 end
-    --             end,
-    --         })
-    --
-    --         require('ufo').setup()
-    --     end,
-    -- },
 
     -- {
     --     'mfussenegger/nvim-jdtls',
