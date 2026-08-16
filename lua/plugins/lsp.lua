@@ -166,7 +166,7 @@ return {
             --         },
             --     },
             -- },
-            tsgo = {},
+            tsc = {},
             html = {},
             cssls = {},
             -- roslyn = {},
@@ -204,6 +204,7 @@ return {
             -- },
             biome = {},
             gopls = {},
+            ['nil'] = {},
 
             lua_ls = {
                 settings = {
