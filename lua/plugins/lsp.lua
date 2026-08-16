@@ -204,7 +204,7 @@ return {
             -- },
             biome = {},
             gopls = {},
-            ['nil'] = {},
+            nil_ls = {},
 
             lua_ls = {
                 settings = {
