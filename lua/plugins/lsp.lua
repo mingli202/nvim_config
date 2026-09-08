@@ -206,6 +206,7 @@ return {
             biome = {},
             gopls = {},
             nil_ls = {},
+            ['ocaml-lsp'] = {},
 
             lua_ls = {
                 settings = {
@@ -240,6 +241,7 @@ return {
             -- 'java-debug-adapter',
             -- 'java-test',
             'oxfmt',
+            'ocamlformat',
         })
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
