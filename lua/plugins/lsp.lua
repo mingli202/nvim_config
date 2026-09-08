@@ -206,7 +206,7 @@ return {
             biome = {},
             gopls = {},
             nil_ls = {},
-            ['ocaml-lsp'] = {},
+            ocamllsp = {},
 
             lua_ls = {
                 settings = {
