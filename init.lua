@@ -84,6 +84,9 @@ require('lazy').setup {
     spec = {
         { import = 'plugins' },
     },
+    rocks = {
+        enabled = false,
+    },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`

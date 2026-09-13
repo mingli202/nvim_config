@@ -228,9 +228,9 @@ return {
                     bg = hl.fg or normal.fg,
                 })
 
-                Snacks.toggle.profiler():map '<leader>pp'
+                Snacks.toggle.profiler():map '<leader>PP'
                 -- Toggle the profiler highlights
-                Snacks.toggle.profiler_highlights():map '<leader>ph'
+                Snacks.toggle.profiler_highlights():map '<leader>PH'
 
                 vim.api.nvim_create_user_command('SnacksProfiler', function()
                     Snacks.profiler.scratch()
