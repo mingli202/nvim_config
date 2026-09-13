@@ -50,6 +50,8 @@ return { -- Autoformat
 
             sh = { 'shfmt' },
             zsh = { 'shfmt' },
+
+            ocaml = { 'ocamlformat' },
         },
     },
 }

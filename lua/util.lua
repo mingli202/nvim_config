@@ -98,6 +98,9 @@ local run = function(custom)
         command = 'javac -d build src/**/*.java && java -cp build Main'
     elseif filetype == 'go' then -- go
         command = 'go run .'
+    elseif filetype == 'ocaml' then -- ocaml
+        local binary = vim.fn.expand '%:p:h' .. '/bin/' .. vim.fn.expand('%:t'):gsub('.ml$', '', 1)
+        command = string.format('mkdir -p "%s/bin" && ocamlc "%s" -o "%s" && "%s"', vim.fn.expand '%:p:h', fullPath, binary, binary)
     else
         vim.cmd.echo '"No runner configured!"'
         return
@@ -150,6 +153,7 @@ local printVar = function()
         cpp = 'std::cout << "%s: " << %s << std::endl;',
         go = 'fmt.Printf("%s: %%+v\\n", %s)', -- %+v prints fields in structs
         rust = 'println!("%s: {:?}", %s);', -- {:?} uses the Debug trait
+        ocaml = 'let () = print_endline Printf.sprintf "%s: %%s\\n";;',
         -- Add more languages and their preferred debug print syntax here
         default = 'print("%s: %s")', -- A generic fallback
     }
