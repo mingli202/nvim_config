@@ -54,4 +54,10 @@ return {
             { '<leader>u', '<cmd>UndotreeToggle<cr>' },
         },
     },
+
+    {
+        'chentoast/marks.nvim',
+        event = 'VeryLazy',
+        opts = {},
+    },
 }
